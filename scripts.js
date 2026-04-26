@@ -398,6 +398,12 @@ syncTaskbar();
 // DIRECT LINKING (URL HASH) LOGIC
 // ==========================================
 window.addEventListener('DOMContentLoaded', () => {
+  // 1. Instantly snap the browser back to the top to prevent the "pushed up" anchor glitch
+  if (window.location.hash) {
+    window.scrollTo(0, 0);
+    setTimeout(() => window.scrollTo(0, 0), 1);
+  }
+
   // Check if there is a hash in the URL (e.g., yoursite.com/#tap-in)
   const hash = window.location.hash.substring(1); 
   
@@ -407,13 +413,15 @@ window.addEventListener('DOMContentLoaded', () => {
     // If the ID exists and it's actually a window, open it
     if (targetWindow && targetWindow.classList.contains('window')) {
       
-      // We add a tiny 600ms delay so the user sees the desktop load first, 
-      // making it feel like the app is actively launching for them.
+      // Look at the desktop icon that normally opens this window to see if it should auto-maximize
+      const desktopIcon = document.querySelector(`[data-open="${hash}"]`);
+      const shouldMaximize = desktopIcon ? desktopIcon.dataset.autoMaximize === "true" : false;
+      const isMobile = window.innerWidth <= 768;
+
+      // Add a tiny 600ms delay so the user sees the desktop load first
       setTimeout(() => {
-        // If they are on a phone, we auto-maximize it like an app.
-        // If they are on desktop, it opens floating normally.
-        const isMobile = window.innerWidth <= 768;
-        openWindow(hash, isMobile); 
+        // Open the window and maximize it if the icon says to, OR if they are on mobile
+        openWindow(hash, shouldMaximize || isMobile); 
       }, 600);
     }
   }
