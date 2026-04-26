@@ -2749,3 +2749,30 @@ body.dark-theme .ig-music-title {
 body.dark-theme .ig-grid-overlay {
   background: rgba(0, 0, 0, 0.6);
 }
+
+/* ==========================================
+   REAL TASKBAR ICONS 
+   ========================================== */
+
+/* Kills the old generic CSS shapes */
+.taskbar__tab::before {
+  display: none !important; 
+}
+
+/* Styles the actual SVGs and Emojis perfectly into the tab */
+.taskbar__tab-icon {
+  width: 16px;
+  height: 16px;
+  flex-shrink: 0;
+  object-fit: contain;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px; /* Ensures emojis stay the correct size */
+  margin: 0 !important;
+}
+
+/* Ensure the dark theme doesn't accidentally recolor emojis */
+body.dark-theme .taskbar__tab-icon {
+  color: inherit; 
+}
