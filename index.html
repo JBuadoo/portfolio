@@ -1,0 +1,1241 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Joseph K. Buadoo's Desktop</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<body>
+  <main class="desktop-area">
+    <div class="desktop-area__shine"></div>
+    <button id="theme-toggle" class="theme-toggle" aria-label="Toggle Night Mode">
+      <svg class="icon-sun" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="12" cy="12" r="5"></circle>
+        <line x1="12" y1="1" x2="12" y2="3"></line>
+        <line x1="12" y1="21" x2="12" y2="23"></line>
+        <line x1="4.22" y1="4.22" x2="5.64" y2="5.64"></line>
+        <line x1="18.36" y1="18.36" x2="19.78" y2="19.78"></line>
+        <line x1="1" y1="12" x2="3" y2="12"></line>
+        <line x1="21" y1="12" x2="23" y2="12"></line>
+        <line x1="4.22" y1="19.78" x2="5.64" y2="18.36"></line>
+        <line x1="18.36" y1="5.64" x2="19.78" y2="4.22"></line>
+      </svg>
+      <svg class="icon-moon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M21 12.79A9 9 0 1 1 11.21 3 7 7 0 0 0 21 12.79z"></path>
+      </svg>
+    </button>
+
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <div class="shooting-star"></div>
+    <aside class="desktop-icons" aria-label="Desktop shortcuts">
+      <button class="desktop-icon" data-open="projects-folder">
+        <img src="Icons/Folder.svg" alt="" class="desktop-icon__img">
+        <span class="desktop-icon__label">Projects</span>
+      </button>
+      <button class="desktop-icon" data-open="playground-folder">
+        <img src="Icons/Folder.svg" alt="" class="desktop-icon__img">
+        <span class="desktop-icon__label">Playground</span>
+      </button>
+      <button class="desktop-icon" data-open="gallery-window">
+        <img src="Icons/Gallery.svg" alt="" class="desktop-icon__img">
+        <span class="desktop-icon__label">Gallery</span>
+      </button>
+      <button class="desktop-icon" data-open="about-window" data-auto-maximize="true">
+        <img src="Icons/About.svg" alt="" class="desktop-icon__img">
+        <span class="desktop-icon__label">About.exe</span>
+      </button>
+      <a href="https://www.linkedin.com/in/joseph-buadoo-jr-27102b22b" target="_blank" class="desktop-icon">
+        <img src="Icons/Linkedin.svg" alt="" class="desktop-icon__img">
+        <span class="desktop-icon__label">LinkedIn</span>
+      </a>
+      <a href="#" target="_blank" class="desktop-icon">
+        <img src="Icons/Documents.svg" alt="" class="desktop-icon__img">
+        <span class="desktop-icon__label">Resume.doc</span>
+      </a>
+    </aside>
+
+    <section class="window is-open" id="projects-folder" data-title="My Projects" data-icon="folder" style="--left: calc(100vw - 900px); --top: 10%; --width: 850px; z-index: 25;">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <img src="Icons/Folder.svg" alt="" class="title-icon-img">
+          <span>My Projects</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize title="Minimize"></button>
+          <button type="button" class="window__control window__control--max" data-maximize title="Maximize/Restore"></button>
+          <button type="button" class="window__control window__control--close" data-close title="Close"></button>
+        </div>
+      </header>
+      <div class="window__path">C./projects</div>
+      <div class="window__content folder-grid">
+        <button class="desktop-icon" data-open="tap-in" data-auto-maximize="true">
+          <img src="Icons/Tapin.svg" alt="" class="desktop-icon__img">
+          <span class="desktop-icon__label">Tap In - Music Promotion & Discovery Prototype</span>
+        </button>
+        <button class="desktop-icon" data-open="mixr" data-auto-maximize="true">
+          <img src="Icons/Mixr.svg" alt="" class="desktop-icon__img">
+          <span class="desktop-icon__label">Mixr - Music Discovery Prototype</span>
+        </button>
+        <button class="desktop-icon" data-open="reel-browser" data-auto-maximize="true">
+          <img src="Icons/Reel.svg" alt="" class="desktop-icon__img">
+          <span class="desktop-icon__label">Reel - Movie/Show Discussion Prototype</span>
+        </button>
+        <button class="desktop-icon" data-open="cjc-browser" data-auto-maximize="true">
+          <img src="Icons/CJCmusic.svg" alt="" class="desktop-icon__img">
+          <span class="desktop-icon__label">CJC Music - Music Brand Website</span>
+        </button>
+        <button class="desktop-icon" data-open="baratie-browser" data-auto-maximize="true">
+          <img src="Icons/Thebaratie.svg" alt="" class="desktop-icon__img">
+          <span class="desktop-icon__label">The Baratie - Anime Resturaunt Website</span>
+        </button>
+
+      </div>
+    </section>
+
+<section class="window is-hidden" id="playground-folder" data-title="Playground" data-icon="folder" style="--left: 10%; --top: 50%; --width: 230px; z-index: 25;">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <img src="Icons/Folder.svg" alt="" class="title-icon-img">
+          <span>Playground</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize title="Minimize"></button>
+          <button type="button" class="window__control window__control--max" data-maximize title="Maximize/Restore"></button>
+          <button type="button" class="window__control window__control--close" data-close title="Close"></button>
+        </div>
+      </header>
+      <div class="window__path">C./playground</div>
+      
+      <div class="window__content folder-grid" style="justify-content: center;">
+        <button class="desktop-icon" data-open="music-player-window" data-auto-maximize="false">
+          <span style="font-size: 3rem; margin-bottom: 5px;">🎵</span>
+          <span class="desktop-icon__label">Music Player</span>
+        </button>
+      </div>
+    </section>
+
+<section class="window is-hidden" id="about-window" data-title="Instagram - @JBuadoo25" data-icon="ie">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <img src="Icons/About.svg" alt="" class="title-icon-img">
+          <span>Instagram - @JBuadoo25</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize></button>
+          <button type="button" class="window__control window__control--max" data-maximize></button>
+          <button type="button" class="window__control window__control--close" data-close></button>
+        </div>
+      </header>
+      
+      <div class="ie-toolbar"><div class="ie-toolbar__address">https://instagram.com/JBuadoo25</div></div>
+      
+      <div class="window__content app-landing-page ig-modern-layout">
+        <div class="ig-modern-container">
+          
+          <header class="ig-modern-header animate-fade-in">
+            <div class="ig-avatar-wrapper">
+              <img src="Icons/About.svg" alt="Joseph Buadoo" class="ig-avatar-img">
+            </div>
+            
+            <div class="ig-profile-info">
+              <div class="ig-title-row">
+                <h2 class="ig-username">JBuadoo25</h2>
+                <div class="ig-action-buttons">
+                  <button class="ig-btn-light">Following</button>
+                  <a href="mailto:jrkwekub@gmail.com" class="ig-btn-light" style="text-decoration: none;">Message</a>
+                  <button class="ig-btn-ghost">⋯</button>
+                </div>
+              </div>
+              
+              <ul class="ig-stats-row">
+                <li><span class="ig-stat-count">3</span> posts</li>
+                <li><span class="ig-stat-count">2.5M</span> followers</li>
+                <li><span class="ig-stat-count">2004</span> following</li>
+              </ul>
+              
+              <div class="ig-bio-section">
+                <span class="ig-real-name">
+                  Joseph Buadoo 
+                  <img src="Icons/Ghana.svg" alt="Ghana Flag" class="ig-flag-img">
+                </span>
+                
+                <span class="ig-category">Designer</span>
+                <p class="ig-bio-text">
+                  Frontend Developer & UI/UX Designer.
+                </p>
+
+                <div class="ig-profile-music" onclick="toggleIgMusic()">
+                  <audio id="ig-audio" src="Audio Files/Vince Staples - Black Blue (Audio).mp3" onended="document.getElementById('ig-music-play-icon').textContent = '▶'"></audio>
+                  <span class="ig-music-icon" id="ig-music-play-icon">▶</span>
+                  <div class="ig-music-info">
+                    <span class="ig-music-title">Black&Blue</span>
+                    <span class="ig-music-artist">Vince Staples</span>
+                  </div>
+                </div>
+
+                <div class="ig-bio-links">
+                  <span class="ig-link-pill">
+                    🎓 B.S. Interactive Design @ KSU
+                  </span>
+                </div>
+              </div>
+            </div>
+          </header>
+
+          <div class="ig-tabs-wrapper animate-fade-in" style="animation-delay: 0.1s;">
+            <div class="ig-tabs">
+              <button class="ig-tab active" id="tab-posts" onclick="document.getElementById('ig-grid-posts').style.display='grid'; document.getElementById('ig-grid-videos').style.display='none'; this.classList.add('active'); document.getElementById('tab-videos').classList.remove('active');">
+                <svg aria-label="Posts" class="ig-tab-icon" fill="currentColor" height="12" viewBox="0 0 24 24" width="12"><path fill-rule="evenodd" clip-rule="evenodd" d="M19.998 3H4.002C3.449 3 3 3.449 3 4.002v15.996C3 20.551 3.449 21 4.002 21h15.996c.553 0 1.002-.449 1.002-1.002V4.002C21 3.449 20.551 3 19.998 3ZM19 19H5V5h14v14ZM10 6H6v4h4V6ZM14 6h-4v4h4V6ZM18 6h-4v4h4V6ZM10 10H6v4h4v-4ZM14 10h-4v4h4v-4ZM18 10h-4v4h4v-4ZM10 14H6v4h4v-4ZM14 14h-4v4h4v-4ZM18 14h-4v4h4v-4Z"></path></svg>
+                POSTS
+              </button>
+              <button class="ig-tab" id="tab-videos" onclick="document.getElementById('ig-grid-posts').style.display='none'; document.getElementById('ig-grid-videos').style.display='grid'; this.classList.add('active'); document.getElementById('tab-posts').classList.remove('active');">
+                <svg aria-label="Reels" class="ig-tab-icon" fill="currentColor" height="12" viewBox="0 0 24 24" width="12"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 22a10 10 0 1 0 0-20 10 10 0 0 0 0 20Zm0-2a8 8 0 1 0 0-16 8 8 0 0 0 0 16Zm-2.5-11.5l6 3.5-6 3.5v-7Z"></path></svg>
+                REELS
+              </button>
+            </div>
+          </div>
+
+          <div class="ig-grid animate-slide-up" id="ig-grid-posts" style="animation-delay: 0.2s;">
+            <div class="ig-grid-item">
+              <img src="Images/Post1.jpg" alt="Image Post" class="clickable-image" data-full-src="Images/Post1.jpg">
+              <div class="ig-grid-overlay">April 17th, 2026</div>
+            </div>
+
+            <div class="ig-grid-item">
+            <img src="Images/Post2.jpg" alt="Image Post" class="clickable-image" data-full-src="Images/Post2.jpg">
+            <div class="ig-grid-overlay">September 28th 2025</div>
+          </div>
+
+          <div class="ig-grid-item">
+            <img src="Images/Post3.jpg" alt="Image Post" class="clickable-image" data-full-src="Images/Post3.jpg">
+            <div class="ig-grid-overlay">April 26th, 2025</div>
+          </div>
+          </div>
+
+          <div class="ig-grid animate-slide-up" id="ig-grid-videos" style="display: none; animation-delay: 0.2s;">
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section class="window is-hidden" id="gallery-window" data-title="Gallery Folder" data-icon="folder" style="--left: 20%; --top: 35%; --width: 400px;">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <img src="Icons/Gallery.svg" alt="" class="title-icon-img">
+          <span>Gallery Folder</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize></button>
+          <button type="button" class="window__control window__control--max" data-maximize></button>
+          <button type="button" class="window__control window__control--close" data-close></button>
+        </div>
+      </header>
+      <div class="window__path">C./gallery</div>
+      <div class="window__content folder-grid">
+        
+        <button class="desktop-icon" data-open="image-viewer-1" data-auto-maximize="true">
+          <img src="Images/ALVERATA_Typeface.png" alt="Gallery Image 1" class="gallery-thumbnail">
+          <span class="desktop-icon__label">ALVERATA_Typeface.png</span>
+        </button>
+
+        <button class="desktop-icon" data-open="image-viewer-2" data-auto-maximize="true">
+          <img src="Images/architecture_lair.jpg" alt="Gallery Image 2" class="gallery-thumbnail">
+          <span class="desktop-icon__label">Architecture_Lair.jpg</span>
+        </button>
+
+        <button class="desktop-icon" data-open="image-viewer-3" data-auto-maximize="true">
+          <img src="Images/music_covers.jpg" alt="Gallery Image 3" class="gallery-thumbnail">
+          <span class="desktop-icon__label">Music_Covers.jpg</span>
+        </button>
+
+        <button class="desktop-icon" data-open="image-viewer-4" data-auto-maximize="true">
+          <img src="Images/Sphere.jpg" alt="Gallery Image 4" class="gallery-thumbnail">
+          <span class="desktop-icon__label">Spheres.jpg</span>
+        </button>
+
+        <button class="desktop-icon" data-open="image-viewer-5" data-auto-maximize="true">
+          <img src="Images/Shading.jpg" alt="Gallery Image 5" class="gallery-thumbnail">
+          <span class="desktop-icon__label">Shading_Practice1.jpg</span>
+        </button>
+
+        <button class="desktop-icon" data-open="image-viewer-6" data-auto-maximize="true">
+          <img src="Images/Shading2.jpg" alt="Gallery Image 6" class="gallery-thumbnail">
+          <span class="desktop-icon__label">Shading_Practice1.jpg</span>
+        </button>
+
+      </div>
+    </section>
+
+<section class="window is-hidden" id="tap-in" data-title="Tapin" data-icon="ie">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <img src="Icons/Tapin.svg" alt="" class="title-icon-img">
+          <span>Tap In</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize></button>
+          <button type="button" class="window__control window__control--max" data-maximize></button>
+          <button type="button" class="window__control window__control--close" data-close></button>
+        </div>
+      </header>
+      <div class="ie-toolbar"><div class="ie-toolbar__address">https://TapIn.com/</div></div>
+      
+      <div class="window__content app-landing-page">
+        
+        <section class="app-hero">
+
+          <h1 class="app-hero__title">Tap In: A music promotion<br>and discovery platform</h1>
+          <p class="app-hero__subtitle" style="max-width: 800px;">
+            Music is growing in unique ways, and that growth has no where to flourish. "Tap In" is a music discussion platform that can help artists grown their platforms whiles helping listeners find new music and artists. This was a class project for Interaction Design II, where I led a group of 3 other individuals to create a working prototype, using the Lean UX process. This project spanned from January 2026 to April 2026, using Figjam and Figma for research and building.
+          </p>
+          
+          <div class="app-hero__Timeframe">
+            <span>Interaction Design II • Jan 2026 - Apr 2026</span>
+          </div>
+
+          <div class="app-hero__phones" style="margin-top: 40px; margin-bottom: 60px;">
+            <img src="Images/TapIn_Genre.png" alt="App interface left" class="phone-mockup phone-left">
+            <img src="Images/TapIn_Home.png" alt="App interface center" class="phone-mockup phone-center">
+            <img src="Images/TapIn_Song.png" alt="App interface right" class="phone-mockup phone-right">
+          </div>
+        </section>
+
+        <section class="app-benefits" style="padding-top: 20px; padding-bottom: 20px;">
+          <div class="case-study-block">
+            <h2>The Problem:</h2>
+            <p style="color: #a0a0a0; font-size: 1.1rem; margin-bottom: 20px;">Like mentioned earlier, the music industry needs a place to grow, and it lacks a dedicated space to do so.</p>
+            <ul>
+              <li>Growth is difficult in the music industry, especially now in the digital age.</li>
+              <li>Everyone finds new music in unique ways, but it's not a consistent process.</li>
+              <li>Artists and fans go elsewhere to build communities in spaces that wasn't specifically made for them.</li>
+              <li>It's hard for artists and those who want to start to get the connections they need to create more work.</li>
+            </ul>
+          </div>
+        </section>
+
+<section class="app-benefits" style="padding-top: 40px;">
+          <h2 class="app-benefits__title">Solutions:</h2>
+          <p class="app-benefits__subtitle">Addressing the core needs of artists and listeners.</p>
+
+          <div class="solutions-grid">
+            
+            <div class="solution-card">
+              <div class="solution-card__img-slot">
+                <img src="Images/Spotlight.png" alt="Spotlight graphic" class="clickable-image" data-full-src="Images/Spotlight - R&B.png">
+              </div>
+              <div class="solution-card__header">
+                <span class="benefit-icon-small">🌟</span>
+                <h3>Spotlight</h3>
+              </div>
+              <p>Created a way for artists to promote their music with fair chance at exposure, whiles listeners can find new artists, songs and genres, being mutually beneficial for both parties.</p>
+            </div>
+
+            <div class="solution-card">
+              <div class="solution-card__img-slot">
+                <img src="Images/Randomization.png" alt="Randomization graphic" class="clickable-image" data-full-src="Images/Album - CRYSALIS.png">
+              </div>
+              <div class="solution-card__header">
+                <span class="benefit-icon-small">🔀</span>
+                <h3>Randomization</h3>
+              </div>
+              <p>Discoverability goes further with randomized suggestions, making the process enjoyable, whiles still promoting artists and their music.</p>
+            </div>
+
+            <div class="solution-card">
+              <div class="solution-card__img-slot">
+                <img src="Images/Dms_Full.png" alt="Connecting graphic" class="clickable-image" data-full-src="Images/Dms.png">
+              </div>
+              <div class="solution-card__header">
+                <span class="benefit-icon-small">🤝</span>
+                <h3>Connecting</h3>
+              </div>
+              <p>Helping creatives connect with each other for collabs, work, or help with communication features.</p>
+            </div>
+
+            <div class="solution-card">
+              <div class="solution-card__img-slot">
+                <img src="Images/Reply1.png" alt="Discussions graphic" class="clickable-image" data-full-src="Images/Reply.png">
+              </div>
+              <div class="solution-card__header">
+                <span class="benefit-icon-small">💬</span>
+                <h3>Discussions</h3>
+              </div>
+              <p>Housing music enthusiast in a place dedicated for them to them to discuss with others about music, with also having integrated tools just for them.</p>
+            </div>
+
+            <div class="solution-card">
+              <div class="solution-card__img-slot">
+                <img src="Images/Communities1.png" alt="Community graphic" class="clickable-image" data-full-src="Images/Communities.png">
+              </div>
+              <div class="solution-card__header">
+                <span class="benefit-icon-small">🌍</span>
+                <h3>Community</h3>
+              </div>
+              <p>Giving users a chance to build community with others in a space that is meant for them, especially with the removable of Twitter communities, which was where many music enthusiast use for this need.</p>
+            </div>
+
+          </div>
+        </section>
+
+        <section class="app-benefits" style="padding-top: 20px; padding-bottom: 80px;">
+          <div class="case-study-block">
+            <h2>Lessons Learned:</h2>
+            <ul>
+              <li>As team leader, I learned a lot with what comes with management. Delegation of tasks is important, and it's also important to build upon teammates strengths.</li>
+              <li>With the timeframe of this project, scaling down on the prototype had to be done, but it's not the end of the world. This was a disappointing aspect for me at first, but I'm still proud of everything that got done.</li>
+              <li>With interviews and usability tests, every participant is different. These interviews and tests taught me how to fish for information we need, without explicitly asking. I've conducted many before this project, but this was the most I've ever had for a project. By the last few, I realized my process wasn't the best, and was giving us feedback that varied on how helpful it was. By the end, I readjusted, and we got the best information back we got the whole semester.</li>
+              <li>I wanted to go beyond my previous projects and add a lot more animations. I'm the type learn by just messing around on a software, and with reptation. I still need to work on file hygiene, but I've developed a lot more skills in terms of creating unique interactions and animations.</li>
+              <li>It's okay to take a pause or a break. I do music production and it's commonly practiced to get up and revisit later. The end product is better, and this can be applied to creating work in general. I had a habit of sitting on the file until I finish what I sought out to do for the day. This caused fatigue, and I had to learn to step away.</li>
+            </ul>
+          </div>
+        </section>
+
+        <nav class="app-footer-nav">
+          <button type="button" class="nav-link-btn" data-open="tap-in-case-study" data-auto-maximize="true">Case Study</button>
+          
+          <span class="nav-dot">&bull;</span>
+          
+          <button type="button" class="nav-link-btn" data-open="tap-in-prototype" data-auto-maximize="true">Prototype</button>
+          
+          <span class="nav-dot">&bull;</span>
+          
+          <a href="YOUR_SHOWCASE_LINK_HERE" target="_blank">Showcase</a>
+        </nav>
+
+      </div>
+    </section>
+
+    <section class="window is-hidden" id="tap-in-case-study" data-title="Tap In - Case Study" data-icon="ie">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <img src="Icons/Tapin.svg" alt="" class="title-icon-img">
+          <span>Tap In - Case Study</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize></button>
+          <button type="button" class="window__control window__control--max" data-maximize></button>
+          <button type="button" class="window__control window__control--close" data-close></button>
+        </div>
+      </header>
+      <div class="ie-toolbar"><div class="ie-toolbar__address">https://TapIn.com/case-study</div></div>
+      
+      <div class="window__content app-landing-page">
+         <section class="app-benefits" style="padding-top: 60px;">
+           <div class="case-study-block">
+             <h2>Case Study</h2>
+             <p style="color: #a0a0a0; font-size: 1.1rem;">Coming Soon</p>
+           </div>
+         </section>
+      </div>
+    </section>
+
+    <section class="window is-hidden" id="tap-in-prototype" data-title="Tap In - Prototype" data-icon="ie">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <img src="Icons/Tapin.svg" alt="" class="title-icon-img">
+          <span>Tap In - Prototype</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize></button>
+          <button type="button" class="window__control window__control--max" data-maximize></button>
+          <button type="button" class="window__control window__control--close" data-close></button>
+        </div>
+      </header>
+      
+      <div class="ie-toolbar"><div class="ie-toolbar__address">https://TapIn.com/prototype</div></div>
+      
+      <div class="window__content browser-frame" style="padding: 0; overflow: hidden;">
+        <iframe 
+          class="browser-frame__embed" 
+          src="https://embed.figma.com/proto/VPWW6hlKA6eacS463m81mu/Tap-In?node-id=1224-24228&p=f&viewport=839%2C321%2C0.05&scaling=scale-down&content-scaling=fixed&starting-point-node-id=1224%3A24259&page-id=1%3A3&embed-host=share" 
+          allowfullscreen 
+          style="border: none; width: 100%; height: 100%;">
+        </iframe>
+      </div>
+    </section>
+
+<section class="window is-hidden" id="mixr" data-title="Mixr" data-icon="ie">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <img src="Icons/Mixr.svg" alt="" class="title-icon-img">
+          <span>Mixr</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize></button>
+          <button type="button" class="window__control window__control--max" data-maximize></button>
+          <button type="button" class="window__control window__control--close" data-close></button>
+        </div>
+      </header>
+      <div class="ie-toolbar"><div class="ie-toolbar__address">https://Mixr.com/</div></div>
+      
+      <div class="window__content app-landing-page mixr-landing-page">
+        
+        <section class="app-hero">
+          <h1 class="app-hero__title">Mixr: A new way to discover music<br></h1>
+          <p class="app-hero__subtitle" style="max-width: 800px;">
+            Finding new music can be a drag in this oversaturated environment. "Mixr" tackles that drag and helps users discover new music, with a platform built for discussion. This was a group project for our Senior Capstone Showcase to create a working prototype, following the Goal-Directed Design method to conduct research, user interviews, and usability tests. This project spanned from January 2026 to April 2026, using Figjam, Google Forms, Google Docs, and Figma for research and building.
+          </p>
+          
+          <div class="app-hero__Timeframe">
+            <span>Capstone Showcase • January 2026 - April 2026</span>
+          </div>
+
+          <div class="app-hero__phones" style="margin-top: 40px; margin-bottom: 60px;">
+            <img src="Images/Mixr_Community.png" alt="App interface left" class="phone-mockup phone-left">
+            <img src="Images/Mixr_Home.png" alt="App interface center" class="phone-mockup phone-center">
+            <img src="Images/Mixr_Review.png" alt="App interface right" class="phone-mockup phone-right">
+          </div>
+        </section>
+
+        <section class="app-benefits" style="padding-top: 20px; padding-bottom: 20px;">
+          <div class="case-study-block">
+            <h2>The Problem:</h2>
+            <p style="color: #a0a0a0; font-size: 1.1rem; margin-bottom: 20px;">Certain suggestion methods aren't cutting it, and it's difficult to find something that speaks to you.</p>
+            <ul>
+              <li>Main stream platforms suggestions are hit or miss, usually dishing users what is popular, instead of what it tailored to them.</li>
+              <li>Discussion is often limited, if it exists at all on a music platform.</li>
+              <li>Many platforms usually have features locked behind a paywall, limiting the typical user immensely.</li>
+              <li>Many platforms expect users to understand how to use them, often having poor learnability.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="app-benefits" style="padding-top: 40px;">
+          <h2 class="app-benefits__title">Solutions:</h2>
+          <p class="app-benefits__subtitle">How we approached these issues.</p>
+
+          <div class="solutions-grid">
+            
+            <div class="solution-card">
+              <div class="solution-card__img-slot">
+                <img src="Images/Mixer_info1.png" alt="" class="clickable-image" data-full-src="Images/Mixer_info.png">
+              </div>
+              <div class="solution-card__header">
+                <span class="benefit-icon-small">🧠</span>
+                <h3>Tailored feeds</h3>
+              </div>
+              <p>Feed is based off the users interests from what they selected when making an account, and from their interactions on the platform.</p>
+            </div>
+
+            <div class="solution-card">
+              <div class="solution-card__img-slot">
+                <img src="Images/Mixr_Community1.png" alt="" class="clickable-image" data-full-src="Images/Mixr_Community1.png">
+              </div>
+              <div class="solution-card__header">
+                <span class="benefit-icon-small">💬</span>
+                <h3>Expanded Discussion</h3>
+              </div>
+              <p>Fan pages dedicated to discussions based on music, beyond the platforms review capabilities.</p>
+            </div>
+
+            <div class="solution-card">
+              <div class="solution-card__img-slot">
+                <img src="Images/Mixer_profile.png" alt="" class="clickable-image" data-full-src="Images/Mixer_profile1.png">
+              </div>
+              <div class="solution-card__header">
+                <span class="benefit-icon-small">🔓</span>
+                <h3>Open Platform</h3>
+              </div>
+              <p>Nothing was made on this platform with the intentions of locking it behind a paywall. Everyone can enjoy and take part in all features.</p>
+            </div>
+
+            <div class="solution-card">
+              <div class="solution-card__img-slot">
+                <img src="Images/Mixer_Review.png" alt="" class="clickable-image" data-full-src="Images/Mixer_Review.png">
+              </div>
+              <div class="solution-card__header">
+                <span class="benefit-icon-small">✨</span>
+                <h3>Simplistic UI</h3>
+              </div>
+              <p>Simple interface for learnability, with item clearly labels to ease new users onto the platform.</p>
+            </div>
+
+          </div>
+        </section>
+
+        <section class="app-benefits" style="padding-top: 20px; padding-bottom: 80px;">
+          <div class="case-study-block">
+            <h2>Lessons Learned:</h2>
+            <ul>
+              <li>Spring 2026 was easily the most mentally taxing semester of my life (and I did architecture, so that's saying something). Whiles being apart of the Mixr group, I was leading a group for another prototype called Tap In, I was building my portfolio, doing various other projects in Visual Design II, then my other classes. I had to learn how to balance projects, or else I would of sank. At first, I was prioritizing other projects over another, but I found a way to balance the work, and give all my projects the attention that they needed.</li>
+              <li>Every team is different, and I've heard that it sucks having a really good team because you'll always compare your future teams to them. With all the teams I've been apart of, I had to learn how to adjust to a new environment and dynamic. Just like snowflakes, every team is different and unique in it's own regard.</li>
+              <li>I like to know what I'm doing and what is needed from me. This class however didn't give me such luxury. This pushed me to be proactive and be more on top of things since we weren't give a clear process to follow. The team knew the end goal, and we had to work together to find a way to make it there.</li>
+              <li>Flexibility is not foreign skills of mine, but this project was a nice reminder of that. Things change constantly in life, and you need to be able to readjust to keep the train moving.</li>
+            </ul>
+          </div>
+        </section>
+
+        <nav class="app-footer-nav">
+          <button type="button" class="nav-link-btn" data-open="mixr-case-study" data-auto-maximize="true">Case Study</button>
+          <span class="nav-dot">&bull;</span>
+          <a href="YOUR_PROTOTYPE_LINK_HERE" target="_blank">Prototype</a>
+        </nav>
+
+      </div>
+    </section>
+
+    <section class="window is-hidden" id="mixr-case-study" data-title="Mixr - Case Study" data-icon="ie">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <img src="Icons/Mixr.svg" alt="" class="title-icon-img">
+          <span>Mixr - Case Study</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize></button>
+          <button type="button" class="window__control window__control--max" data-maximize></button>
+          <button type="button" class="window__control window__control--close" data-close></button>
+        </div>
+      </header>
+      <div class="ie-toolbar"><div class="ie-toolbar__address">https://Mixr.com/case-study</div></div>
+      
+      <div class="window__content app-landing-page mixr-landing-page">
+         <section class="app-benefits" style="padding-top: 60px;">
+           <div class="case-study-block">
+             <h2>Case Study</h2>
+             <p style="color: #a0a0a0; font-size: 1.1rem;">Coming Soon</p>
+           </div>
+         </section>
+      </div>
+    </section>
+
+<section class="window is-hidden" id="reel-browser" data-title="Reel" data-icon="ie">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <img src="Icons/Reel.svg" alt="" class="title-icon-img">
+          <span>Reel</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize></button>
+          <button type="button" class="window__control window__control--max" data-maximize></button>
+          <button type="button" class="window__control window__control--close" data-close></button>
+        </div>
+      </header>
+      <div class="ie-toolbar"><div class="ie-toolbar__address">https://Reel.com/</div></div>
+      
+      <div class="window__content app-landing-page reel-landing-page">
+        
+        <section class="app-hero">
+          <h1 class="app-hero__title">Reel: A Movie and Show discussion<br>rival for Letterboxd</h1>
+          <p class="app-hero__subtitle" style="max-width: 800px;">
+            Letterboxd is the go to movie review platform, and we think that should change. Reel is a team made mobile prototype that pushed us to create a movie and TV show reviewing prototype to challenge Letterboxd. We followed the Goal-Directed Design method to conduct research, user interviews, and usability testing to bring this platform to life. This project spanned from August 2025 to November 2025, using Figjam and Figma for research and building.
+          </p>
+          
+          <div class="app-hero__Timeframe">
+            <span>Interaction Design I • Aug 2025 - Nov 2025</span>
+          </div>
+
+          <div class="app-hero__phones" style="margin-top: 40px; margin-bottom: 60px;">
+            <img src="Images/Reel_Reply.png" alt="Reel interface left" class="phone-mockup phone-left">
+            <img src="Images/Reel_Home.png" alt="Reel interface center" class="phone-mockup phone-center">
+            <img src="Images/Reel_Releases.png" alt="Reel interface right" class="phone-mockup phone-right">
+          </div>
+        </section>
+
+        <section class="app-benefits" style="padding-top: 20px; padding-bottom: 20px;">
+          <div class="case-study-block">
+            <h2>The Problem:</h2>
+            <p style="color: #a0a0a0; font-size: 1.1rem; margin-bottom: 20px;">Our focus derived from fixing and building upon the issues our biggest competitors have.</p>
+            <ul>
+              <li>These platforms often target movies alone, leaving the world of shows neglected.</li>
+              <li>Letterboxd isn't new user friendly, and has a dated UI/aesthetic.</li>
+              <li>As a discussion platform, Letterboxd is limited in social engagement.</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="app-benefits" style="padding-top: 40px;">
+          <h2 class="app-benefits__title">Solutions:</h2>
+          <p class="app-benefits__subtitle">Improving the reviewing and social experience.</p>
+
+          <div class="solutions-grid">
+            
+            <div class="solution-card">
+              <div class="solution-card__img-slot">
+                <img src="Images/Reel_Home2.png" alt="Inclusion graphic" class="clickable-image" data-full-src="Images/Reel_Home1.png">
+              </div>
+              <div class="solution-card__header">
+                <span class="benefit-icon-small">📺</span>
+                <h3>Inclusion</h3>
+              </div>
+              <p>A general feed with movies and shows, going beyond that with specifics like anime, which is something Letterboxd neglects.</p>
+            </div>
+
+            <div class="solution-card">
+              <div class="solution-card__img-slot">
+                <img src="Images/Show_Screen1.png" alt="Clean UI graphic" class="clickable-image" data-full-src="Images/Show_Screen.png">
+              </div>
+              <div class="solution-card__header">
+                <span class="benefit-icon-small">✨</span>
+                <h3>Clean UI</h3>
+              </div>
+              <p>Simplified for learnability sake, with straight the the point information, and extra useful content.</p>
+            </div>
+
+            <div class="solution-card">
+              <div class="solution-card__img-slot">
+                <img src="Images/Reel_Reply2.png" alt="Discussions graphic" class="clickable-image" data-full-src="Images/Reel_Reply1.png">
+              </div>
+              <div class="solution-card__header">
+                <span class="benefit-icon-small">💬</span>
+                <h3>Discussions</h3>
+              </div>
+              <p>More discussion features that match the universal social media structures.</p>
+            </div>
+
+            <div class="solution-card">
+              <div class="solution-card__img-slot">
+                <img src="Images/Reel_Releases2.png" alt="Discoverability graphic" class="clickable-image" data-full-src="Images/Reel_Releases1.png">
+              </div>
+              <div class="solution-card__header">
+                <span class="benefit-icon-small">🔍</span>
+                <h3>Discoverability</h3>
+              </div>
+              <p>Beyond movie suggestions, Reel shows upcoming content with where they'll release. This is the type of information that users go elsewhere to find.</p>
+            </div>
+
+          </div>
+        </section>
+
+        <section class="app-benefits" style="padding-top: 20px; padding-bottom: 80px;">
+          <div class="case-study-block">
+            <h2>Lessons Learned:</h2>
+            <ul>
+              <li>For this project, I was just a team member. I'm used to being the leader or having to take charge, so this team taught me to be a team player which I enjoyed. Communication is key. Bouncing off ideas, helping others, and learning to accept that not everyone will see your vision.</li>
+              <li>Variables should be set up before getting deep into the project! I wanted to add a theme change, but this was a late addition. Adding variables to components and frames towards the end was a pain. This also resulted in me missing a few spots.</li>
+              <li>Taking notes for tasks is essential. I love making lists, but this project taught me how important it is to make sure everything it jotted down. My schedule was packed, and as a group, we forgot some key features we wanted until the very end, which resulted in a rush to implement them.</li>
+              <li>As my childhood idol Sensei Wu would say, "Never put off until tomorrow what can be done today". Naming frames, keeping the file clean, and more house keeping things is important. I'd often do those things later since I enjoy designing and building. To my horror, tiny things stack up, and it gets more stressful to clean up with a deadline steadily approaching.</li>
+            </ul>
+          </div>
+        </section>
+
+<nav class="app-footer-nav">
+          <button type="button" class="nav-link-btn" data-open="reel-case-study" data-auto-maximize="true">Case Study</button>
+          
+          <span class="nav-dot">&bull;</span>
+          
+          <button type="button" class="nav-link-btn" data-open="reel-prototype" data-auto-maximize="true">Prototype</button>
+
+          <span class="nav-dot">&bull;</span>
+          
+          <a href="YOUR_PROTOTYPE_LINK_HERE" target="_blank">Reel Website Rebrand</a>
+
+          <span class="nav-dot">&bull;</span>
+          
+          <a href="PROTOTYPE_LINK_HERE" target="_blank">Reel Mobile Rebrand</a>
+          
+        </nav>
+
+      </div>
+    </section>
+
+    <section class="window is-hidden" id="reel-prototype" data-title="Reel - Prototype" data-icon="ie">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <img src="Icons/Reel.svg" alt="" class="title-icon-img">
+          <span>Reel - Prototype</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize></button>
+          <button type="button" class="window__control window__control--max" data-maximize></button>
+          <button type="button" class="window__control window__control--close" data-close></button>
+        </div>
+      </header>
+      
+      <div class="ie-toolbar"><div class="ie-toolbar__address">https://Reel.com/prototype</div></div>
+      
+      <div class="window__content browser-frame" style="padding: 0; overflow: hidden;">
+        <iframe 
+          class="browser-frame__embed" 
+          src="https://embed.figma.com/proto/BPE2AVNypPdy8jG4q7uCiG/REEL?node-id=234-12282&p=f&viewport=394%2C369%2C0.04&t=csKCxTYkBC51S7JZ-1&scaling=scale-down&content-scaling=fixed&starting-point-node-id=234%3A12282&page-id=1%3A4&embed-host=share" 
+          allowfullscreen 
+          style="border: none; width: 100%; height: 100%;">
+        </iframe>
+      </div>
+    </section>
+
+<section class="window is-hidden" id="image-viewer-1" data-title="ALVERATA_Typeface.png" data-icon="app">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <span style="margin-right: 8px; font-size: 14px;">🖼️</span>
+          <span>ALVERATA_Typeface.png</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize></button>
+          <button type="button" class="window__control window__control--max" data-maximize></button>
+          <button type="button" class="window__control window__control--close" data-close></button>
+        </div>
+      </header>
+      
+      <div class="window__content dark-image-viewer">
+        
+        <div class="dark-viewer__img-container">
+          <img src="Images/ALVERATA_Typeface.png" alt="ALVERATA Typeface">
+        </div>
+        
+        <div class="dark-viewer__details">
+          
+          <div class="dark-viewer__meta">
+            <span class="meta-label">File Name:</span> 
+            <span class="meta-value">ALVERATA_Typeface.png</span>
+          </div>
+          
+          <div class="dark-viewer__meta">
+            <span class="meta-label">Date Created:</span> 
+            <span class="meta-value">Feburary 2026</span> </div>
+          
+          <div class="dark-viewer__description">
+            <h3>Typeface Assignment Visual Design II</h3>
+            <p>This piece kept evolving as I worked on it, incorporating more ideas that I initially thought wouldn’t work. Instead of focusing on one specific Greek style, focusing on multiple helped will up my page which was an initial worry that I thought I’d struggle doing. Using a grid for structure, contrast of designs, and asymmetry for the man made element, I designed this to bring the old weathered Greek look to mind.</p>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+<section class="window is-hidden" id="image-viewer-2" data-title="Architecture_Lair.jpg" data-icon="app">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <span style="margin-right: 8px; font-size: 14px;">🖼️</span>
+          <span>Architecture_Lair.jpg</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize></button>
+          <button type="button" class="window__control window__control--max" data-maximize></button>
+          <button type="button" class="window__control window__control--close" data-close></button>
+        </div>
+      </header>
+      
+      <div class="window__content dark-image-viewer">
+        
+        <div class="dark-viewer__img-container">
+          <img src="Images/architecture_lair.jpg" alt="Gallery Image 2">
+        </div>
+        
+        <div class="dark-viewer__details">
+          
+          <div class="dark-viewer__meta">
+            <span class="meta-label">File Name:</span> 
+            <span class="meta-value">Architecture_Lair.jpg</span>
+          </div>
+          
+          <div class="dark-viewer__meta">
+            <span class="meta-label">Date Created:</span> 
+            <span class="meta-value">2025</span> 
+          </div>
+          
+          <div class="dark-viewer__description">
+            <h3>One Story Lair Studio I</h3>
+            <p>For this assignment, we were given various shapes to put together. It was later revealed that we'll have to make a space out of it, evolving it into a final building.</p>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <section class="window is-hidden" id="image-viewer-3" data-title="Music_Covers.jpg" data-icon="app">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <span style="margin-right: 8px; font-size: 14px;">🖼️</span>
+          <span>Music_Covers.jpg</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize></button>
+          <button type="button" class="window__control window__control--max" data-maximize></button>
+          <button type="button" class="window__control window__control--close" data-close></button>
+        </div>
+      </header>
+      
+      <div class="window__content dark-image-viewer">
+        
+        <div class="dark-viewer__img-container">
+          <img src="Images/music_covers.jpg" alt="Gallery Image 3">
+        </div>
+        
+        <div class="dark-viewer__details">
+          
+          <div class="dark-viewer__meta">
+            <span class="meta-label">File Name:</span> 
+            <span class="meta-value">Music_Covers.jpg</span>
+          </div>
+          
+          <div class="dark-viewer__meta">
+            <span class="meta-label">Date Created:</span> 
+            <span class="meta-value">2025</span> 
+          </div>
+          
+          <div class="dark-viewer__description">
+            <h3>Music Covers</h3>
+            <p>These are a few music covers I made through various adobe softwares. Each cover encapsulates the feel an thematic value of the song attached to it.</p>
+          </div>
+          
+        </div>
+      </div>
+    </section>
+
+    <section class="window is-hidden" id="image-viewer-4" data-title="Spheres.jpg" data-icon="app">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <span style="margin-right: 8px; font-size: 14px;">🖼️</span>
+          <span>Spheres.jpg</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize></button>
+          <button type="button" class="window__control window__control--max" data-maximize></button>
+          <button type="button" class="window__control window__control--close" data-close></button>
+        </div>
+      </header>
+      
+      <div class="window__content dark-image-viewer">
+        <div class="dark-viewer__img-container">
+          <img src="Images/Sphere.jpg" alt="Spheres">
+        </div>
+        
+        <div class="dark-viewer__details">
+          <div class="dark-viewer__meta">
+            <span class="meta-label">File Name:</span> 
+            <span class="meta-value">Spheres.jpg</span>
+          </div>
+          <div class="dark-viewer__meta">
+            <span class="meta-label">Date Created:</span> 
+            <span class="meta-value">Spring 2025</span> 
+          </div>
+          <div class="dark-viewer__description">
+            <h3>Drawing I • Spheres</h3>
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="window is-hidden" id="image-viewer-5" data-title="Shading_Practice1.jpg" data-icon="app">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <span style="margin-right: 8px; font-size: 14px;">🖼️</span>
+          <span>Shading_Practice1.jpg</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize></button>
+          <button type="button" class="window__control window__control--max" data-maximize></button>
+          <button type="button" class="window__control window__control--close" data-close></button>
+        </div>
+      </header>
+      
+      <div class="window__content dark-image-viewer">
+        <div class="dark-viewer__img-container">
+          <img src="Images/Shading.jpg" alt="Shading Practice 1">
+        </div>
+        
+        <div class="dark-viewer__details">
+          <div class="dark-viewer__meta">
+            <span class="meta-label">File Name:</span> 
+            <span class="meta-value">Shading_Practice1.jpg</span>
+          </div>
+          <div class="dark-viewer__meta">
+            <span class="meta-label">Date Created:</span> 
+            <span class="meta-value">Spring 2025</span> 
+          </div>
+          <div class="dark-viewer__description">
+            <h3>Drawing I • Shading Practice 1</h3>
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section class="window is-hidden" id="image-viewer-6" data-title="Shading_Practice2.jpg" data-icon="app">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <span style="margin-right: 8px; font-size: 14px;">🖼️</span>
+          <span>Shading_Practice2.jpg</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize></button>
+          <button type="button" class="window__control window__control--max" data-maximize></button>
+          <button type="button" class="window__control window__control--close" data-close></button>
+        </div>
+      </header>
+      
+      <div class="window__content dark-image-viewer">
+        <div class="dark-viewer__img-container">
+          <img src="Images/Shading2.jpg" alt="Shading Practice 2">
+        </div>
+        
+        <div class="dark-viewer__details">
+          <div class="dark-viewer__meta">
+            <span class="meta-label">File Name:</span> 
+            <span class="meta-value">Shading_Practice2.jpg</span>
+          </div>
+          <div class="dark-viewer__meta">
+            <span class="meta-label">Date Created:</span> 
+            <span class="meta-value">Spring 2025</span> 
+          </div>
+          <div class="dark-viewer__description">
+            <h3>Drawing I • Shading Practice 2</h3>
+            <p></p>
+          </div>
+        </div>
+      </div>
+    </section>
+
+<section class="window is-hidden" id="reel-case-study" data-title="Reel - Case Study" data-icon="ie">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <img src="Icons/Reel.svg" alt="" class="title-icon-img">
+          <span>Reel - Case Study</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize></button>
+          <button type="button" class="window__control window__control--max" data-maximize></button>
+          <button type="button" class="window__control window__control--close" data-close></button>
+        </div>
+      </header>
+      <div class="ie-toolbar"><div class="ie-toolbar__address">https://Reel.com/case-study</div></div>
+      
+      <div class="window__content app-landing-page reel-landing-page">
+         <section class="app-benefits" style="padding-top: 60px;">
+           <div class="case-study-block">
+             <h2>Case Study</h2>
+             <p style="color: #a0a0a0; font-size: 1.1rem;">Coming Soon</p>
+           </div>
+         </section>
+      </div>
+    </section>
+
+<section class="window is-hidden" id="cjc-browser" data-title="CJC Music" data-icon="ie">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <img src="Icons/CJCmusic.svg" alt="" class="title-icon-img">
+          <span>CJC Music</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize></button>
+          <button type="button" class="window__control window__control--max" data-maximize></button>
+          <button type="button" class="window__control window__control--close" data-close></button>
+        </div>
+      </header>
+      <div class="ie-toolbar"><div class="ie-toolbar__address">https://CJCMusic.com/</div></div>
+      
+      <div class="window__content app-landing-page cjc-landing-page">
+        
+        <section class="app-hero">
+          <h1 class="app-hero__title">Welcome to CJC Music</h1>
+          <p class="app-hero__subtitle" style="max-width: 800px;">
+            For this project, CJC Music is a site made for the music brand I made with my friends. I was tasked with implementing uses of JavaScript and to push our skills further with parallax scrolling.
+          </p>
+          
+          <div class="app-hero__Timeframe">
+            <span>Frontend Development II • October - November 2025</span>
+          </div>
+
+<div class="app-hero__phones" style="margin-top: 40px; margin-bottom: 60px;">
+            <img src="Images/CJC_Home.png" alt="CJC interface center" class="phone-mockup phone-center" style="max-width: 650px;">
+          </div>
+        </section>
+
+        <section class="app-benefits" style="padding-top: 20px; padding-bottom: 20px;">
+          <div class="case-study-block">
+            <h2>The Tasks:</h2>
+            <ul>
+              <li>Unique Java Script functions</li>
+              <li>Java Script hamburger menu</li>
+              <li>Mobile and Desktop views</li>
+              <li>Parallax scrolling</li>
+            </ul>
+          </div>
+        </section>
+
+        <section class="app-benefits" style="padding-top: 40px;">
+          <h2 class="app-benefits__title">Overview:</h2>
+
+          <div class="solutions-grid">
+            
+            <div class="solution-card">
+              <div class="solution-card__img-slot">
+                <img src="Images/CJC_Anim.gif" alt="Animated background graphic" class="clickable-image" data-full-src="Images/CJC_Anim_Full.png">
+              </div>
+              <div class="solution-card__header">
+                <span class="benefit-icon-small">✨</span>
+                <h3>Animated JS background</h3>
+              </div>
+              <p>Implemented a dynamic background using JavaScript to create a more engaging, visually active environment for the user.</p>
+            </div>
+
+            <div class="solution-card">
+              <div class="solution-card__img-slot">
+                <img src="Images/CJC_Menu.gif" alt="Menu graphic" class="clickable-image" data-full-src="Images/CJC_Menu_Full.png">
+              </div>
+              <div class="solution-card__header">
+                <span class="benefit-icon-small">🍔</span>
+                <h3>JS Menu</h3>
+              </div>
+              <p>Built a custom JavaScript hamburger menu from scratch to ensure smooth navigation across all devices.</p>
+            </div>
+
+            <div class="solution-card">
+              <div class="solution-card__img-slot">
+                <img src="Images/CJC_Mobile1.jpg" alt="Mobile view graphic" class="clickable-image" data-full-src="Images/CJC_Mobile.jpg">
+              </div>
+              <div class="solution-card__header">
+                <span class="benefit-icon-small">📱</span>
+                <h3>Mobile View</h3>
+              </div>
+              <p>Ensured the site is fully responsive, looking and functioning perfectly whether viewed on a desktop monitor or a smartphone screen.</p>
+            </div>
+
+            <div class="solution-card">
+              <div class="solution-card__img-slot">
+                <img src="Images/CJC_Parallax.png" alt="Parallax graphic" class="clickable-image" data-full-src="Images/CJC_Parallax_Full.png">
+              </div>
+              <div class="solution-card__header">
+                <span class="benefit-icon-small">↕️</span>
+                <h3>Parallax Scrolling</h3>
+              </div>
+              <p>Utilized parallax scrolling techniques to give the site depth, making foreground and background elements move at varying speeds.</p>
+            </div>
+
+            <div class="solution-card">
+              <div class="solution-card__img-slot">
+                <img src="Images/CJC_Player.png" alt="Music player graphic" class="clickable-image" data-full-src="Images/CJC_Player_Full.png">
+              </div>
+              <div class="solution-card__header">
+                <span class="benefit-icon-small">🎵</span>
+                <h3>Music Player</h3>
+              </div>
+              <p>Developed a standalone interactive music player allowing users to sample the brand's tracks directly on the site.</p>
+            </div>
+
+          </div>
+        </section>
+
+        <nav class="app-footer-nav">
+          <a href="https://gearlessjoe25.github.io/CJC-Music/" target="_blank">Visit CJC</a>
+        </nav>
+
+      </div>
+    </section>
+
+    <div class="welcome-widget">
+      <div class="welcome-widget__title">Welcome to Joseph Buadoo's Computer.</div>
+      <div class="welcome-widget__subtitle">I'm a(n) <span id="typewriter-text" class="typewriter-text"></span><span class="cursor">|</span></div>
+    </div>
+  </main>
+
+<section class="window is-hidden" id="baratie-browser" data-title="The Baratie" data-icon="ie">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <img src="Icons/Thebaratie.svg" alt="" class="title-icon-img">
+          <span>The Baratie</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize></button>
+          <button type="button" class="window__control window__control--max" data-maximize></button>
+          <button type="button" class="window__control window__control--close" data-close></button>
+        </div>
+      </header>
+      <div class="ie-toolbar"><div class="ie-toolbar__address">https://TheBaratie.com/</div></div>
+      
+      <div class="window__content app-landing-page baratie-landing-page">
+        
+        <section class="app-hero">
+          <h1 class="app-hero__title">Welcome to The Baratie</h1>
+          <p class="app-hero__subtitle" style="max-width: 800px;">
+            For this project, we had to make a site of our choosing from the templates on Bootstrap. For a colorful design, I decided to make a site for the fictional restaurant The Baratie from One Piece. This taught introduced me to the world of online resources dedicated to coders. Past that, this developed my skills by having me dive into the code to transform a serious realistic website template into a whimsical site for The Baratie.
+          </p>
+          
+          <div class="app-hero__Timeframe">
+            <span>Frontend Development I • April 2025</span>
+          </div>
+
+          <div class="app-hero__phones" style="margin-top: 40px; margin-bottom: 60px;">
+            <img src="Images/Baratie_Home.png" alt="Baratie interface" class="phone-mockup phone-center" style="max-width: 650px;">
+          </div>
+        </section>
+
+        <nav class="app-footer-nav">
+          <a href="https://gearlessjoe25.github.io/The-Baratie/" target="_blank">Visit The Baratie</a>
+        </nav>
+
+      </div>
+    </section>
+
+ <section class="window is-hidden" id="music-player-window" data-title="Music Player" data-icon="app" style="--width: 700px; height: 480px; --left: 20%; --top: 15%;">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <span style="margin-right: 8px; font-size: 14px;">🎵</span>
+          <span>Music Player</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize></button>
+          <button type="button" class="window__control window__control--max" data-maximize></button>
+          <button type="button" class="window__control window__control--close" data-close></button>
+        </div>
+      </header>
+      
+      <div class="window__content mp-layout">
+        
+        <aside class="mp-sidebar">
+          <div class="mp-sidebar-header">Library</div>
+          <ul class="mp-playlist" id="mp-playlist-ui">
+            </ul>
+        </aside>
+
+        <main class="mp-main">
+          
+          <div class="mp-visualizer" id="mp-visualizer">
+            <div class="mp-bar"></div><div class="mp-bar"></div><div class="mp-bar"></div>
+            <div class="mp-bar"></div><div class="mp-bar"></div><div class="mp-bar"></div>
+            <div class="mp-bar"></div><div class="mp-bar"></div><div class="mp-bar"></div>
+            <div class="mp-bar"></div><div class="mp-bar"></div><div class="mp-bar"></div>
+          </div>
+
+          <div class="mp-info">
+            <h2 id="mp-title">Loading Track...</h2>
+            <p id="mp-artist">Joë Collection</p>
+          </div>
+
+          <div class="mp-progress-container">
+            <span id="mp-current-time">0:00</span>
+            <input type="range" id="mp-seek-bar" value="0" max="100">
+            <span id="mp-duration">...</span>
+          </div>
+
+          <div class="mp-controls">
+            <button id="mp-prev" class="mp-btn">⏮</button>
+            <button id="mp-play" class="mp-btn mp-play-btn">▶</button>
+            <button id="mp-next" class="mp-btn">⏭</button>
+          </div>
+
+          <div class="mp-tags">
+            <span class="mp-tag" id="mp-genre">Genre</span>
+            <span class="mp-tag" id="mp-bpm">BPM</span>
+            <span class="mp-tag" id="mp-key">Key</span>
+          </div>
+
+          <audio id="mp-audio" src=""></audio>
+
+        </main>
+      </div>
+    </section>
+
+  </main>
+
+  <footer class="taskbar">
+    <button class="start-button" type="button">
+      <img src="start-icon.png" alt="" class="start-button__img">
+      <span>Start</span>
+    </button>
+    <div class="taskbar__windows" id="taskbar-windows"></div>
+    <div class="system-tray"><div id="clock"></div></div>
+  </footer>
+
+<div class="lightbox-modal is-hidden" id="lightbox-modal">
+    <div class="lightbox-modal__bg" id="lightbox-bg"></div>
+    <button class="lightbox-modal__close" id="lightbox-close">&times;</button>
+    <img src="" alt="Full size view" class="lightbox-modal__img" id="lightbox-img">
+  </div>
+
+  <script src="scripts.js"></script>
+</body>
+</html>

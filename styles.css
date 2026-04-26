@@ -1,0 +1,2751 @@
+:root {
+  --shell-blue-1: #0d4ca8;
+  --shell-blue-2: #0d3a81;
+  --shell-blue-3: #08245b;
+  --desktop-top: #2060c5;
+  --desktop-mid: #5fa5ef;
+  --desktop-bottom: #d5f1ff;
+  --window-title-top: #fdfefe;
+  --window-title-mid: #d9e4f4;
+  --window-title-bottom: #a5b7d4;
+  --window-title-active-top: #f7fbff;
+  --window-title-active-bottom: #cadbf4;
+  --window-body-top: #244a88;
+  --window-body-bottom: #1a3566;
+  --text-main: #ffffff;
+  --shadow-lg: 0 14px 24px rgba(8, 20, 50, 0.42);
+  --shadow-sm: 0 3px 8px rgba(8, 20, 50, 0.3);
+  --xp-sky: #87c8ff;
+  --xp-sky-light: #e5f7ff;
+  --xp-tray: #1576d1;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  margin: 0;
+  padding: 0;
+  width: 100vw;
+  height: 100vh;
+  font-family: "Trebuchet MS", Tahoma, sans-serif;
+  color: var(--text-main);
+  overflow: hidden; 
+}
+
+button,
+a {
+  font: inherit;
+}
+
+/* Full screen desktop area */
+.desktop-area {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: calc(100vh - 58px); 
+  overflow: hidden;
+  background:
+    radial-gradient(circle at 32% 15%, rgba(255, 255, 255, 0.25), transparent 16%),
+    linear-gradient(180deg, var(--desktop-top) 0%, var(--desktop-mid) 50%, var(--desktop-bottom) 100%);
+}
+
+.desktop-area__shine {
+  position: absolute;
+  inset: 0;
+  background:
+    linear-gradient(120deg, rgba(255, 255, 255, 0.22), transparent 34%),
+    radial-gradient(circle at 82% 24%, rgba(255, 255, 255, 0.26), transparent 12%);
+  pointer-events: none;
+  transition: opacity 0.8s ease; /* Adds a smooth fade */
+}
+
+/* Removes the glare when dark mode is active */
+body.dark-theme .desktop-area__shine {
+  opacity: 0;
+}
+
+/* ==========================================
+   THEME TOGGLE BUTTON (TOP RIGHT)
+   ========================================== */
+.theme-toggle {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  z-index: 20;
+  width: 45px;
+  height: 45px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.4);
+  backdrop-filter: blur(5px);
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background 0.3s, transform 0.1s;
+}
+
+.theme-toggle:hover {
+  background: rgba(255, 255, 255, 0.35);
+}
+
+.theme-toggle:active {
+  transform: scale(0.92);
+}
+
+.theme-toggle svg {
+  position: absolute;
+  width: 22px;
+  height: 22px;
+  transition: opacity 0.5s ease, transform 0.5s cubic-bezier(0.4, 0, 0.2, 1);
+}
+
+/* Default Light Mode (Sun visible, Moon hidden & rotated) */
+.icon-sun { opacity: 1; transform: rotate(0) scale(1); color: #f9df78; fill: #f9df78; }
+.icon-moon { opacity: 0; transform: rotate(-90deg) scale(0.5); color: #ffffff; fill: #ffffff; }
+
+/* Dark Mode (Sun hidden & rotated, Moon visible) */
+body.dark-theme .icon-sun { opacity: 0; transform: rotate(90deg) scale(0.5); }
+body.dark-theme .icon-moon { opacity: 1; transform: rotate(0) scale(1); }
+
+/* ==========================================
+   NIGHT SKY BACKGROUND FADE
+   ========================================== */
+/* We use a pseudo-element for the background so it can fade opacity smoothly */
+.desktop-area::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, #020111 0%, #0d1b2a 50%, #1b263b 100%);
+  opacity: 0;
+  transition: opacity 0.8s ease;
+  z-index: 0;
+  pointer-events: none;
+}
+
+body.dark-theme .desktop-area::before {
+  opacity: 1;
+}
+
+.desktop-area__shine, .desktop-icons {
+  z-index: 2;
+}
+
+/* ==========================================
+   DYNAMIC PARTICLES (CLOUDS vs STARS)
+   ========================================== */
+.dynamic-particle {
+  position: absolute;
+  top: 0; 
+  left: 0;
+  pointer-events: none;
+  z-index: 1; 
+  will-change: transform;
+  transition: width 0.5s, height 0.5s, background 0.5s, border-radius 0.5s, filter 0.5s;
+}
+
+/* LIGHT MODE: CLOUDS */
+body:not(.dark-theme) .dynamic-particle.is-minor { display: none; }
+body:not(.dark-theme) .dynamic-particle.is-major {
+  width: 250px; 
+  height: 80px; 
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: 100px;
+  filter: blur(8px);
+}
+body:not(.dark-theme) .dynamic-particle.is-major::before,
+body:not(.dark-theme) .dynamic-particle.is-major::after {
+  content: "";
+  position: absolute;
+  background: rgba(255, 255, 255, 0.65);
+  border-radius: 50%;
+}
+body:not(.dark-theme) .dynamic-particle.is-major::before {
+  width: 130px; height: 130px; top: -55px; left: 30px;
+}
+body:not(.dark-theme) .dynamic-particle.is-major::after {
+  width: 100px; height: 100px; top: -35px; right: 35px;
+}
+
+/* DARK MODE: STARS */
+body.dark-theme .dynamic-particle {
+  background: #ffffff;
+  border-radius: 50%;
+  box-shadow: 0 0 10px #ffffff, 0 0 20px #00a3ff;
+}
+body.dark-theme .dynamic-particle.is-major::before,
+body.dark-theme .dynamic-particle.is-major::after {
+  display: none; /* Hide the cloud bumps */
+}
+body.dark-theme .dynamic-particle.is-major { width: 5px; height: 5px; }
+body.dark-theme .dynamic-particle.is-minor { width: 2px; height: 2px; }
+
+/* ==========================================
+   SHOOTING STARS (MOTION BLUR & FIXED ANGLE)
+   ========================================== */
+.shooting-star {
+  position: absolute;
+  width: 250px; /* Longer tail */
+  height: 2px;
+  /* Fades from transparent on the left to solid bright white on the right (the head) */
+  background: linear-gradient(to right, rgba(255, 255, 255, 0) 0%, rgba(255, 255, 255, 0.4) 60%, #ffffff 100%);
+  border-radius: 50%;
+  opacity: 0;
+  z-index: 1;
+  pointer-events: none;
+  display: none;
+  
+  /* Adds the motion blur and glowing halo around the star */
+  filter: drop-shadow(0 0 6px #ffffff) drop-shadow(0 0 15px #00a3ff) blur(1px);
+}
+
+body.dark-theme .shooting-star {
+  display: block;
+  animation: shooting 5s infinite;
+}
+
+body.dark-theme .shooting-star:nth-child(1) { top: 10%; left: -20%; animation-delay: 0s; }
+body.dark-theme .shooting-star:nth-child(2) { top: 35%; left: -20%; animation-delay: 2.2s; }
+body.dark-theme .shooting-star:nth-child(3) { top: 65%; left: -20%; animation-delay: 4.5s; }
+
+@keyframes shooting {
+  0% { 
+    /* By rotating FIRST, the translateX perfectly follows the angle */
+    transform: rotate(20deg) translateX(0); 
+    opacity: 1; 
+  }
+  15% { 
+    /* Shoots straight along its newly rotated 20-degree path */
+    transform: rotate(20deg) translateX(150vw); 
+    opacity: 0; 
+  }
+  100% { opacity: 0; }
+}
+
+.desktop-icons {
+  position: absolute;
+  top: 20px;
+  left: 20px;
+  bottom: 40px;
+  z-index: 8;
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  align-content: flex-start;
+  gap: 20px;
+}
+
+.desktop-icon {
+  appearance: none;
+  border: 0;
+  background: transparent;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  padding: 10px;
+  color: #ffffff;
+  text-decoration: none;
+  cursor: pointer;
+  border-radius: 8px;
+  width: 150px; 
+  flex: 0 0 calc(25% - 20px); 
+}
+
+.desktop-icon:hover,
+.desktop-icon:focus-visible {
+  background: rgba(121, 177, 255, 0.24);
+  outline: none;
+}
+
+.desktop-icon__art {
+  width: 70px;
+  height: 70px;
+  position: relative;
+}
+
+.desktop-icon__label {
+  font-size: 1.1rem;
+  line-height: 1.15;
+  text-align: center;
+  font-weight: 700;
+  text-shadow: 0 2px 4px rgba(0, 0, 0, 0.6);
+  margin-top: 8px;
+}
+
+.icon-folder,
+.icon-folder-small {
+  background: linear-gradient(180deg, #f9df78 0%, #d79a1f 100%);
+  border-radius: 7px;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 5px 7px rgba(0, 0, 0, 0.2);
+}
+
+.icon-folder::before,
+.icon-folder-small::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: -3px;
+  width: 22px;
+  height: 9px;
+  border-radius: 5px 5px 0 0;
+  background: #efcb59;
+}
+
+.icon-folder-small,
+.icon-image-small,
+.icon-figma-small,
+.icon-ie-small,
+.icon-bin-small {
+  display: inline-block;
+  width: 15px;
+  height: 13px;
+  position: relative;
+}
+
+.icon-app {
+  border-radius: 12px;
+  background: linear-gradient(180deg, #7ec8ff 0%, #3182dc 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.45), 0 5px 7px rgba(0, 0, 0, 0.2);
+}
+
+.icon-app::before {
+  content: "";
+  position: absolute;
+  left: 19px;
+  top: 7px;
+  width: 18px;
+  height: 18px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.92);
+}
+
+.icon-app::after {
+  content: "";
+  position: absolute;
+  left: 15px;
+  bottom: 6px;
+  width: 26px;
+  height: 15px;
+  border-radius: 14px 14px 5px 5px;
+  background: rgba(255, 255, 255, 0.9);
+}
+
+.icon-ie,
+.icon-ie-small {
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 52% 50%, #f2e783 0 14%, transparent 15%),
+    radial-gradient(circle at 50% 50%, #1f8fe8 0 50%, #0d5bb6 51% 100%);
+  box-shadow: 0 4px 8px rgba(8, 20, 50, 0.35);
+}
+
+.icon-ie::before,
+.icon-ie-small::before {
+  content: "";
+  position: absolute;
+  left: 5px;
+  right: 5px;
+  top: 23px;
+  height: 8px;
+  border-radius: 999px;
+  background: linear-gradient(90deg, #f4bf32 0%, #e9a800 100%);
+  transform: rotate(-20deg);
+  box-shadow: 0 0 0 1px rgba(196, 135, 0, 0.15);
+}
+
+.icon-ie::after,
+.icon-ie-small::after {
+  content: "";
+  position: absolute;
+  inset: 8px 17px 8px 17px;
+  border-radius: 999px;
+  border: 5px solid rgba(255, 255, 255, 0.9);
+  border-right-color: transparent;
+  border-left-color: transparent;
+}
+
+.icon-ie-small::before {
+  left: 1px;
+  right: 1px;
+  top: 5px;
+  height: 3px;
+}
+
+.icon-ie-small::after {
+  inset: 2px 4px;
+  border-width: 2px;
+}
+
+/* WINDOW STYLES */
+.window {
+  position: absolute;
+  left: var(--left, 20%);
+  top: var(--top, 10%);
+  width: min(var(--width, 500px), calc(100% - 40px));
+  min-width: 200px;
+  min-height: 100px;
+  display: flex;
+  flex-direction: column;
+  z-index: 5;
+  background: linear-gradient(180deg, var(--window-body-top) 0%, var(--window-body-bottom) 100%);
+  border: 1px solid #d7e4f8;
+  border-radius: 8px 8px 3px 3px;
+  box-shadow: var(--shadow-lg);
+  overflow: hidden;
+  
+  /* Smooth animations for opening, closing, and maximizing */
+transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.1), 
+              opacity 0.2s ease, 
+              visibility 0.2s linear, 
+              width 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1), 
+              height 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1), 
+              left 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1), 
+              top 0.3s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+  transform-origin: center;
+}
+
+/* Utility class to disable transitions during drag/resize */
+.window.no-transition {
+  transition: none !important;
+}
+
+/* Animated states for hidden and minimized windows */
+.window.is-hidden, 
+.window.is-minimized {
+  opacity: 0;
+  transform: scale(0.85); /* Shrinks down by 15% */
+  visibility: hidden;
+  pointer-events: none;
+}
+
+/* Explicitly define the open state */
+.window.is-open {
+  opacity: 1;
+  transform: scale(1);
+  visibility: visible;
+  pointer-events: auto;
+}
+
+.window.is-maximized {
+  left: 0 !important;
+  top: 0 !important;
+  width: 100% !important;
+  height: 100% !important;
+  max-width: none !important;
+  max-height: none !important; /* This removes the height limit when maximized */
+  border-radius: 0;
+}
+
+.window__titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px 7px 10px;
+  color: #243a67;
+  font-size: 1.02rem;
+  font-weight: 700;
+  background: linear-gradient(180deg, var(--window-title-top) 0%, var(--window-title-mid) 55%, var(--window-title-bottom) 100%);
+  cursor: grab;
+}
+
+.window.is-active .window__titlebar,
+.window.is-open .window__titlebar {
+  background: linear-gradient(180deg, var(--window-title-active-top) 0%, #d5e4fb 55%, var(--window-title-active-bottom) 100%);
+}
+
+.window__title {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+}
+
+.window__controls {
+  display: flex;
+  gap: 6px;
+}
+
+.window__control {
+  width: 27px;
+  height: 22px;
+  border: 1px solid #8d9ebb;
+  border-radius: 4px;
+  background: linear-gradient(180deg, #fefefe 0%, #dae4f3 100%);
+  position: relative;
+  cursor: pointer;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.75);
+  
+  /* ADDED: Smooth transition for the button press */
+  transition: transform 0.1s ease, filter 0.1s ease; 
+}
+
+/* ADDED: Shrinks and darkens the button slightly when you click down */
+.window__control:active {
+  transform: scale(0.85);
+  filter: brightness(0.92);
+}
+
+.window__control::before,
+.window__control::after {
+  content: "";
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  background: #4a648f;
+}
+
+.window__control--min::before {
+  width: 10px;
+  height: 2px;
+  top: 60%;
+}
+
+.window__control--max::before {
+  width: 10px;
+  height: 8px;
+  background: transparent;
+  border: 2px solid #4a648f;
+}
+
+.window.is-maximized .window__control--max::before {
+  width: 9px;
+  height: 7px;
+  border-width: 2px;
+}
+
+.window.is-maximized .window__control--max::after {
+  width: 9px;
+  height: 7px;
+  background: transparent;
+  border: 2px solid #4a648f;
+  transform: translate(-32%, -18%);
+}
+
+.window__control--close {
+  background: linear-gradient(180deg, #f59a90 0%, #d85044 100%);
+  border-color: #af564d;
+}
+
+.window__control--close::before,
+.window__control--close::after {
+  width: 10px;
+  height: 2px;
+  background: #ffffff;
+}
+
+.window__control--close::before {
+  transform: translate(-50%, -50%) rotate(45deg);
+}
+
+.window__control--close::after {
+  transform: translate(-50%, -50%) rotate(-45deg);
+}
+
+.window__path {
+  padding: 8px 14px;
+  font-family: "Courier New", monospace;
+  font-size: 1.15rem;
+  color: #c5d8fa;
+  letter-spacing: 0.02em;
+  background: linear-gradient(180deg, rgba(11, 29, 67, 0.66), rgba(18, 37, 74, 0.46));
+  border-top: 1px solid rgba(255, 255, 255, 0.18);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.12);
+}
+
+.window__content {
+  padding: 16px;
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0 !important; /* Forces the div to shrink to the window size */
+}
+
+.window--browser .window__content {
+  padding: 0;
+}
+
+.about-card {
+  display: grid;
+  grid-template-columns: 150px 1fr;
+  gap: 20px;
+  align-items: center;
+  min-height: 250px;
+}
+
+.about-card__photo {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  border: 4px solid rgba(255, 255, 255, 0.22);
+  background:
+    radial-gradient(circle at 50% 22%, #1b2436 0 20%, transparent 21%),
+    radial-gradient(circle at 48% 35%, #d7bc98 0 24%, transparent 25%),
+    radial-gradient(circle at 47% 45%, #9f7e5f 0 31%, transparent 32%),
+    radial-gradient(circle at 46% 63%, #1d2d4c 0 46%, transparent 47%),
+    linear-gradient(180deg, #e8e1d6 0%, #cfc6ba 100%);
+}
+
+.about-card h1 {
+  margin: 0 0 8px;
+  font-size: 1.95rem;
+}
+
+.about-card p {
+  margin: 0 0 10px;
+  line-height: 1.45;
+  color: #edf4ff;
+}
+
+.about-card__meta {
+  color: #c9ddff;
+  font-size: 0.96rem;
+}
+
+.folder-note {
+  min-height: 120px;
+  display: grid;
+  place-items: center;
+  text-align: center;
+}
+
+.folder-note p {
+  margin: 0;
+  max-width: 25ch;
+  line-height: 1.45;
+}
+
+.folder-grid {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 24px;
+  padding: 24px;
+  align-items: flex-start;
+  align-content: flex-start;
+  height: 100%;
+}
+
+.image-viewer {
+  padding: 14px;
+}
+
+.taskbar {
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 58px;
+  z-index: 20;
+  display: grid;
+  grid-template-columns: auto 1fr auto;
+  align-items: stretch;
+  gap: 12px;
+  padding: 0 8px 0 0;
+  background: linear-gradient(180deg, #2d6dc4 0%, #11448d 45%, #09275f 100%);
+  border-top: 1px solid rgba(255, 255, 255, 0.3);
+}
+
+.start-button {
+  height: 100%;
+  margin: 0;
+  border: 0;
+  border-radius: 0 14px 14px 0;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 0 20px;
+  color: #ffffff;
+  font-size: 1.1rem;
+  font-weight: 700;
+  background: linear-gradient(180deg, #4dc253 0%, #2b9a3d 55%, #177229 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.35), inset -10px 0 20px rgba(255, 255, 255, 0.08);
+  cursor: pointer;
+}
+
+.start-button__orb {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  background:
+    conic-gradient(#db4437 0 25%, #f4b400 25% 50%, #0f9d58 50% 75%, #4285f4 75% 100%);
+  position: relative;
+}
+
+.start-button__orb::before {
+  content: "";
+  position: absolute;
+  inset: 4px;
+  border-radius: 50%;
+  background: #ffffff;
+}
+
+.taskbar__windows {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-width: 0;
+  overflow-x: auto;
+  overflow-y: hidden;
+  scrollbar-width: none;
+}
+
+.taskbar__windows::-webkit-scrollbar {
+  display: none;
+}
+
+.taskbar__tab {
+  min-width: 170px;
+  max-width: 240px;
+  height: 40px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 4px;
+  padding: 0 14px;
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: #eef7ff;
+  background: linear-gradient(180deg, rgba(202, 229, 255, 0.28) 0%, rgba(64, 106, 171, 0.8) 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.2);
+  overflow: hidden;
+  cursor: pointer;
+}
+
+.taskbar__tab::before {
+  content: "";
+  width: 16px;
+  height: 16px;
+  flex: 0 0 auto;
+  border-radius: 4px;
+  background: linear-gradient(135deg, #3f8de5 0%, #8ed6ff 100%);
+}
+
+.taskbar__tab.is-active {
+  background: linear-gradient(180deg, rgba(246, 251, 255, 0.55) 0%, rgba(89, 121, 180, 0.9) 100%);
+}
+
+.taskbar__tab.is-minimized {
+  opacity: 0.78;
+  background: linear-gradient(180deg, rgba(167, 196, 236, 0.22) 0%, rgba(42, 80, 136, 0.72) 100%);
+}
+
+.taskbar__tab--folder::before {
+  border-radius: 3px;
+  background: linear-gradient(180deg, #f8dd72 0%, #d7a128 100%);
+}
+
+.taskbar__tab--app::before {
+  border-radius: 4px;
+  background: linear-gradient(180deg, #84cbff 0%, #3487e1 100%);
+}
+
+.taskbar__tab--ie::before {
+  border-radius: 50%;
+  background:
+    radial-gradient(circle at 52% 50%, #f2e783 0 14%, transparent 15%),
+    radial-gradient(circle at 50% 50%, #1f8fe8 0 50%, #0d5bb6 51% 100%);
+}
+
+.taskbar__tab-label {
+  display: block;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  font-weight: 700;
+}
+
+.system-tray {
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  gap: 10px;
+  padding: 0 10px;
+  background: transparent;
+}
+
+.taskbar__clock {
+  font-family: "Courier New", monospace;
+  font-size: 1.95rem;
+  background: transparent;
+  text-shadow: none;
+}
+
+.ie-toolbar {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: linear-gradient(180deg, #f8fbff 0%, #dbe8f8 100%);
+  color: #24406a;
+  border-top: 1px solid rgba(255, 255, 255, 0.78);
+  border-bottom: 1px solid rgba(131, 156, 200, 0.56);
+}
+
+.ie-toolbar__badge {
+  width: 22px;
+  height: 22px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  font-family: Georgia, serif;
+  font-style: italic;
+  font-weight: 700;
+  color: #0f5bb5;
+  background: linear-gradient(180deg, #fffbe8 0%, #ffe08a 100%);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.92);
+}
+
+.ie-toolbar__label {
+  font-size: 0.92rem;
+  font-weight: 700;
+}
+
+.ie-toolbar__address {
+  min-width: 0;
+  padding: 7px 10px;
+  border-radius: 4px;
+  color: #27416a;
+  font-family: "Segoe UI", Tahoma, sans-serif;
+  background: #ffffff;
+  border: 1px solid #9db2cf;
+  box-shadow: inset 0 1px 2px rgba(27, 53, 96, 0.08);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.browser-frame {
+  background: #ffffff;
+}
+
+.browser-frame__embed {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+  background: #ffffff;
+}
+
+.browser-empty-space {
+  background: #ffffff;
+  min-height: 500px;
+  height: 100%;
+}
+
+.title-icon-img {
+  width: 16px;
+  height: 16px;
+  object-fit: contain;
+}
+
+.desktop-icon__img {
+  width: 64px;
+  height: 64px;
+  object-fit: contain;
+}
+
+/* RESIZE HANDLES */
+.resizer {
+  position: absolute;
+  z-index: 10;
+}
+
+.resizer-r {
+  cursor: e-resize;
+  width: 10px;
+  right: -5px;
+  top: 0;
+  bottom: 0;
+}
+
+.resizer-b {
+  cursor: s-resize;
+  height: 10px;
+  bottom: -5px;
+  left: 0;
+  right: 0;
+}
+
+.resizer-br {
+  cursor: se-resize;
+  width: 15px;
+  height: 15px;
+  right: -5px;
+  bottom: -5px;
+}
+
+.is-dragging, .is-resizing {
+  user-select: none;
+}
+
+/* --- WELCOME TYPEWRITER WIDGET --- */
+.welcome-widget {
+  position: absolute;
+  bottom: 80px; /* Sits nicely above the 58px taskbar */
+  right: 30px;
+  text-align: right;
+  color: #ffffff;
+  z-index: 10; /* High enough to be seen, but sits behind open windows */
+  pointer-events: none; /* Allows mouse clicks to pass right through it */
+}
+
+.welcome-widget__title {
+  font-size: 2.4rem;
+  font-weight: 1000;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+  margin-bottom: 5px;
+}
+
+.welcome-widget__subtitle {
+  font-size: 1.50rem;
+  font-weight: 600;
+  text-shadow: 0 2px 6px rgba(0, 0, 0, 0.6);
+}
+
+.typewriter-text {
+  font-weight: 700;
+  /* Using a gold color to match your sun/folders and make the roles pop */
+  color: #0084ff; 
+}
+
+/* The Blinking Cursor Animation */
+.cursor {
+  display: inline-block;
+  font-weight: 700;
+  color: #0084ff; 
+  margin-left: 2px;
+  animation: blink 1s step-end infinite;
+}
+
+@keyframes blink {
+  0%, 100% { opacity: 1; }
+  50% { opacity: 0; }
+}
+
+/* ==========================================
+   APP LANDING PAGE (TAP IN BROWSER)
+   ========================================== */
+
+.app-landing-page {
+  background-color: #030303;
+  color: #ffffff;
+  overflow-y: auto;
+  overflow-x: hidden;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  text-align: center;
+  padding-bottom: 80px;
+}
+
+/* --- Hero Section --- */
+.app-hero {
+  padding: 60px 20px 0;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.app-hero__Timeframe {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  padding: 6px 16px 6px 6px;
+  border-radius: 50px;
+  font-size: 0.85rem;
+  color: #cccccc;
+  margin-bottom: 30px;
+}
+
+.waitlist-avatars {
+  display: flex;
+}
+
+.waitlist-avatars .avatar {
+  width: 24px;
+  height: 24px;
+  border-radius: 50%;
+  background: #444;
+  border: 2px solid #030303;
+  margin-left: -8px;
+}
+
+.app-hero__title {
+  font-size: clamp(2rem, 5vw, 3.5rem);
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 20px;
+}
+
+.app-hero__subtitle {
+  font-size: 1.1rem;
+  color: #a0a0a0;
+  line-height: 1.5;
+  margin: 0 0 30px;
+}
+
+.app-hero__btn {
+  background: #ffffff;
+  color: #000000;
+  border: none;
+  border-radius: 8px;
+  padding: 14px 32px;
+  font-size: 1rem;
+  font-weight: 600;
+  cursor: pointer;
+  margin-bottom: 20px;
+  transition: transform 0.2s ease;
+}
+
+.app-hero__btn:hover {
+  transform: scale(1.05);
+}
+
+.app-hero__stores {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  font-size: 0.9rem;
+  color: #777;
+  margin-bottom: 60px;
+}
+
+.store-icons {
+  display: flex;
+  gap: 8px;
+}
+
+.store-badge {
+  display: inline-grid;
+  place-items: center;
+  width: 28px;
+  height: 28px;
+  background: #1a1a1a;
+  border-radius: 50%;
+  color: #fff;
+  font-size: 0.7rem;
+}
+
+/* Phones Container */
+.app-hero__phones {
+  display: flex;
+  justify-content: center;
+  align-items: flex-end;
+  gap: 20px;
+  margin-top: 20px;
+  max-width: 1000px;
+  position: relative;
+}
+
+.phone-mockup {
+  width: 100%;
+  max-width: 280px;
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.8));
+}
+
+.phone-left {
+  transform: rotate(-8deg) translateY(40px);
+}
+
+.phone-right {
+  transform: rotate(8deg) translateY(40px);
+}
+
+.phone-center {
+  transform: translateY(-20px);
+  z-index: 2;
+  max-width: 300px;
+}
+
+/* --- Benefits Section --- */
+.app-benefits {
+  padding: 100px 20px 40px;
+  background: linear-gradient(180deg, #030303 0%, #0a0a0a 100%);
+}
+
+.app-benefits__title {
+  font-size: 2.5rem;
+  font-weight: 800;
+  margin: 0 0 15px;
+}
+
+.app-benefits__subtitle {
+  color: #a0a0a0;
+  font-size: 1.1rem;
+  line-height: 1.5;
+  margin: 0 0 60px;
+}
+
+.app-benefits__grid {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 40px;
+  max-width: 1100px;
+  margin: 0 auto;
+}
+
+.benefits-col {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+  flex: 1;
+  max-width: 320px;
+}
+
+.benefit-card {
+  background: #0d0d0d;
+  border: 1px solid #1a1a1a;
+  border-radius: 16px;
+  padding: 30px;
+  text-align: left;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.benefit-card:hover {
+  transform: translateY(-5px);
+  border-color: #333;
+}
+
+.benefit-icon {
+  width: 40px;
+  height: 40px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  border-radius: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.2rem;
+  margin-bottom: 20px;
+}
+
+.benefit-card h3 {
+  font-size: 1.25rem;
+  font-weight: 700;
+  margin: 0 0 10px;
+}
+
+.benefit-card p {
+  color: #888;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+.benefits-center .phone-profile {
+  max-width: 300px;
+}
+
+/* Responsive adjustments for the internal window */
+@media (max-width: 900px) {
+  .app-benefits__grid {
+    flex-direction: column;
+  }
+  .app-hero__phones {
+    flex-direction: column;
+    align-items: center;
+  }
+  .phone-left, .phone-right {
+    display: none; /* Hide side phones on very small windows */
+  }
+  .phone-center {
+    transform: none;
+  }
+}
+
+/* --- Case Study Text Blocks --- */
+.case-study-block {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: left;
+  background: #0d0d0d;
+  border: 1px solid #1a1a1a;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+}
+
+.case-study-block h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-top: 0;
+  margin-bottom: 15px;
+}
+
+.case-study-block ul {
+  padding-left: 20px;
+  color: #a0a0a0;
+  line-height: 1.6;
+  font-size: 1.05rem;
+}
+
+.case-study-block li {
+  margin-bottom: 16px;
+}
+
+.case-study-block li:last-child {
+  margin-bottom: 0;
+}
+
+/* Phones Container - Aligns all items through their horizontal center */
+.app-hero__phones {
+  display: flex;
+  justify-content: center;
+  align-items: center; /* Changed from flex-end to center */
+  gap: 50px;
+  margin-top: 20px;
+  max-width: 1100px;
+  position: relative;
+}
+
+/* Base phone sizing */
+.phone-mockup {
+  width: 100%;
+  max-width: 230px; 
+  height: auto;
+  object-fit: contain;
+  filter: drop-shadow(0 20px 40px rgba(0, 0, 0, 0.8));
+}
+
+/* Left Phone - Removed rotation and vertical shift */
+.phone-left {
+  transform: none; 
+}
+
+/* Right Phone - Removed rotation and vertical shift */
+.phone-right {
+  transform: none; 
+}
+
+/* Center Phone - Kept larger, but removed the vertical shift to align perfectly */
+.phone-center {
+  transform: none;
+  z-index: 2;
+  max-width: 320px; 
+}
+
+/* --- Solutions Grid (New 3x2 Centered Layout) --- */
+.solutions-grid {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 30px;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+.solution-card {
+  width: calc(33.333% - 20px); /* Ensures exactly 3 fit per row */
+  min-width: 300px;
+  max-width: 360px;
+  background: #080808;
+  border: 1px solid #1a1a1a;
+  border-radius: 16px;
+  padding: 24px;
+  text-align: left;
+  transition: transform 0.2s ease, border-color 0.2s ease;
+}
+
+.solution-card:hover {
+  transform: translateY(-5px);
+  border-color: #333;
+}
+
+/* The dark placeholder area for your images */
+.solution-card__img-slot {
+  background: #111111; 
+  border: 1px solid #222;
+  border-radius: 12px;
+  height: 220px;
+  margin-bottom: 24px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+}
+
+.solution-card__img-slot img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover; 
+}
+
+.solution-card__header {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.benefit-icon-small {
+  font-size: 1.4rem;
+}
+
+.solution-card h3 {
+  font-size: 1.3rem;
+  font-weight: 700;
+  margin: 0;
+}
+
+.solution-card p {
+  color: #888;
+  font-size: 0.95rem;
+  line-height: 1.5;
+  margin: 0;
+}
+
+/* Make it responsive for smaller internal windows */
+@media (max-width: 1100px) {
+  .solution-card {
+    width: calc(50% - 15px); /* Drops to 2 per row on medium sizes */
+  }
+}
+@media (max-width: 700px) {
+  .solution-card {
+    width: 100%; /* Drops to 1 per row on small sizes */
+  }
+}
+
+/* --- Bottom Navigation --- */
+.app-footer-nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+  padding: 0 20px 60px; 
+  background-color: #030303; 
+}
+
+/* Style both the links and the button identically */
+.app-footer-nav a,
+.nav-link-btn {
+  color: #8da3bd; 
+  text-decoration: none;
+  font-size: 1.1rem;
+  font-weight: 500;
+  background: transparent;
+  border: none;
+  padding: 0;
+  cursor: pointer;
+  font-family: inherit;
+  transition: color 0.2s ease;
+}
+
+.app-footer-nav a:hover,
+.nav-link-btn:hover {
+  color: #ffffff; 
+}
+
+.app-footer-nav .nav-dot {
+  color: #333333; 
+  font-size: 1.2rem;
+}
+
+/* --- Image Lightbox Modal --- */
+.clickable-image {
+  cursor: pointer;
+  transition: transform 0.2s ease, opacity 0.2s ease;
+}
+
+.clickable-image:hover {
+  transform: scale(1.05);
+  opacity: 0.8;
+}
+
+.lightbox-modal {
+  position: fixed;
+  top: 0; 
+  left: 0; 
+  width: 100vw; 
+  height: 100vh;
+  z-index: 999999; /* Keeps it above the taskbar and all windows */
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  opacity: 1;
+  visibility: visible;
+  transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.lightbox-modal.is-hidden {
+  opacity: 0;
+  visibility: hidden;
+  pointer-events: none;
+}
+
+.lightbox-modal__bg {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.65);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  cursor: pointer; /* Clicking the background will also close it */
+}
+
+.lightbox-modal__img {
+  position: relative;
+  max-width: 90vw;
+  max-height: 90vh;
+  object-fit: contain;
+  border-radius: 8px;
+  box-shadow: 0 10px 40px rgba(0,0,0,0.6);
+  z-index: 2;
+}
+
+.lightbox-modal__close {
+  position: absolute;
+  top: 25px;
+  right: 40px;
+  background: transparent;
+  border: none;
+  color: #ffffff;
+  font-size: 3.5rem;
+  font-weight: 300;
+  line-height: 1;
+  cursor: pointer;
+  z-index: 3;
+  transition: transform 0.2s, color 0.2s;
+  padding: 10px;
+}
+
+.lightbox-modal__close:hover {
+  transform: scale(1.1);
+  color: #ff6b6b;
+}
+
+.window__titlebar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 8px 10px 7px 10px;
+  color: #243a67;
+  font-size: 1.02rem;
+  font-weight: 700;
+  background: linear-gradient(180deg, var(--window-title-top) 0%, var(--window-title-mid) 55%, var(--window-title-bottom) 100%);
+  cursor: grab;
+  flex-shrink: 0; /* Add this line */
+}
+
+.ie-toolbar {
+  display: grid;
+  grid-template-columns: auto auto 1fr;
+  align-items: center;
+  gap: 10px;
+  padding: 8px 12px;
+  background: linear-gradient(180deg, #f8fbff 0%, #dbe8f8 100%);
+  color: #24406a;
+  border-top: 1px solid rgba(255, 255, 255, 0.78);
+  border-bottom: 1px solid rgba(131, 156, 200, 0.56);
+  flex-shrink: 0; /* Add this line */
+}
+
+/* ==========================================
+   WINDOW SCROLLING & SQUISHING FIXES
+   ========================================== */
+
+/* 1. Prevent windows from bleeding off the bottom of the screen on load */
+.window {
+  max-height: calc(100vh - 80px);
+}
+
+/* 2. Force the content area to shrink and scroll properly */
+.window__content,
+.window__content.app-landing-page,
+.window__content.browser-empty-space {
+  flex: 1 1 auto !important;
+  min-height: 0 !important; 
+  height: auto !important;
+  overflow-y: auto !important;
+}
+
+/* 3. Protect your toolbars so they don't squish when the window gets tiny */
+.window__titlebar,
+.ie-toolbar {
+  flex-shrink: 0 !important;
+}
+
+/* 4. Ensure the body of the app landing page doesn't hide overflowing content horizontally */
+.app-landing-page {
+  overflow-x: hidden;
+}
+
+/* ==========================================
+   MOBILE RESPONSIVE STYLES
+   ========================================== */
+
+@media (max-width: 768px) {
+  
+  /* 1. Welcome Widget Scaling */
+  .welcome-widget {
+    right: 15px;
+    bottom: 75px; 
+    left: 15px;
+    text-align: right;
+  }
+  .welcome-widget__title {
+    font-size: 1.6rem; 
+    line-height: 1.2;
+    margin-bottom: 8px;
+  }
+  .welcome-widget__subtitle {
+    font-size: 1.1rem; 
+  }
+
+  /* 2. Desktop Icons - Larger and easier to tap */
+  .desktop-icons {
+    top: 10px;
+    left: 10px;
+    right: 10px;
+    bottom: auto;
+    flex-direction: row; 
+    gap: 15px; /* Added more space between icons */
+  }
+  .desktop-icon {
+    width: 90px; /* Increased for better tap targets */
+    padding: 8px;
+    flex: 0 0 auto;
+  }
+  .desktop-icon__img {
+    width: 60px; /* Increased icon size */
+    height: 60px;
+  }
+  .desktop-icon__label {
+    font-size: 0.95rem; /* Larger font */
+  }
+
+  /* 3. Taskbar Adjustments */
+  .start-button {
+    padding: 0 12px;
+  }
+  .start-button span {
+    display: none; 
+  }
+  .taskbar__clock {
+    font-size: 1.2rem;
+  }
+  .taskbar__tab {
+    min-width: auto;
+    padding: 0 10px;
+  }
+  .taskbar__tab-label {
+    max-width: 70px; 
+  }
+
+  /* 4. Windows - Allow Shrinking/Maximizing */
+  
+  /* Standard size when a window is "shrunk" (Restored) */
+  .window {
+    top: 5vh !important;
+    left: 5vw !important;
+    width: 90vw !important;
+    height: 75vh !important; 
+    max-height: calc(100vh - 100px) !important;
+    border-radius: 8px 8px 3px 3px !important;
+  }
+
+  /* Full Screen size when a window is Maximized */
+  .window.is-maximized {
+    top: 0 !important;
+    left: 0 !important;
+    width: 100vw !important;
+    height: calc(100vh - 58px) !important; /* Reaches the taskbar */
+    max-width: none !important;
+    max-height: none !important;
+    border-radius: 0 !important;
+  }
+  
+  /* Ensure animations and hidden states work perfectly */
+  .window.is-hidden, 
+  .window.is-minimized {
+    transform: scale(0.9) !important;
+    opacity: 0 !important;
+    visibility: hidden !important;
+    pointer-events: none !important;
+  }
+  
+  .window.is-open {
+    transform: scale(1) !important;
+  }
+  
+  /* Hide resize corner/edge handlers on mobile */
+  .resizer {
+    display: none !important;
+  }
+  
+  /* 5. Inner Window Content Tweaks */
+  .about-card {
+    grid-template-columns: 1fr; 
+    text-align: center;
+    gap: 10px;
+  }
+  .about-card__photo {
+    width: 120px;
+    margin: 0 auto;
+  }
+}
+
+/* Extra small screen adjustments */
+@media (max-width: 400px) {
+  .welcome-widget__title { font-size: 1.3rem; }
+  .welcome-widget__subtitle { font-size: 0.95rem; }
+  .app-hero__title { font-size: 1.8rem; }
+}
+
+/* ==========================================
+   REEL LANDING PAGE OVERRIDES
+   ========================================== */
+
+/* Main background color for the Reel page */
+.reel-landing-page {
+  background-color: #0B1220 !important;
+}
+
+/* Remove the default gradient on the benefits section to match the solid background */
+.reel-landing-page .app-benefits {
+  background: transparent !important;
+}
+
+/* Update the large case study blocks with a complementary slate-blue */
+.reel-landing-page .case-study-block {
+  background: #111A2E;
+  border-color: #1E2A45;
+}
+
+/* Update the grid cards to match */
+.reel-landing-page .solution-card {
+  background: #111A2E;
+  border-color: #1E2A45;
+}
+
+/* Slightly lighter hover state for the borders */
+.reel-landing-page .solution-card:hover {
+  border-color: #3b5284;
+}
+
+/* Darken the image slot background so it blends nicely */
+.reel-landing-page .solution-card__img-slot {
+  background: #080D17;
+  border-color: #1E2A45;
+}
+
+/* Tweak the timeframe pill colors */
+.reel-landing-page .app-hero__Timeframe {
+  background: rgba(255, 255, 255, 0.03);
+  border-color: rgba(255, 255, 255, 0.15);
+  color: #a0afc0;
+}
+
+/* Ensure the footer nav matches the Reel background */
+.reel-landing-page .app-footer-nav {
+  background-color: transparent !important;
+}
+
+/* ==========================================
+   MIXR LANDING PAGE OVERRIDES
+   ========================================== */
+
+/* Main vibrant linear gradient background */
+.mixr-landing-page {
+  background: linear-gradient(135deg, #4A1A75 0%, #000000 100%) !important;
+}
+
+/* Remove default gradients from inner sections so the main background shines through */
+.mixr-landing-page .app-benefits {
+  background: transparent !important;
+}
+
+/* Dark translucent cards to maintain text readability over the gradient */
+.mixr-landing-page .case-study-block,
+.mixr-landing-page .solution-card {
+  background: rgba(#0d0d0d);
+  border-color: rgba(255, 255, 255, 0.1);
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.mixr-landing-page .solution-card:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+  transform: translateY(-5px);
+}
+
+/* Darken the image slots to match the cards */
+.mixr-landing-page .solution-card__img-slot {
+  background: rgba(0, 0, 0, 0.4);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+/* Ensure the footer nav matches the background */
+.mixr-landing-page .app-footer-nav {
+  background-color: transparent !important;
+}
+
+/* Adjust timeframe pill colors for visibility */
+.mixr-landing-page .app-hero__Timeframe {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.2);
+  color: #d1d9e6;
+}
+
+/* ==========================================
+   CJC MUSIC LANDING PAGE OVERRIDES
+   ========================================== */
+
+/* Apply the pitch black background */
+.cjc-landing-page {
+  background-color: #000000 !important;
+}
+
+.cjc-landing-page .app-benefits {
+  background: transparent !important;
+}
+
+.cjc-landing-page .case-study-block,
+.cjc-landing-page .solution-card {
+  background: #14021d; 
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.cjc-landing-page .solution-card:hover {
+  border-color: rgba(255, 255, 255, 0.3);
+}
+
+.cjc-landing-page .solution-card__img-slot {
+  background: rgba(0, 0, 0, 0.5);
+  border-color: rgba(255, 255, 255, 0.05);
+}
+
+.cjc-landing-page .app-hero__Timeframe {
+  background: rgba(255, 255, 255, 0.05);
+  border-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Fix the footer navigation background color to blend correctly */
+.cjc-landing-page .app-footer-nav {
+  background-color: transparent !important;
+}
+
+.cjc-landing-page .app-footer-nav a {
+  color: #a0a0a0;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.cjc-landing-page .app-footer-nav a:hover {
+  color: #ffffff;
+}
+
+/* --- 2 Cards Per Row Grid Adjustments --- */
+.cjc-landing-page .solutions-grid {
+  max-width: 1000px;
+}
+
+.cjc-landing-page .solution-card {
+  width: calc(50% - 15px); 
+  max-width: 480px; 
+}
+
+@media (max-width: 768px) {
+  .cjc-landing-page .solution-card {
+    width: 100%;
+  }
+}
+
+/* ==========================================
+   THE BARATIE LANDING PAGE OVERRIDES
+   ========================================== */
+
+/* Apply the requested light blue background */
+.baratie-landing-page {
+  background-color: #3066a8 !important;
+}
+
+.baratie-landing-page .app-benefits {
+  background: transparent !important;
+}
+
+/* Use a darker ocean blue for the cards and blocks for contrast */
+.baratie-landing-page .case-study-block,
+.baratie-landing-page .solution-card {
+  background: #3066a8; 
+  border-color: rgba(255, 255, 255, 0.2);
+}
+
+.baratie-landing-page .solution-card:hover {
+  border-color: rgba(255, 255, 255, 0.4);
+  transform: translateY(-5px);
+}
+
+.baratie-landing-page .solution-card__img-slot {
+  background: rgba(0, 0, 0, 0.2);
+  border-color: rgba(255, 255, 255, 0.1);
+}
+
+.baratie-landing-page .app-hero__Timeframe {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(255, 255, 255, 0.25);
+  color: #e0f2f8;
+}
+
+/* Fix footer navigation to blend with the blue */
+.baratie-landing-page .app-footer-nav {
+  background-color: transparent !important;
+}
+
+.baratie-landing-page .app-footer-nav a {
+  color: #e0f2f8;
+  font-weight: 600;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+}
+
+.baratie-landing-page .app-footer-nav a:hover {
+  color: #ffffff;
+}
+
+/* Make text a bit brighter against the blue */
+.baratie-landing-page p,
+.baratie-landing-page li {
+  color: #dcedf5 !important;
+}
+
+/* ==========================================
+   GALLERY FOLDER THUMBNAIL FIXES
+   ========================================== */
+
+.folder-grid .desktop-icon {
+  width: 110px; /* Gives the icon enough room to breathe inside the folder */
+  padding: 10px;
+}
+
+.gallery-thumbnail {
+  width: 80px;
+  height: 80px;
+  object-fit: cover; /* Crops the image into a perfect square without squishing */
+  border-radius: 6px;
+  box-shadow: 0 4px 10px rgba(0, 0, 0, 0.4);
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  margin-bottom: 5px;
+  transition: transform 0.2s ease;
+}
+
+.folder-grid .desktop-icon:hover .gallery-thumbnail {
+  transform: scale(1.05); /* Slight pop effect when hovered */
+}
+
+.folder-grid .desktop-icon__label {
+  word-break: break-word; /* Forces long text to wrap to the next line safely */
+  font-size: 0.85rem;
+  line-height: 1.3;
+}
+
+/* ==========================================
+   MODERN INSTAGRAM DESKTOP LAYOUT
+   ========================================== */
+
+.ig-modern-layout {
+  background-color: #ffffff !important;
+  color: #000000;
+  padding: 0 !important;
+  text-align: left;
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.ig-modern-container {
+  max-width: 935px;
+  margin: 0 auto;
+  padding: 30px 20px;
+}
+
+/* --- Header Layout --- */
+.ig-modern-header {
+  display: flex;
+  margin-bottom: 44px;
+}
+
+.ig-avatar-wrapper {
+  flex: 1 0 0;
+  display: flex;
+  justify-content: center;
+  margin-right: 30px;
+}
+
+.ig-avatar-img {
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  object-fit: cover;
+  border: 1px solid #dbdbdb;
+  padding: 3px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+}
+
+.ig-profile-info {
+  flex: 2 0 30px;
+}
+
+.ig-title-row {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20px;
+  gap: 20px;
+  flex-wrap: wrap;
+}
+
+.ig-username {
+  font-size: 1.25rem;
+  font-weight: 400;
+  margin: 0;
+}
+
+/* --- Modern Buttons --- */
+.ig-action-buttons {
+  display: flex;
+  gap: 8px;
+}
+
+.ig-btn-light {
+  background-color: #efefef;
+  color: #000000;
+  border: none;
+  border-radius: 8px;
+  padding: 7px 16px;
+  font-weight: 600;
+  font-size: 0.9rem;
+  cursor: pointer;
+  transition: background-color 0.2s, transform 0.1s;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.ig-btn-light:hover {
+  background-color: #dbdbdb;
+}
+
+.ig-btn-light:active {
+  transform: scale(0.96);
+}
+
+.icon-btn {
+  padding: 7px 10px;
+}
+
+.ig-btn-ghost {
+  background: transparent;
+  border: none;
+  font-size: 1.5rem;
+  cursor: pointer;
+  padding: 0 8px;
+}
+
+/* --- Stats --- */
+.ig-stats-row {
+  display: flex;
+  gap: 40px;
+  list-style: none;
+  padding: 0;
+  margin: 0 0 20px 0;
+  font-size: 1rem;
+}
+
+.ig-stat-count {
+  font-weight: 600;
+}
+
+/* --- Bio --- */
+.ig-bio-section {
+  font-size: 0.95rem;
+  line-height: 1.5;
+}
+
+.ig-real-name {
+  font-weight: 600;
+  display: block;
+}
+
+.ig-category {
+  color: #737373;
+  display: block;
+  margin-bottom: 5px;
+}
+
+.ig-bio-text {
+  margin: 0;
+  white-space: pre-line;
+}
+
+/* --- Tabs --- */
+.ig-tabs-wrapper {
+  border-top: 1px solid #dbdbdb;
+  display: flex;
+  justify-content: center;
+}
+
+.ig-tabs {
+  display: flex;
+  gap: 60px;
+}
+
+.ig-tab {
+  background: transparent;
+  border: none;
+  border-top: 1px solid transparent;
+  color: #737373;
+  padding: 18px 0;
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 1px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  cursor: pointer;
+  transition: color 0.2s;
+  margin-top: -1px; /* Overlaps the border perfectly */
+}
+
+.ig-tab.active {
+  color: #000000;
+  border-top: 1px solid #000000;
+}
+
+/* --- Grid --- */
+.ig-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 28px; /* Desktop spacing */
+  padding-top: 20px;
+}
+
+.ig-grid-item {
+  aspect-ratio: 1;
+  position: relative;
+  overflow: hidden;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.ig-grid-item img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.4s ease;
+}
+
+/* Interactive Hover Overlay */
+.ig-grid-overlay {
+  position: absolute;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.3);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: #ffffff;
+  font-weight: 800;
+  font-size: 1.2rem;
+  opacity: 0;
+  transition: opacity 0.2s ease;
+  pointer-events: none;
+  z-index: 2;
+}
+
+.ig-grid-item:hover .ig-grid-overlay {
+  opacity: 1;
+}
+
+.ig-grid-item:hover img {
+  transform: scale(1.03); /* Subtle zoom on hover */
+}
+
+.ig-video-icon {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  z-index: 5;
+  pointer-events: none;
+  filter: drop-shadow(0 2px 4px rgba(0,0,0,0.5));
+}
+
+/* --- Entrance Animations --- */
+@keyframes fadeIn {
+  from { opacity: 0; }
+  to { opacity: 1; }
+}
+
+@keyframes slideUpFade {
+  from { opacity: 0; transform: translateY(20px); }
+  to { opacity: 1; transform: translateY(0); }
+}
+
+.animate-fade-in {
+  opacity: 0;
+  animation: fadeIn 0.6s ease-out forwards;
+}
+
+.animate-slide-up {
+  opacity: 0;
+  animation: slideUpFade 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+}
+
+/* Responsive tweaks for smaller windows */
+@media (max-width: 768px) {
+  .ig-modern-header {
+    flex-direction: column;
+    margin-bottom: 24px;
+  }
+  .ig-avatar-wrapper {
+    margin-right: 0;
+    margin-bottom: 20px;
+    justify-content: flex-start;
+  }
+  .ig-avatar-img {
+    width: 80px;
+    height: 80px;
+  }
+  .ig-grid {
+    gap: 4px;
+  }
+}
+
+/* ==========================================
+   INSTAGRAM BIO ADDITIONS (MUSIC & BANNER)
+   ========================================== */
+
+/* The Banner Tag (Pill) */
+.ig-bio-links {
+  margin-top: 10px;
+}
+
+.ig-link-pill {
+  display: inline-flex;
+  align-items: center;
+  background-color: #efefef;
+  color: #000000;
+  padding: 5px 12px;
+  border-radius: 14px;
+  font-size: 0.85rem;
+  font-weight: 600;
+  cursor: default;
+}
+
+/* Profile Music Player */
+.ig-profile-music {
+  display: inline-flex;
+  align-items: center;
+  margin-top: 10px;
+  padding: 6px 14px;
+  background-color: #efefef;
+  border-radius: 20px;
+  cursor: pointer;
+  transition: background-color 0.2s ease, transform 0.1s ease;
+  user-select: none;
+}
+
+.ig-profile-music:hover {
+  background-color: #dbdbdb;
+}
+
+.ig-profile-music:active {
+  transform: scale(0.97);
+}
+
+.ig-music-icon {
+  font-size: 0.9rem;
+  margin-right: 10px;
+  color: #000000;
+  width: 14px; /* Keeps the spacing consistent when swapping to pause */
+  text-align: center;
+}
+
+.ig-music-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.ig-music-title {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: #000000;
+  line-height: 1.2;
+}
+
+.ig-music-artist {
+  font-size: 0.75rem;
+  color: #737373;
+}
+
+/* ==========================================
+   INSTAGRAM GRID FIXES (PREVENT JUMPING)
+   ========================================== */
+
+/* Give the grids a minimum height so the page doesn't collapse when empty */
+.ig-grid {
+  min-height: 400px;
+  align-content: start; /* Keeps items at the top even if the grid is tall */
+}
+
+/* Force the scrollbar to always show on the Instagram window.
+   This prevents the page from shifting left/right when the scrollbar appears/disappears */
+.ig-modern-layout {
+  overflow-y: scroll !important; 
+}
+
+/* ==========================================
+   DARK IMAGE VIEWER (GALLERY)
+   ========================================== */
+
+.dark-image-viewer {
+  display: flex;
+  flex-direction: column;
+  background-color: #000000;
+  color: #ffffff;
+  padding: 0 !important;
+  overflow: hidden; /* Prevents the whole window from scrolling incorrectly */
+  height: 100%;
+}
+
+/* The space where the image sits */
+.dark-viewer__img-container {
+  /* flex: 1 1 0px forces the container to fit the available space, ignoring the image's native massive size */
+  flex: 1 1 0px; 
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background-color: #000000; 
+  padding: 20px;
+  border-bottom: 1px solid #1a1a1a;
+  min-height: 0; 
+  overflow: hidden; /* Strictly prevents the portrait image from overlapping the text */
+}
+
+.dark-viewer__img-container img {
+  max-width: 100%;
+  max-height: 100%; 
+  object-fit: contain; /* Ensures the whole image stays visible */
+  filter: drop-shadow(0 10px 20px rgba(0,0,0,0.5));
+}
+
+/* The metadata and description box at the bottom */
+.dark-viewer__details {
+  flex-shrink: 0; /* Prevents the text box from EVER being squished by the image */
+  padding: 25px 30px;
+  background-color: #0a0a0a; 
+  overflow-y: auto; /* Allows you to scroll just the text if the window gets super tiny */
+  max-height: 40%; /* Ensures the details don't take up more than 40% of the screen on small monitors */
+}
+
+/* File Name & Date styling */
+.dark-viewer__meta {
+  font-size: 0.95rem;
+  margin-bottom: 8px;
+  color: #a0a0a0;
+}
+
+.dark-viewer__meta .meta-label {
+  font-weight: 700;
+  color: #ffffff;
+  margin-right: 8px;
+  display: inline-block;
+  min-width: 110px; 
+}
+
+/* Description styling */
+.dark-viewer__description {
+  margin-top: 20px;
+  border-top: 1px solid #222222;
+  padding-top: 20px;
+}
+
+.dark-viewer__description h3 {
+  font-size: 1.25rem;
+  margin: 0 0 10px 0;
+  color: #ffffff;
+  font-weight: 700;
+}
+
+.dark-viewer__description p {
+  color: #cccccc;
+  line-height: 1.6;
+  font-size: 1rem;
+  margin: 0;
+  max-width: 900px;
+}
+
+/* ==========================================
+   MUSIC SNIPPETS PLAYER (MODERN CHROME)
+   ========================================== */
+
+.mp-layout {
+  /* Dark chrome / glossy gradient background */
+  background: linear-gradient(180deg, #2c313a 0%, #15181c 50%, #0d0f12 100%);
+  color: #ffffff;
+  display: flex;
+  flex-direction: row;
+  padding: 0 !important;
+  height: 100%;
+  box-shadow: inset 0 1px 1px rgba(255, 255, 255, 0.1);
+}
+
+/* --- Left Sidebar (Playlist) --- */
+.mp-sidebar {
+  width: 260px;
+  background: rgba(0, 0, 0, 0.35);
+  border-right: 1px solid rgba(255, 255, 255, 0.08);
+  box-shadow: inset -5px 0 15px rgba(0,0,0,0.5);
+  display: flex;
+  flex-direction: column;
+}
+
+.mp-sidebar-header {
+  padding: 15px 20px;
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  color: #8fa0b5;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.05);
+  background: linear-gradient(180deg, rgba(255,255,255,0.05) 0%, transparent 100%);
+}
+
+.mp-playlist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  overflow-y: auto;
+  flex: 1;
+}
+
+.mp-playlist li {
+  padding: 12px 20px;
+  font-size: 0.95rem;
+  font-weight: 500;
+  color: #cccccc;
+  cursor: pointer;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.03);
+  transition: background 0.2s, color 0.2s;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.mp-playlist li:hover {
+  background: rgba(255, 255, 255, 0.05);
+  color: #ffffff;
+}
+
+/* The currently playing track styling */
+.mp-playlist li.is-active {
+  background: linear-gradient(90deg, rgba(0, 163, 255, 0.15) 0%, transparent 100%);
+  color: #00e5ff;
+  border-left: 4px solid #00e5ff;
+  font-weight: 700;
+}
+
+.mp-playlist li.is-active::before {
+  content: '▶';
+  font-size: 0.7rem;
+}
+
+/* --- Right Main Area (Player) --- */
+.mp-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 30px 40px;
+  position: relative;
+}
+
+/* --- Visualizer --- */
+.mp-visualizer {
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  gap: 5px;
+  height: 60px;
+  margin-bottom: 30px;
+  width: 100%;
+}
+
+.mp-bar {
+  width: 8px;
+  background-color: #00a3ff;
+  border-radius: 4px;
+  height: 10px;
+  box-shadow: 0 0 8px rgba(0, 163, 255, 0.6);
+  animation: eq-bounce 1s infinite alternate;
+  animation-play-state: paused; 
+}
+
+.mp-visualizer.is-playing .mp-bar { animation-play-state: running; }
+
+.mp-bar:nth-child(1) { animation-duration: 0.4s; }
+.mp-bar:nth-child(2) { animation-duration: 0.6s; animation-delay: 0.1s; }
+.mp-bar:nth-child(3) { animation-duration: 0.5s; animation-delay: 0.2s; }
+.mp-bar:nth-child(4) { animation-duration: 0.7s; animation-delay: 0.3s; }
+.mp-bar:nth-child(5) { animation-duration: 0.45s; animation-delay: 0.4s; }
+.mp-bar:nth-child(6) { animation-duration: 0.55s; animation-delay: 0.5s; }
+.mp-bar:nth-child(7) { animation-duration: 0.4s; animation-delay: 0.1s; }
+.mp-bar:nth-child(8) { animation-duration: 0.65s; animation-delay: 0.3s; }
+.mp-bar:nth-child(9) { animation-duration: 0.5s; animation-delay: 0.2s; }
+.mp-bar:nth-child(10){ animation-duration: 0.7s; animation-delay: 0.4s; }
+.mp-bar:nth-child(11){ animation-duration: 0.45s; animation-delay: 0.1s;}
+.mp-bar:nth-child(12){ animation-duration: 0.6s; }
+
+@keyframes eq-bounce {
+  0%   { height: 10px; background-color: #00a3ff; }
+  100% { height: 100%; background-color: #00e5ff; box-shadow: 0 0 15px rgba(0, 229, 255, 0.8); }
+}
+
+/* --- Text & Info --- */
+.mp-info {
+  text-align: center;
+  margin-bottom: 25px;
+}
+
+#mp-title {
+  margin: 0 0 5px 0;
+  font-size: 1.6rem;
+  font-weight: 800;
+  text-shadow: 0 2px 4px rgba(0,0,0,0.8);
+}
+
+#mp-artist {
+  margin: 0;
+  color: #8fa0b5;
+  font-size: 1rem;
+}
+
+/* --- Progress Bar --- */
+.mp-progress-container {
+  display: flex;
+  align-items: center;
+  width: 100%;
+  max-width: 400px;
+  gap: 15px;
+  margin-bottom: 25px;
+  transition: max-width 0.3s ease;
+}
+
+.mp-progress-container span {
+  font-family: "Courier New", Courier, monospace;
+  font-size: 0.85rem;
+  color: #8fa0b5;
+  transition: font-size 0.3s ease;
+}
+
+/* Upgraded Smooth Seek Bar with dynamic color */
+#mp-seek-bar {
+  flex: 1;
+  appearance: none;
+  height: 6px;
+  border-radius: 5px;
+  outline: none;
+  /* Uses a CSS variable to color the left side blue and the right side dark */
+  background: linear-gradient(to right, #00e5ff 0%, #00e5ff var(--progress, 0%), rgba(0,0,0,0.6) var(--progress, 0%), rgba(0,0,0,0.6) 100%);
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.8), 0 1px 0 rgba(255,255,255,0.1);
+  cursor: pointer;
+  transition: height 0.3s ease;
+}
+
+#mp-seek-bar::-webkit-slider-thumb {
+  appearance: none;
+  width: 16px;
+  height: 16px;
+  border-radius: 50%;
+  background: radial-gradient(circle at 30% 30%, #ffffff, #a0b0c0);
+  box-shadow: 0 2px 5px rgba(0,0,0,0.8);
+  cursor: pointer;
+  transition: width 0.3s ease, height 0.3s ease;
+}
+
+
+/* ==========================================
+   MUSIC PLAYER MAXIMIZED STATE (SCALED UP)
+   ========================================== */
+
+/* Enlarges the sidebar */
+.window.is-maximized .mp-sidebar { width: 340px; }
+.window.is-maximized .mp-sidebar-header { font-size: 1.1rem; padding: 25px; }
+.window.is-maximized .mp-playlist li { font-size: 1.2rem; padding: 20px 25px; }
+
+/* Enlarges the main player area elements */
+.window.is-maximized #mp-title { font-size: 3rem; margin-bottom: 10px; }
+.window.is-maximized #mp-artist { font-size: 1.4rem; margin-bottom: 20px; }
+
+/* Scales up the visualizer */
+.window.is-maximized .mp-visualizer { height: 120px; margin-bottom: 50px; }
+.window.is-maximized .mp-bar { width: 14px; border-radius: 7px; }
+
+/* Scales up the progress bar */
+.window.is-maximized .mp-progress-container { max-width: 700px; margin-bottom: 40px; }
+.window.is-maximized .mp-progress-container span { font-size: 1.2rem; }
+.window.is-maximized #mp-seek-bar { height: 10px; }
+.window.is-maximized #mp-seek-bar::-webkit-slider-thumb { width: 24px; height: 24px; }
+
+/* Scales up the buttons */
+.window.is-maximized .mp-controls { gap: 40px; margin-bottom: 50px; }
+.window.is-maximized .mp-btn { width: 70px; height: 70px; font-size: 1.8rem; }
+.window.is-maximized .mp-play-btn { width: 90px; height: 90px; font-size: 2.8rem; }
+
+/* Scales up the tags */
+.window.is-maximized .mp-tag { font-size: 1.1rem; padding: 10px 20px; border-radius: 30px; }
+
+/* --- Controls (Chrome Buttons) --- */
+.mp-controls {
+  display: flex;
+  align-items: center;
+  gap: 25px;
+  margin-bottom: 30px;
+}
+
+.mp-btn {
+  background: linear-gradient(180deg, #4a5059 0%, #2b2e33 100%);
+  border: 1px solid #111;
+  box-shadow: inset 0 1px 1px rgba(255,255,255,0.2), 0 4px 6px rgba(0,0,0,0.6);
+  border-radius: 50%;
+  color: #ffffff;
+  width: 45px;
+  height: 45px;
+  display: grid;
+  place-items: center;
+  font-size: 1.2rem;
+  cursor: pointer;
+  transition: all 0.1s ease;
+}
+
+.mp-play-btn {
+  width: 60px;
+  height: 60px;
+  font-size: 1.8rem;
+}
+
+.mp-btn:hover {
+  background: linear-gradient(180deg, #5c636e 0%, #363a40 100%);
+  color: #00e5ff;
+}
+
+.mp-btn:active {
+  transform: scale(0.95);
+  box-shadow: inset 0 3px 6px rgba(0,0,0,0.8);
+}
+
+/* --- Tags --- */
+.mp-tags {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  justify-content: center;
+}
+
+.mp-tag {
+  background: rgba(0,0,0,0.4);
+  border: 1px solid rgba(255,255,255,0.1);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,0.05);
+  color: #aeb9c7;
+  padding: 5px 12px;
+  border-radius: 20px;
+  font-size: 0.75rem;
+  font-weight: 600;
+}
+
+/* ==========================================
+   DARK MODE: WINDOW FRAMES & FOLDERS FIX
+   ========================================== */
+
+/* 1. Darken the main background of all Windows (The "base blue" of the folders) */
+body.dark-theme .window {
+  background: linear-gradient(180deg, #0f172a 0%, #020617 100%) !important;
+  border-color: #1e293b !important;
+  box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8) !important;
+}
+
+/* 2. Darken the Title Bar (The stuff around the controls) */
+body.dark-theme .window__titlebar {
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 55%, #020617 100%) !important;
+  color: #e2e8f0 !important;
+  border-bottom: 1px solid #0f172a !important;
+}
+
+/* 3. Dark Mode Window Controls (Min, Max, Close backgrounds) */
+body.dark-theme .window__control {
+  border-color: #334155 !important;
+  background: linear-gradient(180deg, #334155 0%, #0f172a 100%) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1) !important;
+}
+
+/* The icons inside the controls */
+body.dark-theme .window__control::before,
+body.dark-theme .window__control::after {
+  background: #94a3b8 !important;
+}
+
+/* Maximize hollow square fix */
+body.dark-theme .window__control--max::before,
+body.dark-theme .window.is-maximized .window__control--max::after {
+  border-color: #94a3b8 !important;
+  background: transparent !important;
+}
+
+/* Dark Mode Close Button (Deep Crimson) */
+body.dark-theme .window__control--close {
+  background: linear-gradient(180deg, #7f1d1d 0%, #450a0a 100%) !important;
+  border-color: #450a0a !important;
+}
+
+body.dark-theme .window__control--close::before,
+body.dark-theme .window__control--close::after {
+  background: #fca5a5 !important;
+}
+
+/* 4. Darken the Folder Path bar (C./projects) */
+body.dark-theme .window__path {
+  background: #020617 !important;
+  color: #94a3b8 !important;
+  border-top: 1px solid #1e293b !important;
+  border-bottom: 1px solid #000000 !important;
+}
+
+/* 5. Dark Mode Browser Frame (Fixes white flashes behind Figma) */
+body.dark-theme .browser-frame,
+body.dark-theme .browser-frame__embed,
+body.dark-theme .browser-empty-space {
+  background-color: #030303 !important;
+}
+
+/* ==========================================
+   DARK MODE: BROWSER TOOLBAR & TASKBAR
+   ========================================== */
+
+/* 1. Darken the Internet Explorer Address Bar Area */
+body.dark-theme .ie-toolbar {
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 100%) !important;
+  color: #94a3b8 !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.05) !important;
+  border-bottom: 1px solid #000000 !important;
+}
+
+/* The actual URL input box */
+body.dark-theme .ie-toolbar__address {
+  background: #020617 !important;
+  color: #94a3b8 !important;
+  border: 1px solid #334155 !important;
+  box-shadow: inset 0 1px 3px rgba(0,0,0,0.8) !important;
+}
+
+/* 2. Darken the Bottom Taskbar */
+body.dark-theme .taskbar {
+  background: linear-gradient(180deg, #0f172a 0%, #020617 45%, #000000 100%) !important;
+  border-top: 1px solid rgba(255, 255, 255, 0.1) !important;
+}
+
+/* 3. Dark Mode Start Button (Stealthy Slate/Grey) */
+body.dark-theme .start-button {
+  background: linear-gradient(180deg, #1e293b 0%, #0f172a 55%, #020617 100%) !important;
+  color: #e2e8f0 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1), inset -5px 0 15px rgba(0, 0, 0, 0.5) !important;
+}
+
+/* Dims the colorful orb slightly so it fits the night vibe */
+body.dark-theme .start-button__orb {
+  filter: brightness(0.8) contrast(1.2) !important;
+}
+
+/* 4. Dark Mode Taskbar Window Tabs */
+body.dark-theme .taskbar__tab {
+  background: linear-gradient(180deg, rgba(30, 41, 59, 0.8) 0%, rgba(15, 23, 42, 0.9) 100%) !important;
+  border: 1px solid rgba(255, 255, 255, 0.1) !important;
+  color: #94a3b8 !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.05) !important;
+}
+
+/* When a window is actively selected */
+body.dark-theme .taskbar__tab.is-active {
+  background: linear-gradient(180deg, rgba(51, 65, 85, 0.9) 0%, rgba(30, 41, 59, 1) 100%) !important;
+  color: #f8fafc !important;
+  box-shadow: inset 0 2px 4px rgba(0,0,0,0.5) !important;
+}
+
+/* When a window is minimized */
+body.dark-theme .taskbar__tab.is-minimized {
+  opacity: 0.6 !important;
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.5) 0%, rgba(2, 6, 23, 0.8) 100%) !important;
+}
+
+/* ==========================================
+   DARK MODE: INSTAGRAM ABOUT PAGE TOGGLE
+   ========================================== */
+
+/* Main Background */
+body.dark-theme .ig-modern-layout {
+  background-color: #000000 !important;
+  color: #ffffff;
+}
+
+/* Profile Picture Border */
+body.dark-theme .ig-avatar-img {
+  border-color: #262626;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.5);
+}
+
+/* Buttons */
+body.dark-theme .ig-btn-light {
+  background-color: #262626;
+  color: #ffffff;
+}
+
+body.dark-theme .ig-btn-light:hover {
+  background-color: #404040;
+}
+
+body.dark-theme .ig-btn-ghost {
+  color: #ffffff;
+}
+
+/* Text & Bio */
+body.dark-theme .ig-category {
+  color: #a8a8a8;
+}
+
+/* Tabs */
+body.dark-theme .ig-tabs-wrapper {
+  border-top-color: #262626;
+}
+
+body.dark-theme .ig-tab {
+  color: #8e8e8e;
+}
+
+body.dark-theme .ig-tab.active {
+  color: #ffffff;
+  border-top-color: #ffffff;
+}
+
+/* Custom Pills and Music Player */
+body.dark-theme .ig-link-pill,
+body.dark-theme .ig-profile-music {
+  background-color: #262626;
+  color: #ffffff;
+}
+
+body.dark-theme .ig-profile-music:hover {
+  background-color: #404040;
+}
+
+body.dark-theme .ig-music-icon,
+body.dark-theme .ig-music-title {
+  color: #ffffff;
+}
+
+/* Darken image overlay slightly more for night mode */
+body.dark-theme .ig-grid-overlay {
+  background: rgba(0, 0, 0, 0.6);
+}
