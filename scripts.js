@@ -106,11 +106,24 @@ function syncTaskbar() {
   getOpenWindows().sort((a, b) => Number(a.style.zIndex || 0) - Number(b.style.zIndex || 0))
     .forEach((windowEl) => {
       const tab = document.createElement("button");
-      tab.className = `taskbar__tab taskbar__tab--${windowEl.dataset.icon || "app"}`;
+      tab.className = `taskbar__tab`; // Removed the old generic CSS icon classes
+      
       if (windowEl.classList.contains("is-active")) tab.classList.add("is-active");
       if (windowEl.classList.contains("is-minimized")) tab.classList.add("is-minimized");
 
-      tab.innerHTML = `<span class="taskbar__tab-label">${windowEl.dataset.title}</span>`;
+      // MAGIC: Grab the exact icon (SVG image or Emoji span) from the window's title bar
+      const titleIcon = windowEl.querySelector('.window__title').firstElementChild.cloneNode(true);
+      titleIcon.className = "taskbar__tab-icon"; // Give it a unified class for sizing
+
+      // Create the text label
+      const label = document.createElement("span");
+      label.className = "taskbar__tab-label";
+      label.textContent = windowEl.dataset.title;
+
+      // Add the real icon and the text into the taskbar tab
+      tab.appendChild(titleIcon);
+      tab.appendChild(label);
+
       tab.onclick = () => {
         if (windowEl.classList.contains("is-minimized")) {
           windowEl.classList.remove("is-minimized");
