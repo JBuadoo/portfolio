@@ -398,29 +398,28 @@ syncTaskbar();
 // DIRECT LINKING (URL HASH) LOGIC
 // ==========================================
 window.addEventListener('DOMContentLoaded', () => {
-  // 1. Instantly snap the browser back to the top to prevent the "pushed up" anchor glitch
-  if (window.location.hash) {
-    window.scrollTo(0, 0);
-    setTimeout(() => window.scrollTo(0, 0), 1);
-  }
-
-  // Check if there is a hash in the URL (e.g., yoursite.com/#tap-in)
+  // Grab the hash (e.g., "tap-in")
   const hash = window.location.hash.substring(1); 
   
   if (hash) {
+    // MAGIC TRICK: Instantly erase the hash from the URL invisibly.
+    // This permanently stops the browser from trying to scroll down the page!
+    history.replaceState(null, null, window.location.pathname);
+    
+    // Force the scroll to top just to be completely safe
+    window.scrollTo(0, 0);
+
     const targetWindow = document.getElementById(hash);
     
     // If the ID exists and it's actually a window, open it
     if (targetWindow && targetWindow.classList.contains('window')) {
       
-      // Look at the desktop icon that normally opens this window to see if it should auto-maximize
       const desktopIcon = document.querySelector(`[data-open="${hash}"]`);
       const shouldMaximize = desktopIcon ? desktopIcon.dataset.autoMaximize === "true" : false;
       const isMobile = window.innerWidth <= 768;
 
-      // Add a tiny 600ms delay so the user sees the desktop load first
+      // Add a tiny delay so the desktop background loads first
       setTimeout(() => {
-        // Open the window and maximize it if the icon says to, OR if they are on mobile
         openWindow(hash, shouldMaximize || isMobile); 
       }, 600);
     }
