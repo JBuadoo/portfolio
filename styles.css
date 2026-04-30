@@ -2789,7 +2789,7 @@ body.dark-theme .taskbar__tab-icon {
 /* Set the background image and ensure it covers the whole window */
 .milestone-landing-page {
   background-color: #ffffff !important; /* Fallback color */
-  background-image: url('Images/MS_Background.jpg') !important;
+  background-image: url('Images/MS_Background.png') !important;
   background-size: cover !important;
   background-position: center !important;
   background-attachment: fixed !important; 
