@@ -1318,7 +1318,7 @@ transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.1),
   justify-content: center;
   align-items: center;
   gap: 20px;
-  padding: 0 20px 60px; 
+  padding: 0 20px 20px; 
   background-color: #030303; 
 }
 
@@ -2775,4 +2775,41 @@ body.dark-theme .ig-grid-overlay {
 /* Ensure the dark theme doesn't accidentally recolor emojis */
 body.dark-theme .taskbar__tab-icon {
   color: inherit; 
+}
+
+/* ==========================================
+   MILESTONE LANDING PAGE OVERRIDES
+   ========================================== */
+
+/* Set the background image and ensure it covers the whole window */
+.milestone-landing-page {
+  background-color: #ffffff !important; /* Fallback color */
+  background-image: url('Images/MS_Background.jpg') !important;
+  background-size: cover !important;
+  background-position: center !important;
+  background-attachment: fixed !important; 
+  color: #000000 !important;
+}
+
+/* Force all headings, subtitles, and standard text to be black */
+.milestone-landing-page .app-hero__title,
+.milestone-landing-page .app-hero__subtitle,
+.milestone-landing-page p,
+.milestone-landing-page h1,
+.milestone-landing-page h2,
+.milestone-landing-page h3,
+.milestone-landing-page li {
+  color: #000000 !important;
+}
+
+/* Make the timeframe pill match the darker theme */
+.milestone-landing-page .app-hero__Timeframe {
+  background: rgba(0, 0, 0, 0.05) !important;
+  border-color: rgba(0, 0, 0, 0.2) !important;
+  color: #333333 !important;
+}
+
+/* Ensure any future sections added (like benefits/case studies) keep the image visible */
+.milestone-landing-page .app-benefits {
+  background: transparent !important;
 }
