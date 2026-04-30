@@ -10,8 +10,8 @@
   --window-title-bottom: #a5b7d4;
   --window-title-active-top: #f7fbff;
   --window-title-active-bottom: #cadbf4;
-  --window-body-top: #244a88;
-  --window-body-bottom: #1a3566;
+  --window-body-top: #244a887e;
+  --window-body-bottom: #1a35667e;
   --text-main: #ffffff;
   --shadow-lg: 0 14px 24px rgba(8, 20, 50, 0.42);
   --shadow-sm: 0 3px 8px rgba(8, 20, 50, 0.3);
@@ -381,7 +381,6 @@ body.dark-theme .shooting-star:nth-child(3) { top: 65%; left: -20%; animation-de
   border-width: 2px;
 }
 
-/* WINDOW STYLES */
 .window {
   position: absolute;
   left: var(--left, 20%);
@@ -393,6 +392,11 @@ body.dark-theme .shooting-star:nth-child(3) { top: 65%; left: -20%; animation-de
   flex-direction: column;
   z-index: 5;
   background: linear-gradient(180deg, var(--window-body-top) 0%, var(--window-body-bottom) 100%);
+  
+  /* ADD THESE TWO LINES FOR THE FROSTED GLASS BLUR */
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px); /* Needed for Safari support */
+
   border: 1px solid #d7e4f8;
   border-radius: 8px 8px 3px 3px;
   box-shadow: var(--shadow-lg);
@@ -2563,8 +2567,9 @@ transition: transform 0.25s cubic-bezier(0.2, 0.9, 0.3, 1.1),
 
 /* 1. Darken the main background of all Windows (The "base blue" of the folders) */
 body.dark-theme .window {
-  background: linear-gradient(180deg, #0f172a 0%, #020617 100%) !important;
-  border-color: #1e293b !important;
+  /* Changed the solid hex codes to semi-transparent RGBA colors so the blur shines through! */
+  background: linear-gradient(180deg, rgba(15, 23, 42, 0.65) 0%, rgba(2, 6, 23, 0.75) 100%) !important;
+  border-color: rgba(30, 41, 59, 0.8) !important;
   box-shadow: 0 15px 35px rgba(0, 0, 0, 0.8) !important;
 }
 
@@ -2812,4 +2817,206 @@ body.dark-theme .taskbar__tab-icon {
 /* Ensure any future sections added (like benefits/case studies) keep the image visible */
 .milestone-landing-page .app-benefits {
   background: transparent !important;
+}
+
+/* --- Milestone Specific Blocks --- */
+.milestone-block {
+  max-width: 1000px;
+  margin: 0 auto;
+  text-align: left;
+  
+  /* Opaque light grey background */
+  background-color: rgba(240, 240, 240, 0.75) !important; 
+  
+  /* Styling to match your other case study blocks */
+  border: 1px solid #cccccc;
+  border-radius: 16px;
+  padding: 40px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3);
+}
+
+.milestone-block h2 {
+  font-size: 2rem;
+  font-weight: 800;
+  margin-top: 0;
+  margin-bottom: 15px;
+  color: #000000 !important;
+}
+
+.milestone-block ul {
+  padding-left: 20px;
+  color: #333333 !important;
+  line-height: 1.6;
+  font-size: 1.05rem;
+}
+
+.milestone-block li {
+  margin-bottom: 16px;
+}
+
+.milestone-block li:last-child {
+  margin-bottom: 0;
+}
+
+/* --- Milestone Hero Box Styling --- */
+.milestone-landing-page .app-hero {
+  background-color: rgba(240, 240, 240, 0.75) !important; 
+  border: 1px solid #cccccc !important;
+  border-radius: 16px !important;
+  padding: 40px 30px !important;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.3) !important;
+  
+  /* Sizes and centers the box perfectly */
+  max-width: 1000px !important;
+  width: calc(100% - 40px) !important; 
+  margin: 40px auto 20px auto !important; 
+}
+
+/* --- Milestone Images Container --- */
+.milestone-images-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 50px;
+  margin: 40px auto 60px auto; /* Centers the container and applies top/bottom spacing */
+  max-width: 1200px;
+  position: relative;
+}
+
+/* Ensure it adapts perfectly when the window shrinks */
+@media (max-width: 900px) {
+  .milestone-images-container {
+    flex-direction: column;
+  }
+  .milestone-images-container .phone-left, 
+  .milestone-images-container .phone-right {
+    display: none; /* Hides the side images on small screens just like your other apps */
+  }
+  .milestone-images-container .phone-center {
+    transform: none;
+  }
+}
+
+/* --- Milestone Website Comparison Grid (Horizontal) --- */
+.milestone-compare-grid {
+  display: flex;
+  flex-direction: column;
+  gap: 40px;
+  margin-top: 35px;
+  padding-top: 25px;
+  border-top: 1px solid #cccccc;
+}
+
+/* Forces the 3 new designs to sit side-by-side */
+.compare-new-row {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* Centers the single old design on the bottom */
+.compare-old-row {
+  display: flex;
+  justify-content: center;
+}
+
+/* Keeps the old design from stretching too wide on big screens */
+.compare-old-row .compare-slot {
+  width: 100%;
+  max-width: 600px;
+}
+
+.compare-slot {
+  display: flex;
+  flex-direction: column;
+}
+
+/* Image styling and hover effect */
+.compare-slot img {
+  width: 100%;
+  height: auto;
+  object-fit: cover;
+  border-radius: 8px;
+  border: 1px solid #b3b3b3;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+.compare-label {
+  font-size: 0.85rem;
+  font-weight: 800;
+  color: #555555 !important;
+  margin-bottom: 10px;
+  text-transform: uppercase;
+  letter-spacing: 1px;
+  text-align: center;
+}
+
+/* Mobile Responsiveness: Stacks everything cleanly on phones */
+@media (max-width: 768px) {
+  .compare-new-row {
+    grid-template-columns: 1fr; /* Stacks the 3 top images on small screens */
+  }
+}
+
+/* --- Milestone Split Layout (Text Left, Image Right) --- */
+.milestone-split-layout {
+  display: flex;
+  align-items: flex-start; /* Changed from 'center' to push the text to the very top */
+  gap: 40px;
+}
+
+.milestone-split-text {
+  flex: 1; 
+}
+
+.milestone-split-image {
+  flex: 0 0 35%; /* Shrunk from 45% down to 35% */
+  max-width: 320px; /* Reduced the max width to keep it smaller */
+  display: flex;
+  justify-content: center;
+}
+
+.milestone-split-text {
+  flex: 1; /* Takes up the remaining space */
+}
+
+.milestone-split-image img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #cccccc;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Mobile Responsiveness: Stacks the text on top of the image on smaller screens */
+@media (max-width: 768px) {
+  .milestone-split-layout {
+    flex-direction: column;
+  }
+  .milestone-split-image {
+    flex: 1 1 auto;
+    width: 100%;
+    margin-top: 20px;
+  }
+}
+
+/* --- Milestone Bottom Image --- */
+.milestone-bottom-image {
+  margin-top: 35px;
+  display: flex;
+  justify-content: center;
+}
+
+.milestone-bottom-image img {
+  width: 100%;
+  max-width: 800px; /* Stops the image from becoming overwhelmingly huge on large monitors */
+  height: auto;
+  border-radius: 8px;
+  border: 1px solid #cccccc;
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* --- Milestone Icon Dark Mode Swap (Filter Trick) --- */
+body.dark-theme img[src="Icons/Soul.svg"] {
+  filter: invert(1) brightness(2) !important;
 }
