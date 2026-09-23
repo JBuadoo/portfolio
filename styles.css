@@ -3550,3 +3550,114 @@ body.dark-theme .resume-content-wrapper {
   }
 }
 
+
+/* ==========================================
+   DESKTOP STICKY NOTE
+   ========================================== */
+.sticky-note {
+  position: fixed;
+  right: 28px;
+  top: 80px;
+  width: 200px;
+  z-index: 10;
+  background: #fef08a;
+  background-image:
+    repeating-linear-gradient(
+      transparent,
+      transparent 23px,
+      rgba(0, 0, 0, 0.08) 23px,
+      rgba(0, 0, 0, 0.08) 24px
+    );
+  border-radius: 2px 12px 2px 2px;
+  box-shadow:
+    3px 4px 12px rgba(0, 0, 0, 0.25),
+    -1px -1px 4px rgba(0, 0, 0, 0.08),
+    inset 0 0 0 1px rgba(0, 0, 0, 0.06);
+  padding: 0 0 14px 0;
+  font-family: 'Segoe UI', 'Trebuchet MS', sans-serif;
+  transform: rotate(1.5deg);
+  transform-origin: top right;
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+  cursor: default;
+}
+
+.sticky-note::before {
+  /* Top folded-corner dog-ear effect */
+  content: "";
+  position: absolute;
+  top: 0;
+  right: 0;
+  width: 28px;
+  height: 28px;
+  background: linear-gradient(225deg, #fde047 50%, #ca8a04 50%);
+  border-radius: 0 12px 0 0;
+  box-shadow: -2px 2px 4px rgba(0,0,0,0.15);
+}
+
+.sticky-note:hover {
+  transform: rotate(0deg) scale(1.03);
+  box-shadow:
+    5px 8px 20px rgba(0, 0, 0, 0.3),
+    -1px -1px 4px rgba(0, 0, 0, 0.08);
+}
+
+.sticky-note__header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 10px 14px 8px 14px;
+  border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+  margin-bottom: 6px;
+}
+
+.sticky-note__title {
+  font-size: 0.82rem;
+  font-weight: 700;
+  color: #713f12;
+  letter-spacing: 0.03em;
+  text-transform: uppercase;
+}
+
+.sticky-note__pin {
+  font-size: 0.9rem;
+  line-height: 1;
+}
+
+.sticky-note__list {
+  list-style: none;
+  margin: 0;
+  padding: 0 14px;
+}
+
+.sticky-note__item {
+  display: flex;
+  align-items: flex-start;
+  gap: 8px;
+  font-size: 0.79rem;
+  line-height: 1.45;
+  color: #422006;
+  padding: 5px 0;
+  border-bottom: none;
+}
+
+.sticky-note__item + .sticky-note__item {
+  margin-top: 4px;
+}
+
+.sticky-note__checkbox {
+  flex-shrink: 0;
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  border: 1.5px solid #92400e;
+  border-radius: 2px;
+  margin-top: 2px;
+  background: rgba(255, 255, 255, 0.5);
+}
+
+/* Hide sticky note on mobile / tablet */
+@media (max-width: 900px) {
+  .sticky-note {
+    display: none;
+  }
+}

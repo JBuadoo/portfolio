@@ -63,7 +63,12 @@
         <img src="Icons/Linkedin.svg" alt="" class="desktop-icon__img">
         <span class="desktop-icon__label">LinkedIn</span>
       </a>
+      <button class="desktop-icon" data-open="tapin-music-window" data-auto-maximize="true">
+        <img src="Icons/Tap In Music.svg" alt="" class="desktop-icon__img">
+        <span class="desktop-icon__label">Tap In Music</span>
+      </button>
     </aside>
+
 
     <section class="window is-open" id="projects-folder" data-title="My Projects" data-icon="folder" style="--left: calc(100vw - 900px); --top: 10%; --width: 850px; z-index: 25;">
       <header class="window__titlebar">
@@ -126,6 +131,29 @@
           <span style="font-size: 3rem; margin-bottom: 5px;">🎵</span>
           <span class="desktop-icon__label">Music Player</span>
         </button>
+      </div>
+    </section>
+
+    <section class="window is-hidden" id="tapin-music-window" data-title="Tap In Music" data-icon="ie">
+      <header class="window__titlebar">
+        <div class="window__title">
+          <img src="Icons/Tap In Music.svg" alt="" class="title-icon-img">
+          <span>Tap In Music</span>
+        </div>
+        <div class="window__controls">
+          <button type="button" class="window__control window__control--min" data-minimize title="Minimize"></button>
+          <button type="button" class="window__control window__control--max" data-maximize title="Maximize/Restore"></button>
+          <button type="button" class="window__control window__control--close" data-close title="Close"></button>
+        </div>
+      </header>
+      <div class="ie-toolbar"><div class="ie-toolbar__address">https://tapinwaitlist.framer.website/</div></div>
+      <div class="window__content browser-frame" style="padding: 0; overflow: hidden;">
+        <iframe
+          class="browser-frame__embed"
+          src="https://tapinwaitlist.framer.website/?utm_source=ig&utm_medium=social&utm_content=link_in_bio"
+          allowfullscreen
+          style="border: none; width: 100%; height: 100%;">
+        </iframe>
       </div>
     </section>
 
@@ -1658,6 +1686,24 @@
     <div class="taskbar__windows" id="taskbar-windows"></div>
     <div class="system-tray"><div id="clock" class="taskbar__clock"></div></div>
   </footer>
+
+  <!-- Desktop Sticky Note (PC only) -->
+  <div class="sticky-note" id="desktop-sticky-note" aria-label="To Do List">
+    <div class="sticky-note__header">
+      <span class="sticky-note__title">📋 To Do</span>
+      <span class="sticky-note__pin">📌</span>
+    </div>
+    <ul class="sticky-note__list">
+      <li class="sticky-note__item">
+        <span class="sticky-note__checkbox"></span>
+        Continue developing Tap In Music for a 2027 release
+      </li>
+      <li class="sticky-note__item">
+        <span class="sticky-note__checkbox"></span>
+        Add Milestone Comics Rebrand analysis
+      </li>
+    </ul>
+  </div>
 
 <div class="lightbox-modal is-hidden" id="lightbox-modal">
     <div class="lightbox-modal__bg" id="lightbox-bg"></div>
