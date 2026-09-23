@@ -1,0 +1,12 @@
+{
+  "name": "jbuadoo-portfolio",
+  "version": "1.0.0",
+  "description": "Joseph Buadoo Portfolio",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js"
+  },
+  "keywords": [],
+  "author": "Joseph Buadoo",
+  "license": "ISC"
+}

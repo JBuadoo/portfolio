@@ -55,17 +55,13 @@
         <img src="Icons/About.svg" alt="" class="desktop-icon__img">
         <span class="desktop-icon__label">About.exe</span>
       </button>
-      <button class="desktop-icon" data-open="resume-window">
+      <button class="desktop-icon" data-open="resume-window" data-auto-maximize="true">
         <img src="Icons/Documents.svg" alt="" class="desktop-icon__img">
         <span class="desktop-icon__label">Resume.doc</span>
       </button>
-      <a href="https://www.linkedin.com/in/jbuadoo/" target="_blank" rel="noopener noreferrer" class="desktop-icon">
+      <a href="https://www.linkedin.com/in/joseph-buadoo-jr-27102b22/" target="_blank" rel="noopener noreferrer" class="desktop-icon">
         <img src="Icons/Linkedin.svg" alt="" class="desktop-icon__img">
         <span class="desktop-icon__label">LinkedIn</span>
-      </a>
-      <a href="https://github.com/jbuadoo" target="_blank" rel="noopener noreferrer" class="desktop-icon">
-        <img src="Icons/GitHub.svg" alt="" class="desktop-icon__img">
-        <span class="desktop-icon__label">GitHub</span>
       </a>
     </aside>
 
@@ -1401,7 +1397,9 @@
 
         </main>
       </div>
-    <section class="window is-hidden" id="resume-window" data-title="Resume.doc" data-icon="app" style="--left: 12%; --top: 6%; --width: 860px; height: 82vh; z-index: 25;">
+    </section>
+
+    <section class="window is-hidden" id="resume-window" data-title="Resume.doc" data-icon="app" style="--left: 5%; --top: 3%; --width: 90%; height: 90vh; z-index: 25;">
       <header class="window__titlebar">
         <div class="window__title">
           <img src="Icons/Documents.svg" alt="" class="title-icon-img">
@@ -1415,13 +1413,19 @@
       </header>
       
       <div class="resume-toolbar">
+        <a href="Files/Resume_Joseph_Buadoo_UX_UI_Designer_2026-08.pdf" download="Joseph_Buadoo_Resume.pdf" class="resume-tool-btn resume-tool-btn--primary" id="resume-download-btn">
+          <span>⬇️</span> Download PDF
+        </a>
+        <a href="Files/Resume_Joseph_Buadoo_UX_UI_Designer_2026-08.pdf" target="_blank" rel="noopener noreferrer" class="resume-tool-btn" id="resume-open-btn">
+          <span>📄</span> Open PDF
+        </a>
         <button type="button" class="resume-tool-btn" id="resume-print-btn" onclick="window.print()">
-          <span>🖨️</span> Print / Save PDF
+          <span>🖨️</span> Print
         </button>
         <a href="mailto:jrkwekub@gmail.com" class="resume-tool-btn">
           <span>✉️</span> Email Joseph
         </a>
-        <a href="https://www.linkedin.com/in/jbuadoo/" target="_blank" rel="noopener noreferrer" class="resume-tool-btn">
+        <a href="https://www.linkedin.com/in/joseph-buadoo-jr-27102b22/" target="_blank" rel="noopener noreferrer" class="resume-tool-btn">
           <span>🔗</span> LinkedIn Profile
         </a>
       </div>
@@ -1433,7 +1437,7 @@
             <div class="resume-contacts">
               <a href="mailto:jrkwekub@gmail.com">jrkwekub@gmail.com</a>
               <span class="resume-sep">•</span>
-              <a href="https://www.linkedin.com/in/jbuadoo/" target="_blank" rel="noopener noreferrer">linkedin.com/in/jbuadoo/</a>
+              <a href="https://www.linkedin.com/in/joseph-buadoo-jr-27102b22/" target="_blank" rel="noopener noreferrer">linkedin.com/in/joseph-buadoo-jr-27102b22/</a>
               <span class="resume-sep">•</span>
               <a href="https://jbuadoo.github.io/portfolio/" target="_blank" rel="noopener noreferrer">jbuadoo.github.io/portfolio/</a>
             </div>
@@ -1611,7 +1615,7 @@
             <span class="start-menu__item-sub">Profile, bio, and social feed</span>
           </div>
         </button>
-        <button class="start-menu__item" data-open="resume-window">
+        <button class="start-menu__item" data-open="resume-window" data-auto-maximize="true">
           <img src="Icons/Documents.svg" alt="" class="start-menu__icon">
           <div class="start-menu__item-text">
             <span class="start-menu__item-title">Resume.doc</span>
@@ -1622,13 +1626,13 @@
 
       <div class="start-menu__column start-menu__column--places">
         <div class="start-menu__section-title">Connect</div>
-        <a href="https://www.linkedin.com/in/jbuadoo/" target="_blank" rel="noopener noreferrer" class="start-menu__item">
+        <a href="https://www.linkedin.com/in/joseph-buadoo-jr-27102b22/" target="_blank" rel="noopener noreferrer" class="start-menu__item">
           <img src="Icons/Linkedin.svg" alt="" class="start-menu__icon">
           <span class="start-menu__item-title">LinkedIn Profile</span>
         </a>
-        <a href="https://github.com/jbuadoo" target="_blank" rel="noopener noreferrer" class="start-menu__item">
-          <img src="Icons/GitHub.svg" alt="" class="start-menu__icon">
-          <span class="start-menu__item-title">GitHub Repos</span>
+        <a href="Files/Resume_Joseph_Buadoo_UX_UI_Designer_2026-08.pdf" download="Joseph_Buadoo_Resume.pdf" class="start-menu__item">
+          <img src="Icons/Documents.svg" alt="" class="start-menu__icon">
+          <span class="start-menu__item-title">Download Resume (PDF)</span>
         </a>
         <a href="mailto:jrkwekub@gmail.com" class="start-menu__item">
           <img src="Icons/Documents.svg" alt="" class="start-menu__icon">
