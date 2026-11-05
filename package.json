@@ -1,12 +1,25 @@
 {
-  "name": "jbuadoo-portfolio",
-  "version": "1.0.0",
-  "description": "Joseph Buadoo Portfolio",
-  "main": "server.js",
+  "name": "jbuadoo-pixel-portfolio",
+  "private": true,
+  "version": "2.0.0",
+  "type": "module",
+  "description": "Joseph K. Buadoo - interactive pixel-art study portfolio",
   "scripts": {
-    "start": "node server.js"
+    "dev": "vite",
+    "build": "tsc --noEmit && vite build",
+    "preview": "vite preview",
+    "build:static": "node scripts/build-static.mjs",
+    "assets": "python3 art/generate.py && python3 art/build_font.py"
   },
-  "keywords": [],
-  "author": "Joseph Buadoo",
-  "license": "ISC"
+  "dependencies": {
+    "react": "^19.2.0",
+    "react-dom": "^19.2.0"
+  },
+  "devDependencies": {
+    "@types/react": "^19.2.0",
+    "@types/react-dom": "^19.2.0",
+    "@vitejs/plugin-react": "^4.3.4",
+    "typescript": "^5.6.3",
+    "vite": "^5.4.11"
+  }
 }

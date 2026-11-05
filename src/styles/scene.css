@@ -1,0 +1,479 @@
+/* ==========================================================================
+   The study scene. Everything inside .scene is in native 480x270 pixel units
+   and the whole scene is scaled with a single transform.
+   ========================================================================== */
+.study {
+  position: absolute;
+  inset: 0;
+  overflow: hidden;
+  background: #241534;
+}
+.study__fill-floor {
+  position:absolute;
+  left:0;
+  right:0;
+  bottom:0;
+  background:#2a1928
+}
+.scene {
+  position:absolute;
+  left:0;
+  top:0;
+  width:480px;
+  height:270px;
+  transform-origin:0 0
+}
+.scene img.layer {
+  pointer-events:none
+}
+.scene img,
+.scene__glass img {
+  position:absolute;
+  display:block;
+  max-width:none;
+  user-select:none;
+  -webkit-user-drag:none
+}
+.scene__glass {
+  position:absolute;
+  z-index:1;
+  overflow:hidden
+}
+/* clouds: a strip two tiles wide slides by one tile (compositor-only transform, no repaint) */
+.clouds-skew {
+  position:absolute;
+  left:0;
+  width:100%;
+  transform-origin:0 0
+}
+.clouds {
+  position:absolute;
+  left:0;
+  width:calc(var(--tile) * 2);
+  background-repeat:repeat-x;
+  will-change:transform;
+  animation:clouds 160s steps(188) infinite
+}
+@keyframes clouds {
+  to {
+    transform: translateX(calc(-1 * var(--tile)));
+  }
+}
+.sun-shimmer {
+  position:absolute;
+  left:26px;
+  top:130px;
+  width:40px;
+  height:40px;
+  background:radial-gradient(circle,rgba(255,246,214,.5) 0 6px,rgba(255,226,168,.25) 6px 12px,rgba(255,210,150,.12) 12px 18px,transparent 18px);
+  will-change:opacity,transform;
+  animation:shimmer 5s steps(5) infinite alternate
+}
+@keyframes shimmer {
+  to {
+    opacity: 0.45;
+    transform: scale(1.12);
+  }
+}
+.sway {
+  will-change:transform;
+  transform-origin:50% 0;
+  animation:sway 7s ease-in-out infinite alternate
+}
+@keyframes sway {
+  from {
+    transform: rotate(-1deg);
+  }
+  to {
+    transform: rotate(1deg);
+  }
+}
+
+/* ---------- light ---------- */
+.light-wash,
+/* ---------- "cozy shader": pre-rendered post FX layers (smooth, not pixelated) ---------- */
+.fx {
+  position:absolute;
+  left:0;
+  top:0;
+  width:480px;
+  height:270px;
+  max-width:none;
+  pointer-events:none;
+  image-rendering:auto
+}
+.fx--shafts {
+  z-index:8;
+  will-change:opacity;
+  animation:breathe 9s ease-in-out infinite alternate
+}
+@keyframes breathe {
+  from {
+    opacity: 1;
+  }
+  to {
+    opacity: 0.6;
+  }
+}
+.fx--bloom {
+  z-index:15;
+  opacity:.9
+}
+.fx--room-blur {
+  left:-60px;
+  top:-60px;
+  width:600px;
+  height:390px;
+  z-index:30;
+  opacity:0;
+  transition:opacity .45s ease-out;
+  will-change:opacity
+}
+.study.is-dimmed .fx--room-blur {
+  opacity:1
+}
+/* colour grade + vignette over the whole room (one static layer) */
+.study__grade {
+  position:absolute;
+  inset:0;
+  z-index:3;
+  pointer-events:none;
+  background:radial-gradient(ellipse 78% 74% at 46% 46%,transparent 52%,rgba(20,6,38,.32) 78%,rgba(14,4,28,.62) 100%),linear-gradient(115deg,#ff96641f,#ff966400 42%),linear-gradient(to bottom,#8c5abe0d,#12082433)
+}
+.scene {
+  z-index:1
+}
+
+.dust {
+  will-change:transform;
+  position:absolute;
+  left:0;
+  top:0;
+  width:480px;
+  height:270px;
+  z-index:9;
+  pointer-events:none
+}
+
+/* pause ambient motion while a book is open */
+.study.is-dimmed .clouds,
+.study.is-dimmed .fx--shafts,
+.study.is-dimmed .sway,
+.study.is-dimmed .sun-shimmer {
+  animation-play-state:paused
+}
+
+/* ---------- shelf books (shared with the phone layout through --s) ---------- */
+.shelf-book {
+  position:absolute;
+  display:block;
+  padding:0;
+  margin:0;
+  border:0;
+  background:none;
+  cursor:pointer;
+  --s: 1
+}
+.shelf-book__body {
+  position:relative;
+  display:block;
+  width:100%;
+  height:100%;
+  transition:transform .18s cubic-bezier(.3,1.5,.5,1);
+  will-change:transform
+}
+/* hover brighten via an overlay's opacity instead of filter: brightness() */
+.shelf-book__body::after {
+  content:"";
+  position:absolute;
+  inset:0 calc(100% * 8 / 56) 0 0;
+  background:#fff0dc24;
+  opacity:0;
+  transition:opacity .18s;
+  pointer-events:none
+}
+.shelf-book:hover .shelf-book__body::after,
+.shelf-book:focus-visible .shelf-book__body::after,
+.shelf-book.is-highlight .shelf-book__body::after {
+  opacity:1
+}
+.shelf-book img {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%
+}
+.shelf-book__title {
+  position:absolute;
+  left:calc(100% * 5 / 56);
+  width:calc(100% * 38 / 56);
+  top:calc(100% * 11 / 86);
+  height:calc(100% * 30 / 86);
+  font-weight:700;
+  display:flex;
+  flex-direction:column;
+  align-items:center;
+  justify-content:center;
+  gap:calc(var(--s) * 1px);
+  color:var(--b-accent);
+  font-family:var(--font-pixel);
+  font-size:calc(var(--fs) * var(--s) * 1px);
+  line-height:1.1;
+  text-align:center;
+  white-space:nowrap;
+  text-shadow:calc(var(--fs) * var(--s) * .1px) calc(var(--fs) * var(--s) * .1px) 0 var(--b-outline);
+  pointer-events:none
+}
+.shelf-book__glow {
+  position:absolute;
+  inset:calc(var(--s) * -1px);
+  right:calc(var(--s) * 7px);
+  pointer-events:none;
+  opacity:0;
+  box-shadow:0 0 0 calc(var(--s) * 1px) var(--b-accent),0 0 calc(var(--s) * 8px) calc(var(--s) * 1px) var(--b-light);
+  transition:opacity .18s,transform .18s cubic-bezier(.3,1.5,.5,1);
+  will-change:opacity,transform
+}
+.shelf-book:hover .shelf-book__body,
+.shelf-book:focus-visible .shelf-book__body {
+  transform:translateY(calc(var(--s) * -4px)) rotate(-1.2deg)
+}
+.shelf-book:hover .shelf-book__glow,
+.shelf-book:focus-visible .shelf-book__glow {
+  opacity:.6;
+  transform:translateY(calc(var(--s) * -4px)) rotate(-1.2deg)
+}
+.shelf-book:focus-visible {
+  outline:none
+}
+.shelf-book:focus-visible .shelf-book__glow {
+  opacity:1;
+  box-shadow:0 0 0 calc(var(--s) * 1px) var(--focus),0 0 calc(var(--s) * 8px) calc(var(--s) * 1px) var(--b-light)
+}
+.shelf-book.is-highlight .shelf-book__body {
+  animation:book-call .9s ease-in-out infinite alternate
+}
+.shelf-book.is-highlight .shelf-book__glow {
+  animation:glow .9s ease-in-out infinite alternate
+}
+@keyframes book-call {
+  to {
+    transform: translateY(calc(var(--s) * -5px));
+  }
+}
+@keyframes glow {
+  from {
+    opacity: 0.2;
+  }
+  to {
+    opacity: 1;
+    transform: translateY(calc(var(--s) * -5px));
+  }
+}
+.shelf-book.is-out {
+  visibility:hidden
+}
+.shelf-book.is-landing .shelf-book__body {
+  animation:land .22s ease-out
+}
+@keyframes land {
+  from {
+    transform: translateY(calc(var(--s) * -3px));
+  }
+}
+.is-intro .shelf-book {
+  animation:drop-in .7s cubic-bezier(.3,1.4,.5,1) backwards;
+  animation-delay:calc(var(--i) * .09s + .15s)
+}
+@keyframes drop-in {
+  from {
+    transform: translateY(calc(var(--s) * -16px));
+    opacity: 0;
+  }
+}
+
+/* ---------- journal on the desk ---------- */
+.journal-btn {
+  position:absolute;
+  z-index:11;
+  padding:0;
+  border:0;
+  background:none;
+  cursor:pointer
+}
+.journal-btn img {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  transition:transform .2s
+}
+.journal-btn:hover img,
+.journal-btn:focus-visible img {
+  transform:translateY(-2px);
+  outline:.5px solid #e8c070
+}
+.journal-btn.is-out {
+  visibility:hidden
+}
+.journal-btn__tip {
+  position:absolute;
+  left:50%;
+  bottom:calc(100% + 4px);
+  transform:translate(-50%);
+  padding:1px 3px;
+  background:#1a1030;
+  color:#f3e6c8;
+  border:.5px solid #e8c070;
+  font:5px/1.2 var(--font-pixel);
+  white-space:nowrap;
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .15s
+}
+.journal-btn:hover .journal-btn__tip,
+.journal-btn:focus-visible .journal-btn__tip {
+  opacity:1
+}
+
+/* ---------- hint under the shelf ---------- */
+.shelf-hint {
+  position:absolute;
+  z-index:12;
+  left:304px;
+  top:214px;
+  transform:translate(-50%);
+  display:flex;
+  align-items:center;
+  gap:4px;
+  pointer-events:none;
+  transition:opacity .4s
+}
+.shelf-hint.is-hidden {
+  opacity:0
+}
+.shelf-hint__pill {
+  display:inline-flex;
+  align-items:center;
+  gap:4px;
+  padding:2.4px 7px;
+  color:#ece2ff;
+  font:6px/1 var(--font-body);
+  white-space:nowrap;
+  background:#180e2ae0;
+  border:.6px solid #8e70cc;
+  border-radius:3px;
+  box-shadow:0 0 0 .6px #120a20,0 1px 0 1px #0000004d
+}
+.shelf-hint__pill .pixel-icon {
+  color:#cdb8f6
+}
+.shelf-hint__arrow {
+  position:relative;
+  width:14px;
+  height:.5px;
+  background:#9a82cc;
+  animation:nudge 1.2s steps(3) infinite alternate
+}
+.shelf-hint__arrow::after {
+  content:"";
+  position:absolute;
+  right:-1px;
+  top:-1px;
+  width:1.5px;
+  height:2.5px;
+  background:#9a82cc;
+  clip-path:polygon(0 0,100% 50%,0 100%)
+}
+.shelf-hint__arrow.is-flip {
+  transform:scaleX(-1);
+  animation-name:nudge-flip
+}
+@keyframes nudge {
+  to {
+    transform: translateX(1.5px);
+  }
+}
+@keyframes nudge-flip {
+  from {
+    transform: scaleX(-1);
+  }
+  to {
+    transform: scaleX(-1) translateX(1.5px);
+  }
+}
+
+/* ---------- digital desk clock (live LCD, not interactive) ---------- */
+.dclock {
+  position:absolute;
+  pointer-events:none
+}
+.dclock__body {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  max-width:none
+}
+.dclock__lcd {
+  position:absolute;
+  overflow:visible
+}
+.dclock__on {
+  fill:#ff5a3c
+}
+.dclock__off {
+  fill:#170b0b
+}
+.dclock__colon {
+  animation:dclock-blink 1s steps(1) infinite
+}
+@keyframes dclock-blink {
+  50% { opacity: 0.15; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .dclock__colon {
+  animation:none
+}
+}
+
+/* while a book is open the blurred snapshot covers the room, so stop drawing the live room
+   underneath it once the fade-in is done (fewer layers to composite every frame) */
+.study.is-dimmed .scene > :not(.fx--room-blur),
+.study.is-dimmed .study__grade {
+  visibility: hidden;
+  transition: visibility 0s linear 0.5s;
+}
+
+/* ---------- lighting modes: room grade ---------- */
+.app[data-mode="day"] .study__grade {
+  background:radial-gradient(ellipse 80% 76% at 46% 46%,transparent 56%,rgba(30,30,60,.18) 82%,rgba(20,20,44,.36) 100%),linear-gradient(115deg,#fffae61a,#fffae600 45%)
+}
+.app[data-mode="night"] .study__grade {
+  background:radial-gradient(ellipse 76% 72% at 46% 46%,transparent 48%,rgba(2,4,16,.42) 76%,rgba(0,2,10,.72) 100%),linear-gradient(115deg,#8ca0ff14,#8ca0ff00 42%)
+}
+.app[data-mode="day"] .study__fill-floor {
+  background:#5a4a62
+}
+.app[data-mode="night"] .study__fill-floor {
+  background:#0e0e1e
+}
+.app[data-mode="day"] .sun-shimmer,
+.app[data-mode="night"] .sun-shimmer {
+  display:none
+}
+
+/* Ghana flag under the floating shelf: a gentle sway from its strings */
+img.flag {
+  transform-origin: 50% 0;
+  animation: flag-sway 4.5s ease-in-out infinite alternate;
+}
+@keyframes flag-sway {
+  0% { transform: rotate(-2.5deg) skewX(1.5deg); }
+  50% { transform: rotate(1deg) skewX(-1deg); }
+  100% { transform: rotate(2.5deg) skewX(1deg); }
+}
+.study.is-dimmed img.flag { animation-play-state: paused; }
+@media (prefers-reduced-motion: reduce) {
+  img.flag { animation: none; }
+}

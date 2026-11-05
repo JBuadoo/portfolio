@@ -1,0 +1,425 @@
+{
+ "width": 480,
+ "height": 270,
+ "layers": [
+  {
+   "name": "wall",
+   "src": "assets/scene/wall.png",
+   "x": -60,
+   "y": -60,
+   "w": 600,
+   "h": 390,
+   "z": 0
+  },
+  {
+   "name": "sky",
+   "src": "assets/scene/sky.png",
+   "x": 46,
+   "y": -2,
+   "w": 98,
+   "h": 221,
+   "z": 1,
+   "role": "sky"
+  },
+  {
+   "name": "clouds",
+   "src": "assets/scene/clouds.png",
+   "x": 46,
+   "y": 4,
+   "w": 200,
+   "h": 90,
+   "z": 2,
+   "cls": "clouds",
+   "role": "sky"
+  },
+  {
+   "name": "window",
+   "src": "assets/scene/window.png",
+   "x": 30,
+   "y": -14,
+   "w": 132,
+   "h": 260,
+   "z": 5
+  },
+  {
+   "name": "hanging-plant",
+   "src": "assets/scene/hanging-plant.png",
+   "x": 122,
+   "y": -80,
+   "w": 54,
+   "h": 194,
+   "z": 7,
+   "cls": "sway"
+  },
+  {
+   "name": "frame-photo",
+   "src": "assets/scene/frame-photo.png",
+   "x": 170,
+   "y": 8,
+   "w": 44,
+   "h": 64,
+   "z": 5
+  },
+  {
+   "name": "photo",
+   "src": "assets/scene/photo.png",
+   "x": 174,
+   "y": 12,
+   "w": 36,
+   "h": 56,
+   "z": 5,
+   "role": "photo"
+  },
+  {
+   "name": "poster",
+   "src": "assets/scene/poster.png",
+   "x": 222,
+   "y": 0,
+   "w": 56,
+   "h": 84,
+   "z": 5
+  },
+  {
+   "name": "wall-shelf",
+   "src": "assets/scene/wall-shelf.png",
+   "x": 288,
+   "y": 14,
+   "w": 76,
+   "h": 52,
+   "z": 5
+  },
+  {
+   "name": "frame-drums",
+   "src": "assets/scene/frame-drums.png",
+   "x": 372,
+   "y": 8,
+   "w": 44,
+   "h": 64,
+   "z": 5
+  },
+  {
+   "name": "photo-drums",
+   "src": "assets/scene/photo-drums.png",
+   "x": 376,
+   "y": 12,
+   "w": 36,
+   "h": 56,
+   "z": 5,
+   "role": "photo"
+  },
+  {
+   "name": "vinyl",
+   "src": "assets/scene/vinyl.png",
+   "x": 424,
+   "y": 12,
+   "w": 56,
+   "h": 56,
+   "z": 5
+  },
+  {
+   "name": "frame-award",
+   "src": "assets/scene/frame-award.png",
+   "x": 486,
+   "y": 8,
+   "w": 42,
+   "h": 58,
+   "z": 5
+  },
+  {
+   "name": "photo-award",
+   "src": "assets/scene/photo-award.png",
+   "x": 490,
+   "y": 12,
+   "w": 34,
+   "h": 50,
+   "z": 5,
+   "role": "photo"
+  },
+  {
+   "name": "shelf",
+   "src": "assets/scene/shelf.png",
+   "x": 148,
+   "y": 180,
+   "w": 340,
+   "h": 40,
+   "z": 6
+  },
+  {
+   "name": "shelf-plant",
+   "src": "assets/scene/shelf-plant.png",
+   "x": 444,
+   "y": 88,
+   "w": 58,
+   "h": 96,
+   "z": 8
+  },
+  {
+   "name": "desk",
+   "src": "assets/scene/desk.png",
+   "x": 12,
+   "y": 219,
+   "w": 150,
+   "h": 83,
+   "z": 10
+  },
+  {
+   "name": "ghana-sticker",
+   "src": "assets/scene/ghana-sticker.png",
+   "x": 131,
+   "y": 234,
+   "w": 16,
+   "h": 21,
+   "z": 11
+  },
+  {
+   "name": "pencil-cup",
+   "src": "assets/scene/pencil-cup.png",
+   "x": 74,
+   "y": 215,
+   "w": 18,
+   "h": 28,
+   "z": 11
+  },
+  {
+   "name": "desk-clock-body",
+   "src": "assets/scene/desk-clock-body.png",
+   "x": 93,
+   "y": 208,
+   "w": 51,
+   "h": 38,
+   "z": 12
+  },
+  {
+   "name": "chair",
+   "src": "assets/scene/chair.png",
+   "x": 37,
+   "y": 226,
+   "w": 72,
+   "h": 123,
+   "z": 13
+  },
+  {
+   "name": "floor-plant",
+   "src": "assets/scene/floor-plant.png",
+   "x": -24,
+   "y": 170,
+   "w": 80,
+   "h": 124,
+   "z": 14
+  }
+ ],
+ "books": [
+  {
+   "id": "uiux",
+   "src": "assets/books/book-uiux.png",
+   "x": 162,
+   "y": 97,
+   "w": 56,
+   "h": 86
+  },
+  {
+   "id": "dev",
+   "src": "assets/books/book-dev.png",
+   "x": 219,
+   "y": 97,
+   "w": 56,
+   "h": 86
+  },
+  {
+   "id": "music",
+   "src": "assets/books/book-music.png",
+   "x": 276,
+   "y": 97,
+   "w": 56,
+   "h": 86
+  },
+  {
+   "id": "creative",
+   "src": "assets/books/book-creative.png",
+   "x": 333,
+   "y": 97,
+   "w": 56,
+   "h": 86
+  },
+  {
+   "id": "journal",
+   "src": "assets/books/book-journal.png",
+   "x": 390,
+   "y": 97,
+   "w": 56,
+   "h": 86
+  }
+ ],
+ "glass": [
+  46,
+  -2,
+  98,
+  221
+ ],
+ "glassQuad": [
+  [
+   0,
+   0
+  ],
+  [
+   98,
+   30
+  ],
+  [
+   98,
+   189
+  ],
+  [
+   0,
+   221
+  ]
+ ],
+ "cloudSkew": 17.020525611519858,
+ "camera": {
+  "src": "assets/scene/camera.png",
+  "x": 311,
+  "y": 22,
+  "w": 48,
+  "h": 32
+ },
+ "desk": {
+  "top": [
+   [
+    14,
+    260.92883895131087
+   ],
+   [
+    120,
+    221.22846441947564
+   ],
+   [
+    158.84486873508354,
+    221.22846441947564
+   ],
+   [
+    66,
+    260.92883895131087
+   ]
+  ]
+ },
+ "deskClock": {
+  "src": "assets/scene/desk-clock.png",
+  "w": 28,
+  "h": 14,
+  "z": 12,
+  "lcd": [
+   2,
+   3,
+   24,
+   9
+  ],
+  "transform": "matrix3d(1.677482,0.402906,0.000000,0.003874,0.000000,1.400000,0.000000,0.000000,0.000000,0.000000,1.000000,0.000000,106.000000,222.400000,0.000000,1.000000)"
+ },
+ "openbook": {
+  "W": 330,
+  "H": 216,
+  "S": 165,
+  "left": {
+   "page": [
+    12,
+    10,
+    153,
+    184
+   ],
+   "content": [
+    13,
+    17,
+    129,
+    154
+   ]
+  },
+  "right": {
+   "page": [
+    165,
+    10,
+    153,
+    184
+   ],
+   "content": [
+    14,
+    17,
+    127,
+    154
+   ]
+  }
+ },
+ "mbook": {
+  "W": 180,
+  "H": 300,
+  "page": [
+   11,
+   9,
+   158,
+   274
+  ],
+  "content": [
+   10,
+   10,
+   138,
+   248
+  ]
+ },
+ "themes": {
+  "uiux": {
+   "base": "#7442c0",
+   "light": "#9c6ce2",
+   "dark": "#4a2488",
+   "outline": "#1c0a3a",
+   "accent": "#efe0ff",
+   "accent2": "#c09cf4",
+   "icon": "cursor"
+  },
+  "dev": {
+   "base": "#2f56c4",
+   "light": "#5a82ee",
+   "dark": "#1c3488",
+   "outline": "#0a1238",
+   "accent": "#dce8ff",
+   "accent2": "#90b4fa",
+   "icon": "code"
+  },
+  "music": {
+   "base": "#cc6626",
+   "light": "#f29044",
+   "dark": "#8c3a14",
+   "outline": "#381206",
+   "accent": "#ffe6c0",
+   "accent2": "#fab474",
+   "icon": "note"
+  },
+  "creative": {
+   "base": "#b6303e",
+   "light": "#e0566a",
+   "dark": "#721628",
+   "outline": "#2c040c",
+   "accent": "#ffd6cc",
+   "accent2": "#f6968e",
+   "icon": "palette"
+  },
+  "journal": {
+   "base": "#327640",
+   "light": "#52a05a",
+   "dark": "#1e4a28",
+   "outline": "#081e0e",
+   "accent": "#dcf6c6",
+   "accent2": "#92d28a",
+   "icon": "book"
+  }
+ },
+ "mobile": {
+  "m-spines": "assets/scene/m-spines.png",
+  "m-pot": "assets/scene/m-pot.png",
+  "m-camera": "assets/scene/m-camera.png",
+  "window": "assets/scene/m-window.png"
+ },
+ "fx": {
+  "bloom": "assets/scene/fx-bloom.png",
+  "shafts": "assets/scene/fx-shafts.png",
+  "blur": "assets/scene/fx-room-blur.png"
+ }
+}
