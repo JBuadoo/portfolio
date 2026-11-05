@@ -20,7 +20,7 @@ export const LINKS = {
   emailText: "jrkwekub@gmail.com",
   linkedin: "https://www.linkedin.com/in/jbuadoo/",
   github: "https://github.com/JBuadoo",
-  resume: "files/Resume_Joseph_Buadoo_UX_UI_Designer_2026-08.pdf",
+  resume: "/files/Resume_Joseph_Buadoo_UX_UI_Designer_2026-08.pdf",
   tapin: "https://tapinwaitlist.framer.website/",
   cjc: "https://jbuadoo.github.io/CJC-Music/",
   baratie: "https://jbuadoo.github.io/The-Baratie/",
@@ -28,17 +28,17 @@ export const LINKS = {
 };
 
 export const TRACKS: Track[] = [
-  { title: "Royal", src: "audio/royal.mp3", genre: "Melodic", bpm: "130 BPM", key: "B Major" },
-  { title: "Mixed Emotions", src: "audio/mixed-emotions.mp3", genre: "New Jack Swing", bpm: "118 BPM", key: "E Minor" },
-  { title: "Unusual Things", src: "audio/unusual-things.mp3", genre: "Synthwave", bpm: "85 BPM", key: "E Minor" },
-  { title: "Love Taps", src: "audio/love-taps.mp3", genre: "R&B", bpm: "138 BPM", key: "C Minor" },
-  { title: "Let Me", src: "audio/let-me.mp3", genre: "2000's Swag", bpm: "108 BPM", key: "E Minor" },
-  { title: "Chrome Dome", src: "audio/chrome-dome.mp3", genre: "Electronic Club", bpm: "80 BPM", key: "D# Minor" },
-  { title: "Toy Bin OST 1", src: "audio/toy-bin-ost-1.mp3", genre: "Game Soundtrack", bpm: "130 BPM", key: "E Minor" },
-  { title: "Patience (as a feature)", src: "audio/patience.mp3", genre: "R&B", bpm: "116 BPM", key: "C# Minor" },
-  { title: "New Wave", src: "audio/new-wave.mp3", genre: "New Jack Swing", bpm: "112 BPM", key: "E♭ Minor" },
-  { title: "Joestar", src: "audio/joestar.mp3", genre: "Live Test", bpm: "125 BPM", key: "D Major" },
-  { title: "Sweet Ballad", src: "audio/sweet-ballad.mp3", genre: "Ballad", bpm: "88 BPM", key: "A Minor" },
+  { title: "Royal", src: "/audio/royal.mp3", genre: "Melodic", bpm: "130 BPM", key: "B Major" },
+  { title: "Mixed Emotions", src: "/audio/mixed-emotions.mp3", genre: "New Jack Swing", bpm: "118 BPM", key: "E Minor" },
+  { title: "Unusual Things", src: "/audio/unusual-things.mp3", genre: "Synthwave", bpm: "85 BPM", key: "E Minor" },
+  { title: "Love Taps", src: "/audio/love-taps.mp3", genre: "R&B", bpm: "138 BPM", key: "C Minor" },
+  { title: "Let Me", src: "/audio/let-me.mp3", genre: "2000's Swag", bpm: "108 BPM", key: "E Minor" },
+  { title: "Chrome Dome", src: "/audio/chrome-dome.mp3", genre: "Electronic Club", bpm: "80 BPM", key: "D# Minor" },
+  { title: "Toy Bin OST 1", src: "/audio/toy-bin-ost-1.mp3", genre: "Game Soundtrack", bpm: "130 BPM", key: "E Minor" },
+  { title: "Patience (as a feature)", src: "/audio/patience.mp3", genre: "R&B", bpm: "116 BPM", key: "C# Minor" },
+  { title: "New Wave", src: "/audio/new-wave.mp3", genre: "New Jack Swing", bpm: "112 BPM", key: "E♭ Minor" },
+  { title: "Joestar", src: "/audio/joestar.mp3", genre: "Live Test", bpm: "125 BPM", key: "D Major" },
+  { title: "Sweet Ballad", src: "/audio/sweet-ballad.mp3", genre: "Ballad", bpm: "88 BPM", key: "A Minor" },
 ];
 
 // ---------------------------------------------------------------------------

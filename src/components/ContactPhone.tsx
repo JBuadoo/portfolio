@@ -43,7 +43,7 @@ export function ContactPhone({ onClose: done }: { onClose: () => void }) {
             <span className="cphone__bars">▮▮▮ ▰</span>
           </div>
           <div className="cphone__head">
-            <img src="assets/ui/logo.png" alt="" className="px cphone__logo" />
+            <img src="/assets/ui/logo.png" alt="" className="px cphone__logo" />
             <h2>Contact</h2>
             <p>Let's create something great.</p>
           </div>

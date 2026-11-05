@@ -132,8 +132,8 @@ export default function App() {
       // warm the cache (and decode) every book's art while idle, so first opens never stutter
       const ids = BOOKS.map((b) => b.id);
       const art = window.matchMedia("(max-width: 760px)").matches
-        ? ids.flatMap((id) => [`assets/ui/mbook-${id}.png`, `assets/ui/mcover-${id}.png`]).concat("assets/ui/page-single.png")
-        : ids.flatMap((id) => [`assets/ui/openbook-${id}-l.png`, `assets/ui/openbook-${id}-r.png`, `assets/ui/cover-${id}.png`]);
+        ? ids.flatMap((id) => [`/assets/ui/mbook-${id}.png`, `/assets/ui/mcover-${id}.png`]).concat("/assets/ui/page-single.png")
+        : ids.flatMap((id) => [`/assets/ui/openbook-${id}-l.png`, `/assets/ui/openbook-${id}-r.png`, `/assets/ui/cover-${id}.png`]);
       const idle = (cb: () => void) =>
         "requestIdleCallback" in (window as any) ? (window as any).requestIdleCallback(cb, { timeout: 1500 }) : window.setTimeout(cb, 300);
       idle(() =>
@@ -296,9 +296,9 @@ export default function App() {
       style={{
         ["--nav-w" as string]: `${navW}px`,
         ["--nav-full" as string]: `${navFull}px`,
-        ["--img-page-l" as string]: `url(${T("assets/ui/page-left.png")})`,
-        ["--img-page-r" as string]: `url(${T("assets/ui/page-right.png")})`,
-        ["--img-page-s" as string]: `url(${T("assets/ui/page-single.png")})`,
+        ["--img-page-l" as string]: `url(${T("/assets/ui/page-left.png")})`,
+        ["--img-page-r" as string]: `url(${T("/assets/ui/page-right.png")})`,
+        ["--img-page-s" as string]: `url(${T("/assets/ui/page-single.png")})`,
       }}
     >
       <a className="skip" href="#main" onClick={(e) => { e.preventDefault(); document.getElementById(`shelf-book-${BOOKS[0].id}`)?.focus(); }}>

@@ -53,12 +53,12 @@ export function themeVars(id: string): Record<string, string> {
     "--b-accent2": t.accent2,
     "--ink": INK[id],
     "--ink-base": INK[id],
-    "--ob-full": `url(${T(`assets/ui/openbook-${id}.png`)})`,
-    "--ob-l": `url(${T(`assets/ui/openbook-${id}-l.png`)})`,
-    "--ob-r": `url(${T(`assets/ui/openbook-${id}-r.png`)})`,
-    "--ob-cover": `url(assets/ui/cover-${id}.png)`,
-    "--mb-base": `url(${T(`assets/ui/mbook-${id}.png`)})`,
-    "--mb-cover": `url(assets/ui/mcover-${id}.png)`,
+    "--ob-full": `url(${T(`/assets/ui/openbook-${id}.png`)})`,
+    "--ob-l": `url(${T(`/assets/ui/openbook-${id}-l.png`)})`,
+    "--ob-r": `url(${T(`/assets/ui/openbook-${id}-r.png`)})`,
+    "--ob-cover": `url(/assets/ui/cover-${id}.png)`,
+    "--mb-base": `url(${T(`/assets/ui/mbook-${id}.png`)})`,
+    "--mb-cover": `url(/assets/ui/mcover-${id}.png)`,
   };
 }
 
@@ -83,35 +83,38 @@ export function modeAssets(mode: Mode): string[] {
   const fx = (SCENE as unknown as { fx: Record<string, string> }).fx;
   const dc = (SCENE as unknown as { deskClock: { src: string } }).deskClock.src;
   return [
-    ...SCENE.layers.map((l) => l.src),
-    ...SCENE.books.map((b) => b.src),
-    ...Object.values(fx),
-    dc,
-    (SCENE as unknown as { camera: { src: string } }).camera.src,
-    "assets/ui/page-left.png",
-    "assets/ui/page-right.png",
-    "assets/ui/page-single.png",
+    ...SCENE.layers.map((l) => l.src.startsWith("/") ? l.src : `/${l.src}`),
+    ...SCENE.books.map((b) => b.src.startsWith("/") ? b.src : `/${b.src}`),
+    ...Object.values(fx).map((s) => s.startsWith("/") ? s : `/${s}`),
+    dc.startsWith("/") ? dc : `/${dc}`,
+    (() => {
+      const c = (SCENE as unknown as { camera: { src: string } }).camera.src;
+      return c.startsWith("/") ? c : `/${c}`;
+    })(),
+    "/assets/ui/page-left.png",
+    "/assets/ui/page-right.png",
+    "/assets/ui/page-single.png",
     ...Object.keys(SCENE.themes).flatMap((id) => [
-      `assets/ui/openbook-${id}-l.png`,
-      `assets/ui/openbook-${id}-r.png`,
-      `assets/ui/mbook-${id}.png`,
+      `/assets/ui/openbook-${id}-l.png`,
+      `/assets/ui/openbook-${id}-r.png`,
+      `/assets/ui/mbook-${id}.png`,
     ]),
   ].map((s) => T(s, mode));
 }
 
 /** Every image needed before the room can be shown. */
 export const SCENE_ASSETS = [
-  ...SCENE.layers.map((l) => l.src),
-  ...SCENE.books.map((b) => b.src),
-  "assets/ui/page-left.png",
-  "assets/ui/page-right.png",
-  "assets/ui/parchment.png",
-  "assets/ui/ui9.png",
-  "assets/ui/ui9-active.png",
-  "assets/ui/logo.png",
-  "assets/ui/openbook-uiux.png",
-  "assets/scene/fx-shafts.png",
-  "assets/scene/fx-bloom.png",
-  "assets/scene/fx-room-blur.png",
-  "assets/ui/cover-uiux.png",
+  ...SCENE.layers.map((l) => l.src.startsWith("/") ? l.src : `/${l.src}`),
+  ...SCENE.books.map((b) => b.src.startsWith("/") ? b.src : `/${b.src}`),
+  "/assets/ui/page-left.png",
+  "/assets/ui/page-right.png",
+  "/assets/ui/parchment.png",
+  "/assets/ui/ui9.png",
+  "/assets/ui/ui9-active.png",
+  "/assets/ui/logo.png",
+  "/assets/ui/openbook-uiux.png",
+  "/assets/scene/fx-shafts.png",
+  "/assets/scene/fx-bloom.png",
+  "/assets/scene/fx-room-blur.png",
+  "/assets/ui/cover-uiux.png",
 ];

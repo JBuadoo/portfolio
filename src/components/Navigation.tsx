@@ -33,7 +33,7 @@ export function Navigation({ active, onNav, mobile, hidden, mode, onMode }: Prop
     <nav className={mobile ? "tabbar" : "sidebar"} aria-label="Main" aria-hidden={hidden || undefined} inert={hidden ? true : undefined}>
       {!mobile && (
         <button type="button" className="sidebar__logo" onClick={() => onNav("home")} aria-label="Joseph Buadoo - home">
-          <img src="assets/ui/logo.png" alt="" className="px" />
+          <img src="/assets/ui/logo.png" alt="" className="px" />
         </button>
       )}
       {!mobile && <div className="sidebar__dot" aria-hidden />}

@@ -1,9 +1,9 @@
 import { defineConfig } from "vite";
 import react from "@vitejs/plugin-react";
 
-// base "./" lets the build run from any folder (GitHub Pages project sites, file servers, etc.)
+// base "/" ensures all asset URLs resolve from site root cleanly on Vercel and production hosts
 export default defineConfig({
-  base: "./",
+  base: "/",
   plugins: [react()],
   build: { target: "es2020", assetsInlineLimit: 0 },
 });
