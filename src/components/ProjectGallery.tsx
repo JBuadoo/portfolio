@@ -10,6 +10,7 @@ const isVideo = (src: string) => /\.(mp4|webm)$/i.test(src);
 export function Picture({ img, fit = "cover", maxH, phone }: { img: Img; fit?: "cover" | "contain"; maxH?: number; phone?: boolean }) {
   const open = useContext(LightboxCtx);
   const isStatic = useContext(StaticCtx);
+  const isGif = /\.gif($|\?)/i.test(img.src);
   return (
     <figure className={`pic${phone ? " pic--phone" : ""}`}>
       <button
@@ -35,8 +36,8 @@ export function Picture({ img, fit = "cover", maxH, phone }: { img: Img; fit?: "
           <img
             src={img.src}
             alt={img.alt}
-            loading={isStatic ? "eager" : "lazy"}
-            decoding="async"
+            loading={isStatic || isGif ? "eager" : "lazy"}
+            decoding={isGif ? "sync" : "async"}
             style={{ objectFit: fit, maxHeight: maxH ? `min(${maxH}px, calc(var(--u, 3) * 130px))` : undefined }}
           />
         )}
@@ -46,11 +47,11 @@ export function Picture({ img, fit = "cover", maxH, phone }: { img: Img; fit?: "
   );
 }
 
-export function ProjectGallery({ images, cols = 3, phone, title, fit, bare, large, square, stackMobile }: { images: Img[]; cols?: number; phone?: boolean; title?: string; fit?: "cover" | "contain"; bare?: boolean; large?: boolean; square?: boolean; stackMobile?: boolean }) {
+export function ProjectGallery({ images, cols = 3, phone, title, fit, bare, large, square, stackMobile, fullWidth }: { images: Img[]; cols?: number; phone?: boolean; title?: string; fit?: "cover" | "contain"; bare?: boolean; large?: boolean; square?: boolean; stackMobile?: boolean; fullWidth?: boolean }) {
   return (
-    <div className={`gallery-wrap${bare ? " gallery-wrap--bare" : ""}${large ? " gallery-wrap--large" : ""}`}>
+    <div className={`gallery-wrap${bare ? " gallery-wrap--bare" : ""}${large ? " gallery-wrap--large" : ""}${fullWidth ? " gallery-wrap--full" : ""}`}>
       {title && <h4 className="b-label">{title}</h4>}
-      <div className={`gallery${phone ? " gallery--phone" : ""}${bare ? " gallery--bare" : ""}${large ? " gallery--large" : ""}${square ? " gallery--square" : ""}${stackMobile ? " gallery--stack-m" : ""}`} style={{ ["--cols" as string]: cols }}>
+      <div className={`gallery${phone ? " gallery--phone" : ""}${bare ? " gallery--bare" : ""}${large ? " gallery--large" : ""}${square ? " gallery--square" : ""}${stackMobile ? " gallery--stack-m" : ""}${fullWidth ? " gallery--full" : ""}`} style={{ ["--cols" as string]: cols }}>
         {images.map((im) => (
           <Picture key={im.src} img={im} phone={phone} fit={fit ? fit : phone ? "contain" : "cover"} />
         ))}

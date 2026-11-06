@@ -35,7 +35,7 @@ export type Block =
   | { t: "meta"; rows: [string, string][] }
   | { t: "tags"; items: string[]; title?: string }
   | { t: "image"; img: Img; tall?: boolean; fit?: "cover" | "contain"; maxH?: number; bare?: boolean }
-  | { t: "gallery"; images: Img[]; cols?: 1 | 2 | 3 | 4; phone?: boolean; title?: string; fit?: "cover" | "contain"; bare?: boolean; large?: boolean; square?: boolean; stackMobile?: boolean }
+  | { t: "gallery"; images: Img[]; cols?: 1 | 2 | 3 | 4; phone?: boolean; title?: string; fit?: "cover" | "contain"; bare?: boolean; large?: boolean; square?: boolean; stackMobile?: boolean; fullWidth?: boolean }
   | { t: "placeholder"; label: string; note?: string; ratio?: string }
   | { t: "feature"; icon?: IconName; title: string; text: string; img?: Img; large?: boolean; noFlip?: boolean }
   | { t: "links"; links: LinkItem[] }

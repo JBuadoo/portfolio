@@ -10,7 +10,7 @@
 import type { Book, Img, Track } from "./types";
 
 const img = (name: string, alt: string, caption?: string): Img => ({
-  src: `assets/projects/${name}.webp`,
+  src: /\.(webp|gif|png|jpe?g|mp4)$/i.test(name) ? `assets/projects/${name}` : `assets/projects/${name}.webp`,
   alt,
   caption,
 });
@@ -55,11 +55,11 @@ const uiux: Book = {
     {
       id: "tap-in",
       title: "Tap In",
-      subtitle: "Music Social App",
+      subtitle: "Music Discussion Social App",
       icon: "note",
       logo: "assets/icons/tapin-logo.svg",
       tagline: "A music promotion & discovery platform",
-      blurb: "A mobile platform that helps artists grow their presence while empowering listeners to discover, discuss and share fresh sounds.",
+      blurb: "A mobile platform that helps artists grow their audience while giving listeners a space to discover, discuss and share fresh sounds.",
       spreads: [
         {
           left: [
@@ -98,7 +98,6 @@ const uiux: Book = {
               items: [
                 "Project leadership, product planning and team priorities",
                 "Primary and sole UI designer: user flows, interfaces, prototypes and design system",
-                "Front-end and back-end development alongside the dev team",
                 "User interviews and usability testing to guide product decisions",
               ],
             },
@@ -210,7 +209,7 @@ const uiux: Book = {
       icon: "clapper",
       logo: "assets/icons/reel.svg",
       tagline: "A movie & show discussion app",
-      blurb: "A collaborative mobile prototype for film, TV and anime fans to discover, discuss and review what they watch.",
+      blurb: "A group prototype app for film, TV and anime fans to discover, discuss and review what they watch, similar to Letterboxd.",
       spreads: [
         {
           left: [
@@ -311,10 +310,23 @@ const uiux: Book = {
                 "File hygiene - named frames, auto layout, organised libraries - prevents compounding design debt.",
               ],
             },
+            { t: "placeholder", label: "Coming soon", note: "Full case study.", ratio: "16 / 9" },
           ],
           right: [
-            { t: "placeholder", label: "Coming soon", note: "Reel website rebrand.", ratio: "4 / 3" },
-            { t: "placeholder", label: "Coming soon", note: "Full case study.", ratio: "16 / 9" },
+            { t: "kicker", text: "Website Rebrand" },
+            {
+              t: "gallery",
+              cols: 1,
+              bare: true,
+              large: true,
+              fit: "contain",
+              images: [
+                img("reel-web-home", "Reel website rebrand - Home feed"),
+                img("reel-web-explorer", "Reel website rebrand - Explorer page"),
+                img("reel-web-reply", "Reel website rebrand - Discussion & replies"),
+                img("reel-web-profile", "Reel website rebrand - User profile"),
+              ],
+            },
           ],
         },
       ],
@@ -621,13 +633,14 @@ const dev: Book = {
       title: "D&D Database",
       subtitle: "Campaign Database",
       icon: "server",
+      logo: "assets/icons/dnd.png",
       tagline: "Personal Project · Jan 2026",
       blurb: "A campaign database for D&D and Monster of the Week to track characters, abilities, lore, and notes.",
       spreads: [
         {
           left: [
             { t: "kicker", text: "Personal Project · Jan 2026" },
-            { t: "title", text: "D&D Campaign Database", sub: "Campaign database", icon: "server" },
+            { t: "title", text: "D&D Campaign Database", sub: "Campaign database", logo: "assets/icons/dnd.png" },
             {
               t: "p",
               lead: true,
@@ -646,16 +659,17 @@ const dev: Book = {
     },
     {
       id: "ghana-language",
-      title: "Ghana Language",
-      subtitle: "Language Learning",
+      title: "Biribiara Bɔkɔɔ",
+      subtitle: "Ghanaian Language Learning",
       icon: "globe",
+      logo: "assets/icons/ghana.svg",
       tagline: "Personal Project · Oct 2026",
-      blurb: "Biribiara Bɔkɔɔ: a personal study app for learning Twi and Fante with voice recordings, notes, and memorization algorithms.",
+      blurb: "Biribiara Bɔkɔɔ: a personal study app for learning Twi and Fante with voice recordings, notes, and memorization.",
       spreads: [
         {
           left: [
             { t: "kicker", text: "Personal Project · Oct 2026" },
-            { t: "title", text: "Ghana Language Learning", sub: "Biribiara Bɔkɔɔ study app", icon: "globe" },
+            { t: "title", text: "Biribiara Bɔkɔɔ", sub: "Ghanaian Language Learning", logo: "assets/icons/ghana.svg" },
             {
               t: "p",
               lead: true,
@@ -773,7 +787,7 @@ const music: Book = {
               lead: true,
               text: "Music production and audio mixing are part of how I create. These snippets come from my Joë Collection.",
             },
-            { t: "image", img: img("royal-cover", "Royal cover art: Joseph in a white tank top against a purple glow, Isaiah 62:3"), fit: "contain", maxH: 260 },
+            { t: "image", img: img("royal-cover", "Royal Cover Art Concept Art"), fit: "contain", maxH: 260 },
           ],
           right: [{ t: "audio", title: "Joë Collection", tracks: TRACKS }],
         },
@@ -849,8 +863,14 @@ const creative: Book = {
             {
               t: "gallery",
               cols: 1,
+              bare: true,
               large: true,
-              images: [img("new-milestone1", "Redesigned hero"), img("new-milestone2", "Redesigned story section"), img("new-milestone3", "Redesigned comics section")],
+              fit: "contain",
+              images: [
+                img("new-milestone1", "Redesigned hero"),
+                img("new-milestone2", "Redesigned story section"),
+                img("new-milestone3", "Redesigned comics section"),
+              ],
             },
           ],
         },
@@ -860,18 +880,18 @@ const creative: Book = {
             { t: "h", text: "SOUL" },
             {
               t: "p",
-              text: "Milestone champions Black culture, but as someone with heritage from Ghana, I felt West African influences were underrepresented. SOUL follows Benjamin “Benji” Boateng, a young teen whose family hails from West Africa, who awakens latent spiritual abilities - heightened perception and kinetic movement - and discovers not every spirit around him is benevolent.",
+              text: "Milestone highlights Black culture, but as someone with Ghanaian heritage, I always wished for more West African influences in hero media. SOUL follows Benjamin “Benji” Boateng, a young Ghanaian American teen, who awakens latent spiritual abilities and discovers there is more at play hiding in the world that meets the eye.",
             },
             {
               t: "list",
               items: [
-                "Benji's silhouette glows with internal energy - who he is within.",
-                "The sharp red accent keeps synergy with the Milestone universe.",
-                "West African line art inside the silhouette weaves heritage into the hero.",
+                "Benji's silhouette shows the outer and inner appearance of himself to give the sense of the soul.",
+                "The sharp red accent keeps synergy with the Milestone universe and creates beautiful contrast.",
+                "West African line art inside the silhouette weaves heritage into the hero's soul.",
               ],
             },
           ],
-          right: [{ t: "image", img: img("soul", "SOUL comic cover with West African line art"), maxH: 430, fit: "contain" }],
+          right: [{ t: "image", img: img("soul", "SOUL comic cover with West African line art inspiration"), maxH: 430, fit: "contain" }],
         },
         {
           left: [
@@ -880,6 +900,14 @@ const creative: Book = {
             {
               t: "p",
               text: "To celebrate the Milestone and DC crossover, I designed a collector-grade variant cover for “New History of the DC Universe: The Dakota Incident”, highlighting the core heroes uniting against new threats.",
+            },
+            {
+              t: "list",
+              items: [
+                "The cover uses 3 of the most prominent Milestone heros to mirror the iconic Justice League cover with their trinity.",
+                "The cover uses red, yellow, and green as a nod to the black empowerment colors.",
+                "The Contrast has the trio stand out as the piece, emphasizing and highlighting their significance.",
+              ],
             },
           ],
           right: [{ t: "image", img: img("variant", "Dakota Incident variant cover"), maxH: 430, fit: "contain" }],
@@ -951,9 +979,28 @@ const creative: Book = {
               lead: true,
               text: "A Visual Design I study defining the turntable-inspired CJC logomark, typography scale, iconography and monochromatic colour palette - later used for the CJC website.",
             },
-            { t: "goto", label: "See the CJC website build", entry: "dev/cjc-music" },
+            {
+              t: "image",
+              img: img("cjc-brand-title", "CJC Music brand guide - Title slide"),
+              maxH: 240,
+              fit: "contain",
+              bare: true,
+            },
           ],
-          right: [{ t: "image", img: img("brand-assignment", "CJC brand identity board"), maxH: 360, fit: "contain" }],
+          right: [
+            {
+              t: "gallery",
+              cols: 1,
+              bare: true,
+              large: true,
+              fit: "contain",
+              images: [
+                img("cjc-brand-logo", "CJC Music brand guide - Logo type & lock up"),
+                img("cjc-brand-palette", "CJC Music brand guide - Color palette and typography"),
+                img("cjc-brand-icons", "CJC Music brand guide - Iconography and buttons"),
+              ],
+            },
+          ],
         },
       ],
     },
@@ -1052,9 +1099,54 @@ const creative: Book = {
               lead: true,
               text: "We were given various shapes to put together. It was later revealed that we would have to make a space out of it, evolving the composition into a final building.",
             },
-            { t: "tags", title: "Focus", items: ["Massing", "Spatial design", "Physical modeling"] },
+            { t: "tags", title: "Focus", items: ["Spatial Order", "Orthographic", "Paraline Drawing", "Perspective Drawing", "Physical modeling"] },
+            {
+              t: "image",
+              img: img("lair-render", "One Story Lair - Rendered View"),
+              maxH: 220,
+              fit: "contain",
+              bare: true,
+            },
           ],
-          right: [{ t: "image", img: img("architecture-lair", "One Story Lair model and drawings"), maxH: 420, fit: "contain" }],
+          right: [
+            {
+              t: "gallery",
+              cols: 1,
+              bare: true,
+              large: true,
+              fit: "contain",
+              images: [
+                img("lair-spatial-model", "One Story Lair - Spatial Order Full size model"),
+                img("lair-wall-sketches", "One Story Lair - Wall Section sketches"),
+                img("lair-wall-model", "One Story Lair - Wall Model"),
+              ],
+            },
+          ],
+        },
+        {
+          left: [
+            {
+              t: "gallery",
+              cols: 1,
+              bare: true,
+              large: true,
+              fit: "contain",
+              images: [
+                img("lair-orthographic", "One Story Lair - Orthographic Projections"),
+                img("lair-axonometric", "One Story Lair - Axonometric Projection"),
+                img("lair-floor-plans", "One Story Lair - Floor Plans"),
+              ],
+            },
+          ],
+          right: [
+            {
+              t: "image",
+              img: img("lair-final-model", "One Story Lair - Final Model"),
+              maxH: 430,
+              fit: "contain",
+              bare: true,
+            },
+          ],
         },
         {
           left: [
@@ -1084,6 +1176,53 @@ const creative: Book = {
       ],
     },
     {
+      id: "ideal-city",
+      title: "Ideal City",
+      subtitle: "Architecture Culture II",
+      icon: "globe",
+      tagline: "Architecture Culture II · Urban Concept",
+      blurb: "A collaborative urban concept inspired by Atlanta's regional challenges, featuring bioluminescent skies and hyperloop transit.",
+      spreads: [
+        {
+          left: [
+            { t: "kicker", text: "Architecture Culture II" },
+            { t: "title", text: "Ideal City", sub: "Architecture Culture II", icon: "globe" },
+            {
+              t: "p",
+              lead: true,
+              text: "For this assignment, we had to form a group and create our ideal city. Based of this task, I used the issues facing where I currently reside in the Atlanta region as inspiration.",
+            },
+            { t: "h", text: "Illumination City, the vibrant city" },
+            {
+              t: "p",
+              text: "Illumination City uses Bioluminescent research to cleanly and safely luminate the skies at night. Illumination occurs from a natural chemical process called bioluminescence where light is produced from a living body. This is commonly found in sea creatures like certain fish and algae. Algae lighting up coast is already a natural process found in some regions in the world. This barely contributed to light pollution, doesn't harm the trees, water or nature, and can be implemented in many more ways. Not only does this help with carbon and oxygen, but it cuts down on energy usage. This also creates recyclable renewable energy from biomass from the dead algae and bacteria. The genetically modified trees are self contained and controlled, so many what if issues like the trees pollinating, spreading, or impacting wild life negatively is eliminated, because it isn't ideal to fix problems with a different set of problems.",
+            },
+            {
+              t: "p",
+              text: "Being located in a coastal region grants many agricultural and fishing opportunities. This directly boosts the city's economy and opens more rooms for a shipping industry and the job market in general.",
+            },
+          ],
+          right: [
+            {
+              t: "p",
+              text: "As for design and layout, the vibrant city is designed to have a capital at its center with walkways, a hyperloop for transportation, and malls all leading to it. This creates equal commute for all residents. With the hyperloop trains for example, their airlock system creates a smooth journey at high speeds of 760 mph. With the hyperloop trains, walkways, and separated transportation for commercial or industrial use, this eliminates commuter congestion. To carry on. Districts or communities are place by neighborhoods for peoples essentials and leisure like food markets, shopping areas, public parks, and more.",
+            },
+            {
+              t: "p",
+              text: "By taking ideal concepts from various fictional and real world cities, Illumination City was born as a new precedent for the future generations to build upon.",
+            },
+            {
+              t: "image",
+              img: img("ideal-city-board", "Illumination - Ideal City presentation board - ARCH 3112 Architecture Culture II"),
+              maxH: 240,
+              fit: "contain",
+              bare: true,
+            },
+          ],
+        },
+      ],
+    },
+    {
       id: "3d-animation",
       title: "Animation",
       subtitle: "Blender & Mocap",
@@ -1091,6 +1230,33 @@ const creative: Book = {
       tagline: "Blender · Cycles · Motion capture",
       blurb: "3D modeling, rendering, animation, motion capture and game assets.",
       spreads: [
+        {
+          left: [
+            { t: "kicker", text: "Animation" },
+            { t: "title", text: "Animation & Mocap", sub: "Movement and timing", icon: "film" },
+            { t: "p", text: "A few animation clips utilizing mocap, rigging, and cycles." },
+            {
+              t: "image",
+              img: img("spiderman-cycle.gif", "Spider-Man locomotion cycle animation"),
+              maxH: 220,
+              fit: "contain",
+              bare: true,
+            },
+          ],
+          right: [
+            {
+              t: "gallery",
+              cols: 1,
+              bare: true,
+              large: true,
+              fit: "contain",
+              images: [
+                img("batman-walk.gif", "The Batman walk cycle animation"),
+                img("shocker-fall.gif", "Shocker fall reaction animation"),
+              ],
+            },
+          ],
+        },
         {
           left: [
             { t: "kicker", text: "3D" },
@@ -1101,18 +1267,6 @@ const creative: Book = {
           right: [
             { t: "placeholder", label: "Coming soon", note: "Wireframe / clay pass.", ratio: "4 / 3" },
             { t: "placeholder", label: "Coming soon", note: "Render breakdown.", ratio: "16 / 7" },
-          ],
-        },
-        {
-          left: [
-            { t: "kicker", text: "Animation" },
-            { t: "title", text: "Animation & Mocap", sub: "Movement and timing", icon: "film" },
-            { t: "p", text: "Animation and motion-capture projects." },
-            { t: "placeholder", label: "Coming soon", note: "Animation reel.", ratio: "16 / 9" },
-          ],
-          right: [
-            { t: "placeholder", label: "Coming soon", note: "Motion-capture session.", ratio: "4 / 3" },
-            { t: "placeholder", label: "Coming soon", note: "Process notes.", ratio: "16 / 6" },
           ],
         },
         {
@@ -1175,7 +1329,7 @@ const journal: Book = {
               ],
             },
             { t: "goto", label: "Get in touch", entry: "journal/contact" },
-            { t: "image", img: { src: "assets/photos/about-ksu.webp", alt: "Joseph in his graduation gown and kente stole standing on the Kennesaw State University logo" }, fit: "contain", maxH: 205 },
+            { t: "image", img: { src: "assets/photos/about-ksu.webp", alt: "2026 Graduation gown" }, fit: "contain", maxH: 205 },
           ],
         },
       ],

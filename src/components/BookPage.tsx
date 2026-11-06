@@ -196,7 +196,7 @@ function Blocks({ blocks, ctx }: { blocks: Block[]; ctx: PageCtx }) {
               </div>
             );
           case "gallery":
-            return <ProjectGallery key={k} images={b.images} cols={b.cols} phone={b.phone} title={b.title} fit={b.fit} bare={b.bare} large={b.large} square={b.square} stackMobile={b.stackMobile} />;
+            return <ProjectGallery key={k} images={b.images} cols={b.cols} phone={b.phone} title={b.title} fit={b.fit} bare={b.bare} large={b.large} square={b.square} stackMobile={b.stackMobile} fullWidth={b.fullWidth} />;
           case "placeholder":
             return (
               <div key={k} className={`b-placeholder${b.ratio === "3 / 4" ? " b-placeholder--tall" : ""}`} style={{ aspectRatio: b.ratio ?? "16 / 9" }}>

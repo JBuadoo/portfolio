@@ -2,9 +2,9 @@ import type { Img } from "./types";
 
 /** Photos shown on the wall frames (high-res versions). */
 export const WALL_PHOTOS: Record<string, Img> = {
-  "frame-photo": { src: "assets/photos/graduation.webp", alt: "Joseph at graduation in cap, gown and kente stole", caption: "Graduation" },
-  "frame-award": { src: "assets/photos/best-drummer.webp", alt: "Joseph holding a gold award and a Best Drummer card", caption: "Best Drummer" },
-  "frame-drums": { src: "assets/photos/drums.webp", alt: "Joseph playing a djembe in traditional attire", caption: "Djembe" },
+  "frame-photo": { src: "assets/photos/graduation.webp", alt: "Graduation photo 2026", caption: "Graduation photo 2026" },
+  "frame-award": { src: "assets/photos/best-drummer.webp", alt: "Best Drummer award acceptance", caption: "Best Drummer award acceptance" },
+  "frame-drums": { src: "assets/photos/drums.webp", alt: "Internationals Day 2025 Djembe Drum performance", caption: "Internationals Day 2025 Djembe Drum performance" },
 };
 
 /**

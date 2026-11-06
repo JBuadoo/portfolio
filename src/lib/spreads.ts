@@ -18,10 +18,10 @@ export interface BookLayout {
   pages: { content: PageContent; spread: number; side: "left" | "right" }[];
 }
 
-const cache = new Map<string, BookLayout>();
+const cache = new WeakMap<Book, BookLayout>();
 
 export function layoutBook(book: Book): BookLayout {
-  const hit = cache.get(book.id);
+  const hit = cache.get(book);
   if (hit) return hit;
   const spreads: SpreadRef[] = [{ left: { kind: "toc" }, right: { kind: "featured" } }];
   const entryStart: Record<string, number> = {};
@@ -43,7 +43,7 @@ export function layoutBook(book: Book): BookLayout {
     if (s.right.kind !== "featured") pages.push({ content: s.right, spread: i, side: "right" });
   });
   const layout = { spreads, entryStart, pages };
-  cache.set(book.id, layout);
+  cache.set(book, layout);
   return layout;
 }
 

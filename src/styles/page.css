@@ -904,11 +904,17 @@
 /* transparent mockups (laptop frames): no dark backing box */
 .b-image--bare .pic__btn,
 .b-image--bare .pic__btn:hover {
-  background:none;
-  box-shadow:none
+  background:none!important;
+  box-shadow:none!important;
 }
-.b-image--bare .pic__btn:hover {
-  transform:translateY(-3px)
+.b-image--bare .pic__btn img {
+  box-shadow:0 3px 12px rgba(40, 20, 40, 0.22), 0 1px 3px rgba(40, 20, 40, 0.12);
+  border-radius:4px;
+  transition:transform .16s ease, box-shadow .16s ease;
+}
+.b-image--bare .pic__btn:hover img {
+  transform:translateY(-2px);
+  box-shadow:0 6px 18px rgba(40, 20, 40, 0.28), 0 2px 5px rgba(40, 20, 40, 0.15);
 }
 .b-image .pic__btn {
   width:fit-content;
@@ -1036,8 +1042,13 @@ img[src*="mixr.svg"] {
   box-shadow:none!important
 }
 .gallery--bare .pic__btn img {
-  box-shadow:0 2px 10px #28142840;
-  border-radius:4px
+  box-shadow:0 3px 12px rgba(40, 20, 40, 0.22), 0 1px 3px rgba(40, 20, 40, 0.12);
+  border-radius:4px;
+  transition:transform .16s ease, box-shadow .16s ease;
+}
+.gallery--bare .pic__btn:hover img {
+  transform:translateY(-2px);
+  box-shadow:0 6px 18px rgba(40, 20, 40, 0.28), 0 2px 5px rgba(40, 20, 40, 0.15);
 }
 .gallery--bare img,.gallery img[style*=contain] {
   aspect-ratio:auto!important;
@@ -1253,9 +1264,9 @@ img[src*="soul.svg"] {
 /* single-column galleries (Ghana desktop screenshots): wide images at full page width */
 .gallery[style*="--cols: 1"] .pic__btn img,
 .gallery[style*="--cols:1"] .pic__btn img {
-  max-height: calc(var(--u, 3) * 46px) !important;
+  max-height: calc(var(--u, 3) * 50px) !important;
   width: auto !important;
-  max-width: 100%;
+  max-width: 98%;
   margin: 0 auto;
 }
 .gallery[style*="--cols: 1"] .pic__btn,
@@ -1331,14 +1342,30 @@ img[src*="soul.svg"] {
 
 /* large single-column galleries: images stacked, each as big as the page allows */
 .gallery-wrap--large .gallery[style*="--cols: 1"] .pic__btn img,
-.gallery-wrap--large .gallery[style*="--cols:1"] .pic__btn img {
+.gallery-wrap--large .gallery[style*="--cols:1"] .pic__btn img,
+.gallery--bare.gallery--large[style*="--cols: 1"] .pic__btn img,
+.gallery--bare.gallery--large[style*="--cols:1"] .pic__btn img {
   max-height: calc(var(--u, 3) * 64px) !important;
+  width: auto !important;
+  max-width: 98% !important;
+  margin: 0 auto;
 }
-.gallery-wrap--large .gallery[style*="--cols: 1"] {
-  gap: calc(var(--u, 3) * 4px);
+.gallery-wrap--large .gallery[style*="--cols: 1"],
+.gallery--bare.gallery--large[style*="--cols: 1"],
+.gallery--bare.gallery--large[style*="--cols:1"] {
+  gap: calc(var(--u, 3) * 3.5px) !important;
+  width: 100% !important;
 }
-.gallery-wrap--large .gallery[style*="--cols: 1"]:has(> :nth-child(3)) .pic__btn img {
+.gallery-wrap--large .gallery[style*="--cols: 1"]:not(.gallery--bare):has(> :nth-child(3)) .pic__btn img {
   max-height: calc(var(--u, 3) * 44px) !important;
+}
+.gallery-wrap--large .gallery--bare[style*="--cols: 1"] .pic,
+.gallery-wrap--large .gallery--bare[style*="--cols: 1"] .pic__btn,
+.gallery--bare.gallery--large[style*="--cols: 1"] .pic,
+.gallery--bare.gallery--large[style*="--cols: 1"] .pic__btn {
+  width: fit-content;
+  max-width: 100%;
+  margin: 0 auto;
 }
 
 /* ===== large solution features (Mixr / Reel): bigger screenshots + text ===== */
