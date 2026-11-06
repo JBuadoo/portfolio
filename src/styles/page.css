@@ -1155,6 +1155,9 @@ img[src*="mixr.svg"] {
 .toc__icon .pixel-icon {
   transform: scale(1.5);
 }
+.toc__icon .pixel-icon--columns {
+  transform: scale(1.4);
+}
 .toc__text strong {
   font-size: 24px;
 }

@@ -624,7 +624,20 @@ const dev: Book = {
             },
             { t: "tags", title: "Built with", items: ["Figma", "HTML", "CSS", "JavaScript", "Node"] },
           ],
-          right: [{ t: "placeholder", label: "Coming soon", note: "Gallery.", ratio: "3 / 4" }],
+          right: [
+            {
+              t: "gallery",
+              cols: 1,
+              bare: true,
+              large: true,
+              fit: "contain",
+              images: [
+                img("os-desktop", "Old portfolio desktop - Retro XP-inspired UI with sticky note and desktop icons"),
+                img("os-projects", "Old portfolio window manager - My Projects folder launcher"),
+                img("os-dark", "Old portfolio dark theme - Retro Start menu navigation"),
+              ],
+            },
+          ],
         },
       ],
     },

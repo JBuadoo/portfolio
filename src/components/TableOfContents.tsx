@@ -29,8 +29,23 @@ export function TableOfContents({ ctx, single }: { ctx: PageCtx; single?: boolea
               tabIndex={isStatic ? -1 : 0}
               aria-current={i === featured ? "true" : undefined}
             >
-              <span className={`toc__icon${e.logo ? " has-logo" : ""}`}>
-                {e.logo ? <img src={e.logo} alt="" /> : <PixelIcon name={e.icon} px={book.entries.length > 6 ? 2 : 2.5} />}
+              <span className={`toc__icon${e.logo ? " has-logo" : ""} toc__icon--${e.id}`}>
+                {e.logo ? (
+                  <img src={e.logo} alt="" />
+                ) : (
+                  <PixelIcon
+                    name={e.icon}
+                    px={
+                      book.entries.length > 6
+                        ? e.icon === "columns"
+                          ? 1.25
+                          : 2
+                        : e.icon === "columns"
+                        ? 1.5
+                        : 2.5
+                    }
+                  />
+                )}
               </span>
               <span className="toc__text">
                 <strong>{e.title}</strong>

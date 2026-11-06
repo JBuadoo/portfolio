@@ -40,7 +40,7 @@ export const PixelIcon = memo(function PixelIcon({ name, px = 2, className, titl
   });
   return (
     <svg
-      className={`pixel-icon ${className ?? ""}`}
+      className={`pixel-icon pixel-icon--${name} ${className ?? ""}`.trim()}
       width={w * px}
       height={h * px}
       viewBox={`0 0 ${w} ${h}`}
