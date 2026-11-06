@@ -87,10 +87,10 @@ export function modeAssets(mode: Mode): string[] {
     ...SCENE.books.map((b) => b.src.startsWith("/") ? b.src : `/${b.src}`),
     ...Object.values(fx).map((s) => s.startsWith("/") ? s : `/${s}`),
     dc.startsWith("/") ? dc : `/${dc}`,
-    (() => {
-      const c = (SCENE as unknown as { camera: { src: string } }).camera.src;
+    ...(["camera", "folder"] as const).map((k) => {
+      const c = (SCENE as unknown as Record<string, { src: string }>)[k].src;
       return c.startsWith("/") ? c : `/${c}`;
-    })(),
+    }),
     "/assets/ui/page-left.png",
     "/assets/ui/page-right.png",
     "/assets/ui/page-single.png",
@@ -106,6 +106,7 @@ export function modeAssets(mode: Mode): string[] {
 export const SCENE_ASSETS = [
   ...SCENE.layers.map((l) => l.src.startsWith("/") ? l.src : `/${l.src}`),
   ...SCENE.books.map((b) => b.src.startsWith("/") ? b.src : `/${b.src}`),
+  "/assets/scene/folder.png",
   "/assets/ui/page-left.png",
   "/assets/ui/page-right.png",
   "/assets/ui/parchment.png",

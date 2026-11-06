@@ -7,7 +7,7 @@
  *
  * Images live in /public/assets/projects (WebP). Use the `img()` helper below.
  */
-import type { Book, Img, Track } from "./types";
+import type { Book, Entry, Img, Track } from "./types";
 
 const img = (name: string, alt: string, caption?: string): Img => ({
   src: /\.(webp|gif|png|jpe?g|mp4)$/i.test(name) ? `assets/projects/${name}` : `assets/projects/${name}.webp`,
@@ -454,7 +454,7 @@ const dev: Book = {
   cover: "Dev",
   icon: "code",
   onShelf: true,
-  intro: "Front-end builds, apps, databases and game development.",
+  intro: "Front-end builds, apps, databases, game development and freelance work.",
   entries: [
     {
       id: "tap-in-dev",
@@ -754,6 +754,36 @@ const dev: Book = {
         },
       ],
     },
+    {
+      id: "freelance",
+      title: "Freelance",
+      subtitle: "Sites, Apps & Editing",
+      icon: "camera",
+      tagline: "Designer, Developer & Editor · 2016 – present",
+      blurb: "Websites, church media and photo and video editing for clients.",
+      spreads: [
+        {
+          left: [
+            { t: "kicker", text: "Freelance · 2016 – present" },
+            { t: "title", text: "Freelance Work", sub: "Sites, apps & editing", icon: "camera" },
+            {
+              t: "p",
+              text: "Client work across sites, apps and editing: redesigning MarthaEDU's website for usability and accessibility, and recording, photographing and editing sermons and events for All Nations Church NW. I also edit videos, photos, thumbnails and cover art for creators and artists.",
+            },
+            { t: "h", text: "MarthaEDU" },
+            {
+              t: "image",
+              img: { src: "assets/projects/marthaedu.mp4", poster: "assets/projects/marthaedu-poster.webp", alt: "Scrolling through the Martha Educational Foundation website" },
+              fit: "contain",
+            },
+          ],
+          right: [
+            { t: "h", text: "All Nations Church NW" },
+            { t: "placeholder", label: "Coming soon", note: "Church media photos and edits.", ratio: "2 / 1" },
+          ],
+        },
+      ],
+    },
   ],
 };
 
@@ -797,15 +827,15 @@ const music: Book = {
 };
 
 // ---------------------------------------------------------------------------
-// CREATIVE WORK
+// SCHOOL WORK (id stays "creative" so routes, shelf art and themes keep working)
 // ---------------------------------------------------------------------------
 const creative: Book = {
   id: "creative",
-  title: "Creative Work",
-  cover: "Creative\nWork",
+  title: "School Work",
+  cover: "School\nWork",
   icon: "palette",
   onShelf: true,
-  intro: "Branding, typography, cover art, illustration, architecture, Photoshop, animation and freelance work.",
+  intro: "Branding, typography, illustration, drawing and architecture.",
   entries: [
     {
       id: "milestone",
@@ -939,29 +969,6 @@ const creative: Book = {
       ],
     },
     {
-      id: "covers",
-      title: "Cover Art",
-      subtitle: "Music Covers",
-      icon: "note",
-      tagline: "Song & album artwork",
-      blurb: "Cover artwork that captures the feel of each song.",
-      spreads: [
-        {
-          left: [
-            { t: "kicker", text: "Cover Artwork" },
-            { t: "title", text: "Music Covers", sub: "2025", icon: "note" },
-            {
-              t: "p",
-              lead: true,
-              text: "A few music covers made with various Adobe tools. Each cover encapsulates the feel and thematic value of the song attached to it.",
-            },
-            { t: "p", text: "As a freelancer I also create song and album cover artwork for artists to visually represent their music." },
-          ],
-          right: [{ t: "image", img: img("music-covers", "Grid of four music cover artworks"), maxH: 430, fit: "contain" }],
-        },
-      ],
-    },
-    {
       id: "cjc-brand",
       title: "CJC Identity",
       subtitle: "Brand System",
@@ -1001,59 +1008,6 @@ const creative: Book = {
               ],
             },
           ],
-        },
-      ],
-    },
-    {
-      id: "freelance",
-      title: "Freelance",
-      subtitle: "Sites, Apps & Editing",
-      icon: "camera",
-      tagline: "Designer, Developer & Editor · 2016 – present",
-      blurb: "Websites, church media and photo and video editing for clients.",
-      spreads: [
-        {
-          left: [
-            { t: "kicker", text: "Freelance · 2016 – present" },
-            { t: "title", text: "Freelance Work", sub: "Sites, apps & editing", icon: "camera" },
-            {
-              t: "p",
-              text: "Client work across sites, apps and editing: redesigning MarthaEDU's website for usability and accessibility, and recording, photographing and editing sermons and events for All Nations Church NW. I also edit videos, photos, thumbnails and cover art for creators and artists.",
-            },
-            { t: "h", text: "MarthaEDU" },
-            {
-              t: "image",
-              img: { src: "assets/projects/marthaedu.mp4", poster: "assets/projects/marthaedu-poster.webp", alt: "Scrolling through the Martha Educational Foundation website" },
-              fit: "contain",
-            },
-          ],
-          right: [
-            { t: "h", text: "All Nations Church NW" },
-            { t: "placeholder", label: "Coming soon", note: "Church media photos and edits.", ratio: "2 / 1" },
-          ],
-        },
-      ],
-    },
-    {
-      id: "photoshop",
-      title: "Photoshop",
-      subtitle: "Photo Editing",
-      icon: "layers",
-      tagline: "Adobe Photoshop",
-      blurb: "Photo editing and image alteration in Photoshop.",
-      spreads: [
-        {
-          left: [
-            { t: "kicker", text: "Photoshop" },
-            { t: "title", text: "Photoshop", sub: "Photo editing & manipulation", icon: "layers" },
-            { t: "p", text: "Photo editing and image alteration in Photoshop: manga and anime blends, album cover recreations and composites." },
-            { t: "gallery", cols: 2, square: true, images: [img("ps-01", "Manga Anime blend Bleach Grimmjow Jaegerjaquez"), img("ps-02", "Demon Slayer Zenitsu Agatsuma")] },
-          ],
-          right: [{ t: "gallery", cols: 2, square: true, images: [img("ps-03", "Demon Slayer Kyōjurō Rengoku"), img("ps-04", "Minecraft Death inventory"), img("ps-05", "Miles Morales Building side shot"), img("ps-06", "Demon Slayer Tengen Uzui")] }],
-        },
-        {
-          left: [{ t: "gallery", cols: 1, square: true, images: [img("ps-07", "J. Cole 2014 Forest Hills Drive Album Cover"), img("ps-08", "Tyler, The Creator Call Me If You Get Lost Album Cover")] }],
-          right: [{ t: "gallery", cols: 1, square: true, images: [img("ps-09", "Demon Slayer Kaigaku"), img("ps-10", "Rurouni Kenshin Himura Kenshin with reverse blade")] }],
         },
       ],
     },
@@ -1222,69 +1176,121 @@ const creative: Book = {
         },
       ],
     },
-    {
-      id: "3d-animation",
-      title: "Animation",
-      subtitle: "Blender & Mocap",
-      icon: "cube",
-      tagline: "Blender · Cycles · Motion capture",
-      blurb: "3D modeling, rendering, animation, motion capture and game assets.",
-      spreads: [
-        {
-          left: [
-            { t: "kicker", text: "Animation" },
-            { t: "title", text: "Animation & Mocap", sub: "Movement and timing", icon: "film" },
-            { t: "p", text: "A few animation clips utilizing mocap, rigging, and cycles." },
-            {
-              t: "image",
-              img: img("spiderman-cycle.gif", "Spider-Man locomotion cycle animation"),
-              maxH: 220,
-              fit: "contain",
-              bare: true,
-            },
-          ],
-          right: [
-            {
-              t: "gallery",
-              cols: 1,
-              bare: true,
-              large: true,
-              fit: "contain",
-              images: [
-                img("batman-walk.gif", "The Batman walk cycle animation"),
-                img("shocker-fall.gif", "Shocker fall reaction animation"),
-              ],
-            },
-          ],
-        },
-        {
-          left: [
-            { t: "kicker", text: "3D" },
-            { t: "title", text: "Blender Modeling", sub: "Modeling & Cycles rendering", icon: "cube" },
-            { t: "p", text: "3D modeling in Blender, rendered with Cycles." },
-            { t: "placeholder", label: "Coming soon", note: "Hero render.", ratio: "4 / 3" },
-          ],
-          right: [
-            { t: "placeholder", label: "Coming soon", note: "Wireframe / clay pass.", ratio: "4 / 3" },
-            { t: "placeholder", label: "Coming soon", note: "Render breakdown.", ratio: "16 / 7" },
-          ],
-        },
-        {
-          left: [
-            { t: "kicker", text: "Assets" },
-            { t: "title", text: "Game Assets", sub: "& visual experiments", icon: "gamepad" },
-            { t: "p", text: "Game-related 3D assets and visual experiments." },
-            { t: "placeholder", label: "Coming soon", note: "Asset sheet.", ratio: "4 / 3" },
-          ],
-          right: [
-            { t: "placeholder", label: "Coming soon", note: "Experiment 01.", ratio: "4 / 3" },
-            { t: "placeholder", label: "Coming soon", note: "Experiment 02.", ratio: "4 / 3" },
-          ],
-        },
-      ],
-    },
   ],
 };
+
+// ---------------------------------------------------------------------------
+// CREATIVE FOLDER - the manila folder leaning on the shelf plant (loose papers, not a book)
+// ---------------------------------------------------------------------------
+export const FOLDER_ENTRIES: Entry[] = [
+  {
+    id: "covers",
+    title: "Cover Art",
+    subtitle: "Music Covers",
+    icon: "note",
+    tagline: "Song & album artwork",
+    blurb: "Cover artwork that captures the feel of each song.",
+    spreads: [
+      {
+        left: [
+          { t: "kicker", text: "Cover Artwork" },
+          { t: "title", text: "Music Covers", sub: "2025", icon: "note" },
+          {
+            t: "p",
+            lead: true,
+            text: "A few music covers made with various Adobe tools. Each cover encapsulates the feel and thematic value of the song attached to it.",
+          },
+          { t: "p", text: "As a freelancer I also create song and album cover artwork for artists to visually represent their music." },
+        ],
+        right: [{ t: "image", img: img("music-covers", "Grid of four music cover artworks"), maxH: 430, fit: "contain" }],
+      },
+    ],
+  },
+  {
+    id: "photoshop",
+    title: "Photoshop",
+    subtitle: "Photo Editing",
+    icon: "layers",
+    tagline: "Adobe Photoshop",
+    blurb: "Photo editing and image alteration in Photoshop.",
+    spreads: [
+      {
+        left: [
+          { t: "kicker", text: "Photoshop" },
+          { t: "title", text: "Photoshop", sub: "Photo editing & manipulation", icon: "layers" },
+          { t: "p", text: "Photo editing and image alteration in Photoshop: manga and anime blends, album cover recreations and composites." },
+          { t: "gallery", cols: 2, square: true, images: [img("ps-01", "Manga Anime blend Bleach Grimmjow Jaegerjaquez"), img("ps-02", "Demon Slayer Zenitsu Agatsuma")] },
+        ],
+        right: [{ t: "gallery", cols: 2, square: true, images: [img("ps-03", "Demon Slayer Kyōjurō Rengoku"), img("ps-04", "Minecraft Death inventory"), img("ps-05", "Miles Morales Building side shot"), img("ps-06", "Demon Slayer Tengen Uzui")] }],
+      },
+      {
+        left: [{ t: "gallery", cols: 1, square: true, images: [img("ps-07", "J. Cole 2014 Forest Hills Drive Album Cover"), img("ps-08", "Tyler, The Creator Call Me If You Get Lost Album Cover")] }],
+        right: [{ t: "gallery", cols: 1, square: true, images: [img("ps-09", "Demon Slayer Kaigaku"), img("ps-10", "Rurouni Kenshin Himura Kenshin with reverse blade")] }],
+      },
+    ],
+  },
+  {
+    id: "3d-animation",
+    title: "Animation",
+    subtitle: "Blender & Mocap",
+    icon: "cube",
+    tagline: "Blender · Cycles · Motion capture",
+    blurb: "3D modeling, rendering, animation, motion capture and game assets.",
+    spreads: [
+      {
+        left: [
+          { t: "kicker", text: "Animation" },
+          { t: "title", text: "Animation & Mocap", sub: "Movement and timing", icon: "film" },
+          { t: "p", text: "A few animation clips utilizing mocap, rigging, and cycles." },
+          {
+            t: "image",
+            img: img("spiderman-cycle.gif", "Spider-Man locomotion cycle animation"),
+            maxH: 220,
+            fit: "contain",
+            bare: true,
+          },
+        ],
+        right: [
+          {
+            t: "gallery",
+            cols: 1,
+            bare: true,
+            large: true,
+            fit: "contain",
+            images: [
+              img("batman-walk.gif", "The Batman walk cycle animation"),
+              img("shocker-fall.gif", "Shocker fall reaction animation"),
+            ],
+          },
+        ],
+      },
+      {
+        left: [
+          { t: "kicker", text: "3D" },
+          { t: "title", text: "Blender Modeling", sub: "Modeling & Cycles rendering", icon: "cube" },
+          { t: "p", text: "3D modeling in Blender, rendered with Cycles." },
+          { t: "placeholder", label: "Coming soon", note: "Hero render.", ratio: "4 / 3" },
+        ],
+        right: [
+          { t: "placeholder", label: "Coming soon", note: "Wireframe / clay pass.", ratio: "4 / 3" },
+          { t: "placeholder", label: "Coming soon", note: "Render breakdown.", ratio: "16 / 7" },
+        ],
+      },
+      {
+        left: [
+          { t: "kicker", text: "Assets" },
+          { t: "title", text: "Game Assets", sub: "& visual experiments", icon: "gamepad" },
+          { t: "p", text: "Game-related 3D assets and visual experiments." },
+          { t: "placeholder", label: "Coming soon", note: "Asset sheet.", ratio: "4 / 3" },
+        ],
+        right: [
+          { t: "placeholder", label: "Coming soon", note: "Experiment 01.", ratio: "4 / 3" },
+          { t: "placeholder", label: "Coming soon", note: "Experiment 02.", ratio: "4 / 3" },
+        ],
+      },
+    ],
+  },
+];
 
 // ---------------------------------------------------------------------------
 // JOURNAL (About + Contact) - lives on the desk, not on the shelf

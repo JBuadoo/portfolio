@@ -6,6 +6,7 @@ import { PixelIcon } from "./PixelIcon";
 import { DeskClock, type DeskClockInfo } from "./DeskClock";
 import { WallViewer, type WallView } from "./WallViewer";
 import { WALL_PHOTOS } from "../data/photography";
+import { CreativeFolder } from "./CreativeFolder";
 
 interface Props {
   outBook: string | null;
@@ -17,6 +18,8 @@ interface Props {
 
 const byName = (n: string) => SCENE.layers.find((l) => l.name === n)!;
 const FX = (SCENE as unknown as { fx: { shafts: string; bloom: string } }).fx;
+const FOLDER = (SCENE as unknown as { folder: { src: string; w: number; h: number } }).folder;
+const FK = 0.6; // folder sprite scale on the artboard
 
 /** The phone room is laid out on a 220-px-wide pixel artboard, scaled to the screen width. */
 const ART_W = 220;
@@ -46,6 +49,7 @@ export function MobileExperience({ outBook, landingBook, highlight, intro, onOpe
   // CSS px per artboard px: fill the width, but keep both shelves + the hint on the first screen
   const u = Math.min(vp.w / ART_W, vp.h / FIT_H);
   const [wallView, setWallView] = useState<WallView>(null);
+  const [folderOpen, setFolderOpen] = useState(false);
 
   const at = (x: number, y: number, w: number, h: number, z = 1): CSSProperties => ({
     position: "absolute",
@@ -199,6 +203,19 @@ export function MobileExperience({ outBook, landingBook, highlight, intro, onOpe
           </span>
         </button>
 
+        {/* creative folder leaning on the camera, between the Journal and the camera */}
+        <button
+          type="button"
+          className="cam-btn folder-btn"
+          style={{ ...at(CX + 80, 262 - FOLDER.h * FK + 1, FOLDER.w * FK, FOLDER.h * FK, 5), ["--s" as string]: u * 0.6 }}
+          onClick={() => setFolderOpen(true)}
+          aria-label="Open my creative folder: cover art, Photoshop and animation"
+        >
+          <span className="cam-btn__body">
+            <img src={T(FOLDER.src)} alt="" className="px" draggable={false} />
+          </span>
+        </button>
+
         {/* same hint as the desktop room: pill with arrows, just below the shelf */}
         <div className="mhint" style={{ left: (CX + (ART_W - CX) / 2) * u, top: 280 * u, transform: `scale(${u * 0.92})` }} aria-hidden={!!outBook}>
           <div className={`shelf-hint${outBook ? " is-hidden" : ""}`}>
@@ -212,6 +229,7 @@ export function MobileExperience({ outBook, landingBook, highlight, intro, onOpe
         </div>
       </div>
       <WallViewer view={wallView} onClose={() => setWallView(null)} />
+      {folderOpen && <CreativeFolder onClose={() => setFolderOpen(false)} />}
     </div>
   );
 }

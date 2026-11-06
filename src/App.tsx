@@ -321,11 +321,10 @@ export default function App() {
         <h1 className="sr-only">Joseph K. Buadoo - Interactive Designer &amp; Creative Developer</h1>
         {loaded &&
           (mobile ? (
-            <MobileExperience key={mode} outBook={open && !landing ? open.id : null}
+            <MobileExperience outBook={open && !landing ? open.id : null}
               landingBook={landing ? (open?.id ?? lastShelfBook.current) : null} highlight={highlight} intro={intro} onOpen={onShelfOpen} />
           ) : (
             <StudyEnvironment
-              key={mode}
               navW={navW}
               outBook={open && !landing ? open.id : null}
               landingBook={landing ? (open?.id ?? lastShelfBook.current) : null}

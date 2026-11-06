@@ -805,17 +805,24 @@ def make_wall_shelf():
     return cv
 
 
+SHELF_W = 364                  # long enough for the books, the creative folder and the plant pot
+
+
 def make_shelf():
-    sw = 340
+    sw = SHELF_W
     cv = C(sw, 40)
     r = rnd(4)
     cv.rect(2, 16, sw - 4, 5, "#0d071466")
     cv.rect(0, 0, sw, 4, "#b07444")       # top surface depth
     cv.rect(0, 0, sw, 1, "#e0a468")
     cv.rect(0, 4, sw, 11, "#8e5634")      # thick face
-    for _ in range(220):
-        x, y = r.randint(1, sw - 3), r.randint(5, 13)
+    for _ in range(220):                  # grain of the original 340px plank (same seed, same look)
+        x, y = r.randint(1, 337), r.randint(5, 13)
         cv.rect(x, y, r.randint(2, 9), 1, "#6e4028" if r.random() < 0.7 else "#a8683e")
+    r2 = rnd(41)
+    for _ in range(14):                   # grain on the extension
+        x, y = r2.randint(336, sw - 3), r2.randint(5, 13)
+        cv.rect(x, y, r2.randint(2, 7), 1, "#6e4028" if r2.random() < 0.7 else "#a8683e")
     cv.rect(0, 4, sw, 1, "#c08050")
     cv.rect(0, 14, sw, 1, "#4a2818")
     cv.orect(0, 0, sw, 15, "#24120c")
@@ -841,6 +848,51 @@ def make_shelf_plant():
     for a, ln in ((-2.75, 24), (-2.4, 30), (-2.05, 36), (-1.75, 40), (-1.45, 38), (-1.15, 34),
                   (-0.85, 30), (-0.5, 24), (-3.0, 18), (-0.25, 18)):
         leaf(cv, 29, 66, a + r.uniform(-0.05, 0.05), ln, 9, *(LEAF if r.random() < 0.5 else LEAF2))
+    cv.outline("#0e0a10")
+    return cv
+
+
+FOLDER_LEAN = -9                # degrees; negative = top tips to the right, onto the plant pot
+
+
+def make_folder(lean=FOLDER_LEAN):
+    """Manila folder stuffed with papers, leaning against the shelf plant (creative work)."""
+    w, h = 24, 44
+    up = C(w, h)
+    # back panel + tab (left)
+    up.rect(0, 7, w, h - 7, "#b88a48")
+    up.rect(1, 2, 10, 6, "#b88a48")
+    up.rect(1, 2, 10, 1, "#dcae66")
+    up.rect(10, 7, w - 10, 1, "#dcae66")
+    # papers sticking out between the panels: two sheets + a coloured print
+    up.rect(2, 4, 13, 18, "#e9e2d2")
+    up.rect(2, 4, 13, 1, "#fffaf0")
+    for yy in (7, 9, 11):
+        up.rect(4, yy, 8, 1, "#a8a0b4")
+    up.rect(13, 0, 9, 20, "#f7f2e6")
+    up.rect(13, 0, 9, 1, "#ffffff")
+    for yy in (3, 5, 7):
+        up.rect(15, yy, 5, 1, "#a8a0b4")
+    up.rect(5, 9, 10, 10, "#5a6ad8")
+    up.rect(5, 9, 10, 1, "#8a9af6")
+    up.rect(7, 11, 5, 5, "#ff7a8a")
+    up.rect(9, 13, 4, 4, "#ffcf5a")
+    # front panel (lower, lit top edge, shaded right side) + label
+    up.rect(0, 17, w, h - 17, "#e0b466")
+    up.rect(0, 17, w, 1, "#f8da94")
+    up.rect(0, 18, w, 1, "#c8964e")
+    up.rect(w - 4, 19, 4, h - 19, "#c8964e")
+    up.rect(4, 25, 13, 8, "#fbf5e6")
+    up.rect(5, 27, 10, 1, "#b0a490")
+    up.rect(5, 29, 7, 1, "#b0a490")
+    up.rect(0, h - 2, w, 2, "#a87c40")
+    up.tint(0, 0, w, h, "#ffb070", lambda x, y: max(0, 1 - x / w) * 0.6, 0.25)   # warm window light from the left
+    rot = up.im.rotate(lean, resample=Image.NEAREST, expand=True)
+    bb = rot.getbbox()
+    rot = rot.crop(bb)
+    cv = C(rot.width + 2, rot.height + 2)
+    cv.im.alpha_composite(rot, (1, 1))
+    cv.p = cv.im.load()
     cv.outline("#0e0a10")
     return cv
 
@@ -1577,8 +1629,9 @@ def make_mode_variants():
         for b in manifest["books"]:
             grade_im(Image.open(os.path.join(ROOT, "public", b["src"])), mode, 0.55 if mode == "night" else 0.6).save(
                 os.path.join(ROOT, "public", vpath(b["src"], mode)))
-        cs = manifest["camera"]["src"]
-        grade_im(Image.open(os.path.join(ROOT, "public", cs)), mode).save(os.path.join(ROOT, "public", vpath(cs, mode)))
+        for key in ("camera", "folder"):
+            cs = manifest[key]["src"]
+            grade_im(Image.open(os.path.join(ROOT, "public", cs)), mode).save(os.path.join(ROOT, "public", vpath(cs, mode)))
         dc = manifest["deskClock"]["src"]
         grade_im(Image.open(os.path.join(ROOT, "public", dc)), mode, 0.8).save(os.path.join(ROOT, "public", vpath(dc, mode)))
         make_mobile_window(mode)
@@ -1593,7 +1646,8 @@ def compose(books=True, full=False, mode=""):
     vp_ = (lambda src: vpath(src, mode)) if mode else (lambda src: src)
     im = Image.new("RGBA", (W + 2 * O, H + 2 * O))
     g = manifest["glass"]
-    for L in sorted(manifest["layers"], key=lambda l: l["z"]):
+    extra = [{**manifest["folder"], "name": "folder", "z": 8.5}] if "folder" in manifest else []   # in front of the pot
+    for L in sorted(manifest["layers"] + extra, key=lambda l: l["z"]):
         s_ = Image.open(os.path.join(ROOT, "public", vp_(L["src"])))
         if L["name"] == "clouds":
             s_ = s_.crop((0, 0, g[2], s_.height))
@@ -1607,9 +1661,10 @@ def compose(books=True, full=False, mode=""):
             im = Image.composite(Image.alpha_composite(im, tmp), im, mask)
         else:
             im = Image.alpha_composite(im, tmp)
-    if "camera" in manifest:
-        c_ = manifest["camera"]
-        im.alpha_composite(Image.open(os.path.join(ROOT, "public", vp_(c_["src"]))), (c_["x"] + O, c_["y"] + O))
+    for key in ("camera",):
+        if key in manifest:
+            c_ = manifest[key]
+            im.alpha_composite(Image.open(os.path.join(ROOT, "public", vp_(c_["src"]))), (c_["x"] + O, c_["y"] + O))
     if books:
         for b in manifest["books"]:
             im.alpha_composite(Image.open(os.path.join(ROOT, "public", vp_(b["src"]))), (b["x"] + O, b["y"] + O))
@@ -1721,7 +1776,11 @@ def main():
     manifest["layers"].append({"name": "photo-award", "src": "assets/scene/photo-award.png", "x": AW[0] + 4,
                                "y": AW[1] + 4, "w": AW[2] - 8, "h": AW[3] - 8, "z": 5, "role": "photo"})
     add("shelf", make_shelf(), 148, SHELF_Y - 2, 6)
-    add("shelf-plant", make_shelf_plant(), 444, SHELF_Y - 94, 8)
+    add("shelf-plant", make_shelf_plant(), 460, SHELF_Y - 94, 8)
+    # creative folder: leans right against the plant pot, just past the last book (clickable, like the camera)
+    fold = make_folder()
+    fold.save(os.path.join(OUT_SCENE, "folder.png"))
+    manifest["folder"] = {"src": "assets/scene/folder.png", "x": 448, "y": SHELF_Y + 1 - fold.h, "w": fold.w, "h": fold.h, "z": 9}
     desk, dx, dy = make_desk()
     add("desk", desk, dx, dy, 10)
     gs, gx, gy = make_desk_sticker()

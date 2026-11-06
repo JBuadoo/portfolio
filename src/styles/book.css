@@ -510,6 +510,10 @@
   gap: 10px;
   animation: wframe-in 0.28s cubic-bezier(0.2, 0.9, 0.3, 1.1);
 }
+.wframe.is-loading {
+  visibility: hidden;
+  animation: none;
+}
 @keyframes wframe-in {
   from {
     transform: scale(0.6) translateY(-30px);
@@ -904,7 +908,8 @@
    Contact: a pixel phone
    ===================================================================== */
 .cphone-view,
-.rpaper-view {
+.rpaper-view,
+.cfolder-view {
   position: fixed;
   inset: 0;
   z-index: 95;
@@ -918,7 +923,8 @@
   animation: wview-in 0.2s ease-out;
 }
 .cphone-view.is-closing,
-.rpaper-view.is-closing { animation: wview-out 0.24s ease-in forwards; }
+.rpaper-view.is-closing,
+.cfolder-view.is-closing { animation: wview-out 0.24s ease-in forwards; }
 .cphone {
   position: relative;
   width: min(300px, 82vw);
@@ -1059,7 +1065,7 @@
 .rp__head h2 { font-size: 32px; }
 .rpaper { width: min(680px, 92vw); }
 @media (max-width: 760px) {
-  .cphone-view, .rpaper-view { padding-bottom: 80px; }
+  .cphone-view, .rpaper-view, .cfolder-view { padding-bottom: 80px; }
   .cphone { max-height: calc(100vh - 190px); }
   .rpaper { height: calc(100vh - 210px); }
   .rp__body { font-size: 14.5px; }
@@ -1074,3 +1080,217 @@
   color: #c8c2d8;
 }
 @media (max-width: 760px) { .cam__intro { font-size: 12.5px; margin-bottom: 8px; } }
+
+/* =====================================================================
+   Creative folder: the manila folder on the shelf, papers you shuffle through
+   ===================================================================== */
+/* the shelf sprite: same lift as the camera, but the glow follows the folder's outline */
+.folder-btn .cam-btn__body::after { display: none; }
+.folder-btn .cam-btn__body { transform-origin: 30% 100%; }
+.folder-btn:hover .cam-btn__body,
+.folder-btn:focus-visible .cam-btn__body {
+  transform: translateY(calc(var(--s) * -3px)) rotate(3deg);
+  filter: drop-shadow(0 0 calc(var(--s) * 1px) #f2e4ff) drop-shadow(0 0 calc(var(--s) * 3px) #b89aff);
+}
+
+.cfolder {
+  --manila: #d2a258;
+  --manila-lt: #ecc77e;
+  --manila-dk: #a8783a;
+  --folder-line: #2a1608;
+  --cf-tab: #a8783a;
+  --cf-tab-hover: #bc8a46;
+  --cf-tab-text: #3a2008;
+  --cf-front: #e0b468;
+  --cf-paper: #fbf7ef;
+  --cf-under1: #ece4d4;
+  --cf-under2: #e2d8c6;
+  --cf-text: #2a1a3a;
+  --cf-ink: #a0521e;
+  --cf-muted: #8a6a4a;
+  --cf-label: #fbf5e6;
+  --cf-label-text: #6a4420;
+  --cf-shadow: rgba(0, 0, 0, 0.4);
+  position: relative;
+  width: min(920px, 94vw);
+  height: min(calc(100vh - 130px), 840px);
+  animation: cfolder-in 0.38s cubic-bezier(0.2, 0.9, 0.3, 1.1);
+}
+@keyframes cfolder-in { from { transform: translateY(60px) rotate(3deg); opacity: 0; } }
+.cfolder-view.is-closing .cfolder { animation: wframe-out 0.24s ease-in forwards; }
+.cfolder__back {
+  position: absolute;
+  inset: 34px 0 0;
+  border-radius: 4px 6px 6px 6px;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 3px, rgba(120, 70, 20, 0.05) 3px 4px),
+    var(--manila);
+  box-shadow: 0 0 0 3px var(--folder-line), inset 0 3px 0 var(--manila-lt), 10px 14px 0 3px var(--cf-shadow);
+}
+.cfolder__tabs {
+  position: absolute;
+  left: 18px;
+  top: 0;
+  z-index: 1;
+  display: flex;
+  gap: 6px;
+}
+.cfolder__tab {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  height: 37px;
+  padding: 0 14px 3px;
+  border: 0;
+  border-radius: 8px 8px 0 0;
+  background: var(--cf-tab);
+  color: var(--cf-tab-text);
+  font: 14px/1 var(--font-pixel);
+  cursor: pointer;
+  box-shadow: 0 -3px 0 0 var(--folder-line), 3px 0 0 0 var(--folder-line), -3px 0 0 0 var(--folder-line), inset 0 3px 0 rgba(255, 230, 170, 0.35);
+  transform: translateY(5px);
+  transition: transform 0.15s, background 0.15s;
+}
+.cfolder__tab:hover,
+.cfolder__tab:focus-visible { transform: translateY(1px); outline: none; background: var(--cf-tab-hover); }
+.cfolder__tab.is-active { background: var(--manila); transform: translateY(0); box-shadow: 0 -3px 0 0 var(--folder-line), 3px 0 0 0 var(--folder-line), -3px 0 0 0 var(--folder-line), inset 0 3px 0 var(--manila-lt); }
+.cfolder__tab:focus-visible span { text-decoration: underline; }
+.cfolder__stack {
+  position: absolute;
+  inset: 54px 22px 18px;
+}
+.cfolder__sheet,
+.cfolder__under {
+  position: absolute;
+  inset: 0;
+  border-radius: 2px;
+  background: var(--cf-under1);
+  box-shadow: 0 0 0 2px rgba(60, 36, 12, 0.35), 4px 6px 0 rgba(60, 30, 0, 0.25);
+}
+.cfolder__under.u1 { z-index: 1; transform: rotate(1.6deg) translate(10px, -6px); background: var(--cf-under1); }
+.cfolder__under.u2 { z-index: 0; transform: rotate(-1.4deg) translate(-8px, -10px); background: var(--cf-under2); }
+.cfolder__sheet {
+  z-index: 3;
+  overflow-y: auto;
+  overscroll-behavior: contain;
+  padding: 22px 30px 92px;
+  color: var(--cf-text);
+  background:
+    linear-gradient(rgba(255, 255, 255, 0.08), transparent 40px),
+    var(--cf-paper);
+  font-size: 16px;
+  line-height: 1.5;
+  --ink: var(--cf-ink);
+  --page-text: var(--cf-text);
+  --paper-muted: var(--cf-muted);
+  --u: 3.4;
+}
+.cfolder__head {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 14px;
+  padding-bottom: 10px;
+  border-bottom: 2px dashed rgba(160, 82, 30, 0.35);
+}
+.cfolder__section { display: inline-flex; align-items: center; gap: 8px; font: 13px/1 var(--font-pixel); letter-spacing: 2px; text-transform: uppercase; color: var(--ink); }
+.cfolder__page { font: 13px/1 var(--font-pixel); color: var(--cf-muted); }
+.cfolder__cols { display: grid; grid-template-columns: 1fr 1fr; gap: 30px; align-items: start; }
+.cfolder__cols > div > *:first-child { margin-top: 0; }
+/* the front of the folder: papers sit in it, the bottom of every sheet tucks behind */
+.cfolder__pocket {
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 10;
+  height: 74px;
+  border-radius: 0 0 6px 6px;
+  pointer-events: none;
+  background:
+    repeating-linear-gradient(90deg, transparent 0 3px, rgba(120, 70, 20, 0.05) 3px 4px),
+    linear-gradient(var(--manila-lt) 0 3px, var(--cf-front) 3px);
+  box-shadow: 0 0 0 3px var(--folder-line), 0 -4px 8px rgba(60, 30, 0, 0.25);
+}
+.cfolder__pocket span {
+  position: absolute;
+  left: 26px;
+  top: 18px;
+  padding: 7px 14px 6px;
+  background: var(--cf-label);
+  color: var(--cf-label-text);
+  font: 16px/1 var(--font-pixel);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  box-shadow: 0 0 0 2px rgba(106, 68, 32, 0.4);
+  transform: rotate(-2deg);
+}
+
+/* shuffling: next = the top paper lifts out and tucks in behind; prev = a paper is pulled from behind onto the top */
+.cfolder__sheet.is-out { animation: cf-out 0.56s cubic-bezier(0.45, 0, 0.3, 1) forwards; overflow: hidden; }
+.cfolder__sheet.is-in { animation: cf-in 0.56s cubic-bezier(0.45, 0, 0.3, 1) both; overflow: hidden; }
+.cfolder__sheet.is-under { z-index: 3; }
+.cfolder__sheet.is-settle { animation: cf-settle 0.4s 0.2s ease-out both; }
+@keyframes cf-out {
+  0% { transform: none; z-index: 5; }
+  45% { transform: translate(14%, -58%) rotate(7deg); z-index: 5; }
+  55% { z-index: 2; }
+  100% { transform: rotate(1.6deg) translate(10px, -6px); z-index: 2; opacity: 0; }
+}
+@keyframes cf-in {
+  0% { transform: rotate(1.6deg) translate(10px, -6px); z-index: 2; }
+  45% { transform: translate(-14%, -58%) rotate(-7deg); z-index: 2; }
+  55% { z-index: 5; }
+  100% { transform: none; z-index: 5; }
+}
+@keyframes cf-settle { from { transform: translateY(6px) scale(0.99); } }
+/* lighting modes: daylight = brighter paper and folder; night = dim folder, dark paper, light text */
+.app[data-mode="day"] .cfolder {
+  --manila: #e2b66a;
+  --manila-lt: #f6d896;
+  --cf-tab: #c08e4a;
+  --cf-tab-hover: #d2a05a;
+  --cf-front: #ecc47c;
+  --cf-paper: #fffdf8;
+  --cf-under1: #f4eee2;
+  --cf-under2: #ebe3d4;
+  --cf-shadow: rgba(30, 30, 50, 0.3);
+}
+.app[data-mode="night"] .cfolder {
+  --manila: #6e5232;
+  --manila-lt: #8a6a42;
+  --folder-line: #0c0806;
+  --cf-tab: #543c22;
+  --cf-tab-hover: #634728;
+  --cf-tab-text: #f0dcb8;
+  --cf-front: #7a5c38;
+  --cf-paper: #24212b;
+  --cf-under1: #1e1b24;
+  --cf-under2: #19171e;
+  --cf-text: #f4eefa;
+  --cf-ink: #f0a868;
+  --cf-muted: #b2a8c2;
+  --cf-label: #2c2836;
+  --cf-label-text: #f0dcb8;
+  --cf-shadow: rgba(0, 0, 0, 0.55);
+}
+.app[data-mode="night"] .cfolder__sheet { --page-chip: #2c2836; --page-card: #2a2633; --page-wash: rgba(255, 255, 255, .06); --page-wash2: rgba(255, 255, 255, .05); }
+.app[data-mode="night"] .cfolder__head { border-bottom-color: rgba(240, 168, 104, 0.35); }
+.cfolder__sheet img { image-rendering: auto; }
+@media (max-width: 900px) {
+  .cfolder__cols { grid-template-columns: 1fr; gap: 6px; }
+}
+@media (max-width: 760px) {
+  .cfolder { height: calc(100vh - 210px); }
+  .cfolder__stack { inset: 50px 10px 12px; }
+  .cfolder__sheet { padding: 16px 16px 84px; font-size: 14.5px; }
+  .cfolder__tabs { left: 10px; gap: 4px; }
+  .cfolder__tab { padding: 0 9px 3px; font-size: 12px; }
+  .cfolder__tab .pixel-icon { display: none; }
+  .cfolder__pocket { height: 64px; }
+  .cfolder__pocket span { left: 14px; top: 16px; font-size: 13px; }
+}
+@media (prefers-reduced-motion: reduce) {
+  .cfolder, .cfolder__sheet { animation: none !important; }
+}

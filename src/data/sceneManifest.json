@@ -140,14 +140,14 @@
    "src": "assets/scene/shelf.png",
    "x": 148,
    "y": 180,
-   "w": 340,
+   "w": 364,
    "h": 40,
    "z": 6
   },
   {
    "name": "shelf-plant",
    "src": "assets/scene/shelf-plant.png",
-   "x": 444,
+   "x": 460,
    "y": 88,
    "w": 58,
    "h": 96,
@@ -281,6 +281,14 @@
   "y": 22,
   "w": 48,
   "h": 32
+ },
+ "folder": {
+  "src": "assets/scene/folder.png",
+  "x": 448,
+  "y": 136,
+  "w": 31,
+  "h": 47,
+  "z": 9
  },
  "desk": {
   "top": [

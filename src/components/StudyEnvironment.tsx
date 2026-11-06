@@ -6,6 +6,7 @@ import { PixelIcon } from "./PixelIcon";
 import { DeskClock, type DeskClockInfo } from "./DeskClock";
 import { WallViewer, type WallView } from "./WallViewer";
 import { WALL_PHOTOS } from "../data/photography";
+import { CreativeFolder } from "./CreativeFolder";
 
 interface Props {
   navW: number;
@@ -20,6 +21,7 @@ interface Props {
 
 // The window glass is an angled quad (the window sits on the left wall, in perspective).
 const CAM = (SCENE as unknown as { camera: { src: string; x: number; y: number; w: number; h: number } }).camera;
+const FOLDER = (SCENE as unknown as { folder: { src: string; x: number; y: number; w: number; h: number; z: number } }).folder;
 const QUAD = (SCENE as unknown as { glassQuad: [number, number][] }).glassQuad;
 const SKEW = (SCENE as unknown as { cloudSkew: number }).cloudSkew;
 
@@ -60,6 +62,7 @@ export function StudyEnvironment({ navW, outBook, landingBook, highlight, intro,
   const dclock = (SCENE as unknown as { deskClock: DeskClockInfo }).deskClock;
   const floorTop = y + 244 * s;
   const [wallView, setWallView] = useState<WallView>(null);
+  const [folderOpen, setFolderOpen] = useState(false);
   const hit = (name: string) => SCENE.layers.find((l) => l.name === name)!;
 
   return (
@@ -128,6 +131,19 @@ export function StudyEnvironment({ navW, outBook, landingBook, highlight, intro,
             <img src={T(CAM.src)} alt="" className="px" draggable={false} />
           </span>
         </button>
+        <button
+          type="button"
+          className="cam-btn folder-btn"
+          style={{ left: FOLDER.x, top: FOLDER.y, width: FOLDER.w, height: FOLDER.h, zIndex: FOLDER.z }}
+          onClick={() => setFolderOpen(true)}
+          tabIndex={dimmed ? -1 : 0}
+          aria-label="Open my creative folder: cover art, Photoshop and animation"
+          title="Creative folder"
+        >
+          <span className="cam-btn__body">
+            <img src={T(FOLDER.src)} alt="" className="px" draggable={false} />
+          </span>
+        </button>
         <div className={`shelf-hint${outBook ? " is-hidden" : ""}`} aria-hidden={!!outBook}>
           <span className="shelf-hint__arrow" />
           <span className="shelf-hint__pill">
@@ -138,6 +154,7 @@ export function StudyEnvironment({ navW, outBook, landingBook, highlight, intro,
         </div>
       </div>
       <WallViewer view={wallView} onClose={() => setWallView(null)} />
+      {folderOpen && <CreativeFolder onClose={() => setFolderOpen(false)} />}
     </div>
   );
 }

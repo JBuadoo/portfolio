@@ -113,7 +113,7 @@ export const BookPage = memo(function BookPage({ content, side, pageNo, ctx, sin
   );
 });
 
-function Blocks({ blocks, ctx }: { blocks: Block[]; ctx: PageCtx }) {
+export function Blocks({ blocks, ctx }: { blocks: Block[]; ctx: PageCtx }) {
   const isStatic = useContext(StaticCtx);
   const ti = isStatic ? -1 : 0;
   let featureN = 0; // alternate image side for consecutive features
